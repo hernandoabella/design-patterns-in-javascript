@@ -33,13 +33,43 @@ En diseño de software, el patrón de diseño Factory Method consiste en utiliza
 Tomemos un ejemplo de un punto. Tenemos una clase de puntos y tenemos que crear un punto cartesiano y un punto polar. Definiremos una fábrica de Puntos que hará este trabajo.
 
 ```
-codigo
+SistemaCoordenadas = {
+  CARTESIANO: 0,
+  POLARES: 1,
+}
+
+class Punto{
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  
+  static get factory() {
+    return new PuntoFactory();
+  }
+}
 ```
 
 Ahora crearemos una clase PuntoFactory y usaremos nuestra fábrica ahora,
 
 ```
-codigo
+class PuntoFactory {
+
+  static nuevoPuntoCartesiano(x, y) {
+    return new Punto(x, y);
+  }
+  
+  static nuevoPuntoPolar(rho, theta) {
+    return new Punto(rho * Math.cos(theta), rho * Math.sin(theta));
+  }
+}
+
+// Así es como usaremos esta clase
+
+let punto = PuntoFactory.nuevoPuntoPolar(5, Math.Pi/2);
+let punto2 = PuntoFactory.nuevoPuntoCartesiano(5, 6);
+console.log(punto);
+console.log(punto2);
 ```
 
 ### Fábrica Abstracta (abstract factory)
@@ -53,7 +83,47 @@ El patrón de fábrica abstracto proporciona una forma de encapsular un grupo de
 Usaremos el ejemplo de una máquina para hacer bebidas y bebidas.
 
 ```
-codigo
+class Bebida {
+  consumir() {
+  
+  }
+}
+
+class Tea extends Bebida {
+ consumir() {
+  console.log('Esto es Tea');
+ }
+}
+
+class Cafe extends Bebida {
+  consumir() {
+    console.log('Esto es Café');
+  }
+}
+
+class FabricaBebidas {
+  preparar(cantidad)
+}
+
+class FabricaTea extends FabricaBebidas {
+  hacerTea() {
+    console.log('Tea creado');
+    return new Tea();
+  }
+}
+
+class FabricaCafe extends FabricaBebidas {
+  hacerCafe() {
+    console.log('Cafe creado');
+    return new Cafe();
+  }
+}
+
+// Y así es como podemos usarlo
+
+let fabricaBebidaTea = FabricaTea();
+let tea  fabricaBebidaTea.hacerTea();
+tea.consumir()
 ```
 
 ### Constructor
@@ -67,27 +137,105 @@ El patrón constructor es un patrón de diseño diseñado para proporcionar una 
 Usaremos un ejemplo ab de una clase Persona que almacena la información de una Persona.
 
 ```
-codigo
+class Persona {
+  constructor() {
+    this.direccionCalle = this.codigopostal = this.ciudad = "";
+    this.nombreCompania = this.posicion = "";
+    this.ingresoAnual = 0;
+  }
+  
+  toString() {
+    return (
+      `Persona vive en
+      ${this.direccionCalle}, ${this.ciudad}, ${this.codigopostal}
+      y trabaja en ${this.nombreCompania} como
+      ${this.posicion} ganando ${this.ingresoAnual}`
+    );
+  }
+}
 ```
 
 Ahora crearemos Person Builder, Person Job Builder y Person Address Builder.
 
 ```
-codigo
-```
+class ConstructorPersona() {
+  constructor(persona = new Persona()) {
+    this.persona = persona;
+  }
+  
+  get vive() {
+    return new ConstructorDireccionPostalPersona(this.persona);
+  }
+  
+  get trabaja() {
+    return new ConstructorTrabajoPersona(this.persona);
+  }
+  
+  build() {
+    return this.persona;
+  }
+}
 
-```
-codigo
-```
+// También crearemos Constructor Trabajo Persona
 
-```
-codigo
+class ConstructorTrabajoPersona extends ConstructorPersona {
+  constructor(persona) {
+    super(persona);
+  }
+  
+  at(nombreCompania) {
+    this.persona.nombreCompania = nombreCompania;
+    return this;
+  }
+  
+  asA(posicion) {
+    this.person.posicion = posicion;
+    return this;
+  }
+  
+  earning(ingresoAnual) {
+    this.persona.ingresoAnual = ingresoAnual;
+    return this;
+  }
+}
+
+// ConstructorDireccionPersona contendrá la información de dónde vive la persona
+class ConstructorDireccionPersona extends ConstructorPersona {
+  constructor(persona) {
+    super(persona);
+  }
+  
+  at(direccionCalle) {
+    this.persona.direccionCalle = direccionCalle;
+    return this;
+  }
+  
+  withPostcode(codigopostal) {
+    this.persona.codigopostal = codigopostal;
+    return this;
+  }
+  
+  in(ciudad) {
+    this.persona.ciudad = ciudad;
+    return this;
+  }
+}
 ```
 
 Ahora usaremos nuestro constructor:
 
 ```
-codigo
+let constructorPersona = new ConstructorPersona();
+let persona = ConstructorPersona.vive
+  .at("Calle ABC #13 Esquina")
+  .in("Santa Marta")
+  .withPostcode("404599")
+  .trabaja.at("Computer Systems")
+  .asA("Ingeniero")
+  .earning(10000)
+  .build();
+
+console.log(persona.toString());
 ```
 
 ### Prototipo
@@ -101,7 +249,27 @@ El patrón prototipo es un patrón de diseño creacional en el desarrollo de sof
 Usaremos el ejemplo de un automóvil.
 
 ```
-codigo
+class Carro {
+  constructor(nombre, modelo) {
+    this.nombre = nombre;
+    this.modelo = modelo;
+  }
+  
+  ajustarNombre(nombre) {
+    console.log(`${nombre}`)
+  }
+  
+  clonar(){
+    return new Carro(this.nombre, this.modelo)
+  }
+  
+// Y así es como lo usamos
+let carro = new Carro();
+carro.ajustarNombre('Audi');
+
+let carro2 = carro.clonar();
+carro2.ajustarNombre('BMW');
+}
 ```
 
 ### Singleton
@@ -115,7 +283,28 @@ En ingeniería de software, el patrón singleton es un patrón de diseño de sof
 Creando una clase Singleton:
 
 ```
-codigo
+class Singleton {
+  constructor() {
+    const instancia = this.constructor.instancia;
+    if(instancia) {
+      return instancia;
+    }
+    
+    this.constructor.instancia = this;
+  }
+  
+  decir(){
+    console.log('Diciendo...')
+  }
+}
+
+// Usemos el Singleton que hemos creado
+
+let s1 = new Singleton();
+let s2 = new Singleton();
+console.log('¿Son lo mismo? ' + (s1 === s2));
+
+s1.decir();
 ```
 
 ## Patrones de diseño estructural
@@ -143,15 +332,50 @@ En ingeniería de software, el patrón adaptador es un patrón de diseño de sof
 Estamos usando un ejemplo de una calculadora. Calculadora1 es una interfaz antigua y Calculadora2 es una interfaz nueva. Construiremos un adaptador que envolverá la nueva interfaz y nos dará resultados usando sus nuevos métodos.
 
 ```
-codigo
-```
+class Calculadora1 {
+  constructor() {
+    this.operaciones = function(valor1, valor2, operacion) {
+      switch(operacion) {
+        case 'sumar':
+          return valor1 + valor2;
+        case 'restar':
+          return valor1 - valor2;
+      }
+    };
+  }
+}
 
-```
-codigo
-```
+class Calculadora2 {
+  constructor() {
+    this.sumar = function(valor1, valor2) {
+      return valor1 + valor2;
+    };
+    
+    this.restar = function(valor1, valor2) {
+      return valor1 - valor2;
+    };
+  }
+}
 
-```
-codigo
+// Creemos la clase adaptadora
+
+class CalcAdaptador {
+  constructor() {
+    const cal2 = new Calculadora2();
+    this.operaciones = function(valor1, valor2, operacion) {
+      switch(operacion) {
+        case 'sumar':
+          return cal2.sumar(valor1, valor2);
+        case 'restar':
+          return cal2.restar(valor1, valor2);
+      }
+    };
+  }
+}
+
+// Ahora usemos todo esto combinado
+const calAdaptada = new CalAdaptador();
+console.log(calcAdaptada.operaciones(10, 55, 'restar'));
 ```
 
 ### Bridge (Puente)
@@ -165,11 +389,92 @@ Puente es un patrón de diseño estructural que le permite dividir una clase gra
 Crearemos clases de Renderer para renderizar múltiples formas geométricas:
 
 ```
-codigo
-```
+class RenderizadorVectores {
+  renderizarCirculo(radio) {
+    console.log(`Dibujando un circulo de radio ${radio}`);
+  }
+}
+
+class RenderizadorRaster {
+  rasterizarCirculo(radio) {
+    console.log(`Dibujando pixeles para circulo de radio ${radio}`);
+  }
+}
+
+class Forma {
+  constructor(renderizador) {
+    this.renderizador = renderizador;
+  }
+}
+
+class Circulo extends Forma {
+  constructor(renderizador, radio) {
+    super(renderizador);
+    this.radio = radio;
+  }
+  
+  dibujar() {
+    this.renderizador.renderizarCirculo(this.radio);
+  }
+  
+  cambiarTamano(factor) {
+    this.radius *= factor;
+  }
+}
+
+// Así es como utilizaremos esto:
+let raster = new RenderizadorRaster();
+let vector = new RenderizadorVector();
+let circulo = new Circulo(vector, 5);
+
+circulo.dibujar();
+circulo.cambiarTamano(2);
+circulo.dibujar();
 
 ```
-codigo
+
+### Composite (Compuesto)
+
+Compone objetos para que puedan ser manipulados como objetos individuales.
+
+El patrón compuesto describe un grupo de objetos que se tratan de la misma manera que una sola instancia del mismo tipo de objeto.
+
+### Ejemplo:
+
+Usaremos ejemplos de trabajo:
+
+```
+class Empleador {
+  constructor(nombre, rol) {
+    this.nombre = nombre;
+    this.rol = rol;
+  }
+  
+  imprimir() {
+    console.log("nombre": + this.nombre + "tiempo relajado: ");
+  }
+}
+
+// Creando un grupo de empleados
+class GrupoEmpleados {
+  constructor(nombre, compuesto = []) {
+    console.log(nombre);
+    this.nombre = nombre;
+    this.compuesto = compuesto;
+  }
+  
+  imprimir() {
+    console.log(this.nombre);
+    this.compuesto.forEach(emp => {
+      emp.imprimir();
+    })
+  }
+}
+
+// Usemos estas clases
+let hernando = new Empleador("hernando", "desarollador")
+let albert = new Empleador("albert", "desarrollador")
+let grupoDesarrolador = new GrupoEmpleados("Desarrolladores", [hernando, albert]);
 ```
 
 ### Decorador
@@ -183,11 +488,46 @@ El patrón decorador es un patrón de diseño que permite agregar comportamiento
 Tomaremos el ejemplo del color y las formas. Si tenemos que dibujar un círculo crearemos métodos y dibujaremos un círculo. Si tenemos que dibujar un círculo rojo. Ahora el comportamiento se agrega a un objeto y el patrón Decorator (decorador) me ayudará en eso.
 
 ```
-codigo
-```
+class Forma {
+  constructor(color) {
+    this.color = color;
+  }
+}
 
-```
-codigo
+class Circulo extends Forma {
+  constructor(radio = 0) {
+    super();
+    this.radio = radio;
+  }
+  
+  cambiarTamano(factor) {
+    this.radio *= factor;
+  }
+  
+  toString() {
+    return `Un circulo ${this.radio}`;
+  }
+}
+
+// Creemos la clase FormaColoreada
+class FormaColoreada extends Forma {
+  constructor(forma, color) {
+    super();
+    this.forma = forma;
+    this.color = color;
+  }
+  
+  toString() {
+    return `${this.forma.toString()}` + `tiene el color ${this.color}`;
+  }
+}
+
+// Así es como la usamos
+let circulo = Circulo(2);
+console.log(circulo);
+
+let circuloRojo = new FormaColoreada(circulo, "rojo");
+console.log(circuloRojo.toString());
 ```
 
 ### Facade (fachada)
@@ -201,11 +541,39 @@ El patrón de fachada (también deletreado fachada) es un patrón de diseño de 
 Tomemos un ejemplo de un cliente que interactúa con la computadora.
 
 ```
-codigo
-```
+class CPU {
+  congelar() {console.log("Congelada...")}
+  saltar(posicion) {console.log("Ir...")}
+  ejecutar() {console.log("Correr...")}
+}
 
-```
-codigo
+class Memoria {
+  cargar(posicion, dato) {console.log("Cargar...")}
+}
+
+class DiscoDuro {
+  leer(lba, tamano) {console.log("leer...")}
+}
+
+// Creemos la fachada
+class ComputerFacade {
+  constructor() {
+    this.procesador = new CPU();
+    this.ram = new Memoria();
+    this.hd = new DiscoDuro();
+  }
+  
+  iniciar() {
+    this.procesador.congelar();
+    this.ram.cargar(this.DIRECCION_ARRANQUE, this.hd.leer(this.SECTOR_ARRANQUE, this.TAMANO_SECTOR));
+    this.procesador.saltar(this.DIRECCION_ARRANQUE);
+    this.procesador.ejecutar();
+  }
+}
+
+// Usemos esta fachada
+let computadora = new ComputerFacade();
+computadora.iniciar();
 ```
 
 ### Peso Mosca
@@ -219,11 +587,38 @@ Un peso mosca es un objeto que minimiza el uso de la memoria al compartir la may
 Tomemos el ejemplo de un usuario. Tengamos varios usuarios con el mismo nombre. Podemos guardar nuestra memoria almacenando un nombre y dandole una referencia a los usuarios que tienen los mismos nombres.
 
 ```
-codigo
-```
+class Usuario {
+  constructor(nombreCompleto) {
+    this.nombreCompleto = nombreCompleto;
+  }
+}
 
-```
-codigo
+class Usuario2 {
+  constructor(nombreCompleto) {
+    let obtenerOAgregar = function(s) {
+      let idx = Usuario2.strings.idexOf(s);
+      if(idx !== 1) return idx;
+      else {
+        Usuario2.strings.push(s);
+        return Usuario.strings.length -1;
+      }
+    };
+    this.nombres = nombreCompleto.split(' ').map(obtenerOAgregar;)
+  }
+}
+
+Usuario2.strings = [];
+
+function obtenerEnteroAletario = function(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+let cadenaTextoAleatorio = function() {
+  let resultado = [];
+  for(let x = 0; x < 10; ++x)
+    resultado.push(String.fromCharCode(65 + getRandomInt(26)));
+  return resultado.join('');  
+};
 ```
 
 Así es como usaremos esto.
@@ -231,7 +626,25 @@ Así es como usaremos esto.
 Ahora haremos una comparación de memoria sin Peso mosca y con Peso mosca, haciendo 10k usuarios.
 
 ```
-codigo
+let usuarios = usuarios2 = nombres = apellidos = [];
+for(let i = 0; i < 100; ++i) {
+  nombres.push(cadenaTextoAleatoria());
+  apellidos.push(cadenaTextoAleatoria());
+}
+
+// Creand 10k usuarios
+for(let nombre of nombres) {
+  for(let apellido of apellidos) {
+    usuarios.push(new Usuario(`${nombre} ${apellido}`));
+    usuarios2.push(new Usuario2(`${nombre} ${apellido}`));
+  }
+}
+
+console.log(`10k usuarios ocupan aproximadamente ${JSONN.stringyfy(usuarios).length} carácteres`);
+
+let largousuarios2 = [usuarios2, Usuario2.strings].map(x => JSON.stringify(x).length).reduce((x, y) => x + y);
+
+console.log(`10k Los usuarios de peso mosca toman ~${largousuarios2} carácteres`)
 ```
 
 ### Proxy
@@ -243,6 +656,27 @@ El patrón proxy es un patrón de diseño de software. Un proxy, en su forma má
 ### Ejemplo:
 
 Tomemos el ejemplo del valor de proxy.
+
+```
+class Porcentaje {
+  constructor(porcentaje) {
+    this.porcentaje = porcentaje;
+  }
+  
+  toString() {
+    return `${this.porcentaje}&`';
+  }
+  
+  valueOf() {
+    return this.porcentae / 100;
+  }
+}
+
+// Usemos este ejemplo de Porcentaje
+let porcentajeCinco = new Porcentaje(5);
+console.log(porcentajeCinco.toString());
+console.log(`El 5% de 50% es ${50 * porcentajeCinco}`);
+```
 
 ## Patrones de diseño de comportamiento
 
@@ -272,29 +706,95 @@ En el diseño orientado a objetos, el patrón de cadena de responsabilidad es un
 Usaremos un ejemplo de un juego que tiene una criatura. La criatura aumentará su defensa y ataque cuando llegue a cierto punto. Creará una cadena y el ataque y la defensa aumentarán y disminuirán.
 
 ```
-codigo
-```
+class Creatura {
+  constructor(nombre, ataque, defensa) {
+    this.nombre = nombre;
+    this.ataque = ataque;
+    this.defensa = defensa;
+  }
+  
+  toString() {
+    return `${this.nombre} (${this.ataque} / ${this.defensa})`;
+  }
+  
+}
 
-```
-codigo
+class ModificadorCreatura {
+  constructor(creatura) {
+    this.creatura = creatura;
+    this.siguiente = null;
+  }
+  
+  agregar(modificador) {
+    if(this.siguiente) this.siguiente.agregar(modificador);
+    else this.siguiente = modificador;
+  }
+  
+  manejar() {
+    if(this.siguiente) this.siguiente.manejar();
+  }
+}
+
+class ModificadorSinBonificaciones extends ModificadorCreatura {
+  constructor(creatura) {
+    super(creatura);
+  }
+  
+  manejar() {
+    console.log("¡no hay bonificaciones para ti!")
+  }
+}
+
 ```
 
 Aumentar el ataque
 
 ```
-codigo
+class ModificadorDobleAtaque extends ModificadorCretura {
+  constructor(creatura) {
+    super(creatura);
+  }
+  
+  manejar() {
+    console.log(`Doblando ataque de ${this.creatura.nombre}`);
+    this.creatura.ataque *= 2;
+    super.manejar();
+  }
+}
+
 ```
 
 Aumentar la defensa
 
 ```
-codigo
+class ModificadorAumentarDefensa extends ModificadorCreatura {
+  constructor(creatura) {
+    super creatura;
+  }
+  
+  manejar() {
+    if(this.creatura.ataque <= 2) {
+      console.log(`Incrementando defensa de ${this.creatura.nombre}`);
+      this.creatura.defensa++;
+    }
+    super.manejar();
+  }
+}
 ```
 
 Así es como usaremos esto
 
 ```
-codigo
+let picachu = new Creatura("Picachu", 1, 1);
+console.log(picachu.toString());
+
+let raiz = new ModificadorCreatura(picachu);
+raiz.agregar(new ModificadorCreatura(picachu));
+raiz.agregar(new ModificadorAumentarDefensa(picachu));
+raiz.manejar();
+
+console.log(picachu.toString());
+
 ```
 
 ### Command (Comando)
@@ -306,20 +806,81 @@ En la programación orientada a objetos, el patrón de comando es un patrón de 
 Estaremos tomando un ejemplo sencillo de una cuenta bancaria en la que damos una orden si tenemos que depositar o retirar una determinada cantidad de dinero.
 
 ```
-codigo
+class CuentaBanco {
+  constructor(balance = 0) {
+    this.balance = balance;
+  }
+  
+  deposito(cantidad) {
+    this.balance += cantidad;
+    console.log(`${cantidad} depositado al balance total ${total.balance}`);
+  }
+  
+  retirar(cantidad) {
+    if(this.balance - cantidad >= CuentaBanco.limiteDescubierto) {
+      this.balance -= cantidad;
+      console.log('retirar');
+    }
+  }
+  
+  toString() {
+    return `Balance ${this.balance}`;
+  }
+}
+
+CuentaBanco.limiteDescubierto = -500;
 ```
 
 Creando nuestros comandos,
 
 ```
-codigo
+let Accion = Object.freeze({
+  deposito: 1,
+  retirar: 2,
+});
+
+class ComandoCuentaBanco {
+  constructor(cuenta, accion, cantidad) {
+    this.cuenta = cuenta;
+    this.accion = accion;
+    this.cantidad = cantidad;
+  }
+  
+  llamar() {
+    switch(this.accion) {
+      case Accion.deposito:
+        this.cuenta.deposito(this.cantidad);
+        break;
+      case Accion.retirar(this.cantidad);
+        break;
+    }
+  }
+  
+  undo() {
+    switch(this.accion) {
+      case Accion.deposito:
+        this.cuenta.deposito(this.cantidad);
+        break;
+      case Accion.retirar:
+        this.cuenta.deposito(this.cantidad);
+        break;
+    }
+  }
+}
 ```
 
 Así es como usaremos esto,
 
 
 ```
-codigo
+let cuentaBancaria = new CuentaBanco(100);
+let cmd = new ComandoCuentaBanco(cuentaBancaria, Accion.deposito, 50);
+
+cmd.llamar();
+console.log(cuentaBancaria.toString());
+
+cmd.undo();
+console.log(cuentaBancaria.toString());
 ```
 
 ### Iterador
@@ -333,13 +894,60 @@ En la programación orientada a objetos, el patrón de iterador es un patrón de
 Tomaremos el ejemplo de un arreglo en el que imprimimos los valores de un arreglo y luego, mediante el uso de un iterador, imprimimos sus valores hacia atrás.
 
 ```
-codigo
+class Cosa {
+  constructor() {
+    this.a = 11;
+    this.b = 22;
+  }
+  
+  [Symbol.iterador]() {
+    let i = 0;
+    let self = this;
+    return {
+      next: function() {
+        done: i > 1, 
+        valor: self[i++ === 0 ? 'a' : 'b']
+      };
+    }
+  }
+  
+  get haciaAtras() {
+    let i = 0;
+    let self = this;
+    return {
+      next: function() {
+        return {
+          done: i > 1,
+          valor: self[i++ === 0 ? 'b' : 'a']
+        };
+      },
+      // Crear iterador iterable
+      [Symbol.iterator]: function() {return this;}
+    }
+  }
+}
 ```
 
 Así es como usaremos esto,
 
 ```
-codigo
+let valores = [100, 200, 300];
+
+for(let i in valores) {
+  console.log(`Elemento en la posicion ${i} es ${valores[i]}`);
+}
+
+for(let v in valores) {
+  console.log(`El valor es ${v}`);
+}
+
+let cosa = new Cosa();
+
+for(let elemento of cosa)
+  console.log(`${elemento}`);
+  
+for(let elemento of cosa)
+  console.log(`${elemento}`);
 ```
 
 ### Mediador
@@ -351,19 +959,70 @@ El patrón mediador define un objeto que encapsula cómo interactúa un conjunto
 Usaremos un ejemplo de una persona que usa una sala de chat. Aquí, una sala de chat actúa como mediador entre dos personas que se comunican entre sí.
 
 ```
-codigo
+class Persona {
+  constructor(nombre) {
+    this.nombre = nombre;
+    this.registroChat = [];
+  }
+  
+  recibir(enviador, mensaje) {
+    let s = `${enviador}: ${mensaje}`;
+    console.log(`La sesión de chat de [${this.nombre}] ${s}`);
+    this.registroChat.push(s);
+  }
+  
+  decir(mensaje) {
+    this.room.broadcast(this.nombre, mensaje);
+  }
+  
+  pm(quien, mensaje) {
+    this.room.mensaje(this.nombre, quien, mensaje);
+  }
+}
 ```
 
 Crear sala de chat,
 
 ```
-codigo
+class SalaChat {
+  constructor() {
+    this.gente = [];
+  }
+  
+  transmision(origen, mensaje) {
+    for(let p of this.gente)
+      if(p.nombre !== origen) p.recibir(origen, mensaje);
+  }
+  
+  unir(p) {
+    let unirMensaje = `${p.nombre} se unió al chat`;
+    this.transmision("room", unirMensaje) {
+    p.room == this;
+    this.gente.push(p);
+    }
+  }
+  
+  message(origen, destinacion, mensaje) {
+    for(let p of this.gente)
+      if(p.nombre === destino) p.recibir(origen, mensaje);
+  }
+}
 ```
 
 Así es como usamos esto,
 
 ```
-codigo
+let sala = new SalaChat();
+let John = new Persona("John");
+let Tony = new Persona("Tony");
+
+sala.unir(John);
+sala.unir(Tony);
+John.decir("¡Hola!");
+
+let doe = new Persona("Doe");
+sala.unir(doe);
+doe.decir("¡Hola a todos!");
 ```
 
 ### Memento
@@ -377,11 +1036,31 @@ El patrón memento es un patrón de diseño de software que brinda la capacidad 
 Estaremos tomando un ejemplo de una cuenta bancaria en la que almacenamos nuestro estado anterior y tendrá la funcionalidad de deshacer.
 
 ```
-codigo
-```
+class Memento {
+  constructor(balance) {
+    this.balance = balance;
+  }
+}
 
-```
-codigo
+// Agregando cuenta de banco
+class CuentaBanco {
+  constructor(balance = 0) {
+    this.balance = balance;
+  }
+  
+  deposito(cantidad) {
+    this.balance += cantidad;
+    return new Memento(this.balance);
+  }
+  
+  restaurar(m) {
+    this.balance = m.balance;
+  }
+  
+  toString() {
+    return `Balance: ${this.balance}`;
+  }
+}
 ```
 
 ### Observador
@@ -395,17 +1074,57 @@ El patrón de observador es un patrón de diseño de software en el que un objet
 Tomaremos un ejemplo de una persona en la que si una persona se enferma, mostrará una notificación.
 
 ```
-codigo
-```
+class Evento {
+  contructor() {
+    this.manejadores = new Map();
+    this.contar = 0;
+  }
+  
+  suscribir(manejador) {
+    this.manejadores.set(++this.contar, manejador);
+    return this.contar;
+  }
+  
+  darseDeBaja(idx) {
+    this.manejadores.delete(idx);
+  }
+  
+  fuego(enviador, argumentos) {
+    this.manejadores.forEach((v, k) => v(remitente, argumentos));
+  }
+}
 
-```
-codigo
+class Enfermarse {
+  constructor(direccion) {
+    this.direccion = direccion;
+  }
+}
+
+class Persona {
+  constructor(direccion) {
+    this.direccion = direccion;
+    this.enfermarse = new Evento();
+  }
+  
+  agarrarResfriado() {
+    this.enfermarse.fuego(this, new Enfermarse(this.direccion));
+  }
+}
 ```
 
 Así es como usaremos esto,
 
 ```
-codigo
+let persona = new Persona("Ruta ABC");
+let sub = persona.enfermarse.suscribir((s, a) => {
+  console.log(`Un doctor ha sido llamado ` + ` a ${a.direccion}`);
+});
+
+persona.agarrar.Resfriado();
+persona.agarrar.Resfriado();
+
+persona.enfermarse.darseDeBaja(sub);
+persona.agarrarResfriado();
 ```
 
 ### Visitante
@@ -419,11 +1138,47 @@ El patrón de diseño del visitante es una forma de separar un algoritmo de una 
 Tomaremos un ejemplo de la clase ExpresionNumerica en el que nos da el resultado de la expresión dada.
 
 ```
-codigo
-```
+class ExpresionNumerica {
+  constructor(valor) {
+    this.valor = valor;
+  }
+  
+  imprimir(buffer) {
+    buffer.push(this.valor.toString());
+  }
+}
 
-```
-codigo
+// Creando Expresión de Suma
+class ExpresionSuma {
+  constructor(izquierda, derecha) {
+    this.izquierda = izquierda;
+    this.derecha = derecha;
+  }
+  
+  imprimir(buffer) {
+    buffer.push('(');
+    this.izquierda.imprimir(buffer);
+    buffer.push('+');
+    this.derecha.imprimir(buffer);
+    buffer.push(')');
+  }
+}
+
+// Así es como usamos esto, 
+// Expresión dada => 5 + (1 + 9)
+
+let e = new ExpresionSuma(
+    new ExpresionNumerica(5),
+    new ExpresionSuma(
+        new ExpresionNumerica(1),
+        new ExpresionNumerica(9)
+        )
+);
+
+let buffer = [];
+e.print(buffer);
+
+console.log(buffer.join(''));
 ```
 
 ### Estrategia
@@ -437,23 +1192,92 @@ El patrón de estrategia es un patrón de diseño de software de comportamiento 
 Tomaremos un ejemplo en el que tenemos un procesador de texto que mostrará datos en función de la estrategia (HTML o Markdown).
 
 ```
-codigo
-```
+let FormatoSalida = Object.freeze({
+  markdown: 0,
+  html: 1,
+});
 
-```
-codigo
+class EstrategiaDeLista {
+  iniciar(buffer) {}
+  finalizar(buffer) {}
+  agregarElementoLista(buffer, elemento) {}
+}
+
+class MarkDownEstrategiaLista extends EstrategiaLista {
+  agregarElementoLista(buffer, elemento) {
+    buffer.push(' * ${elemento}');
+  }
+}
+
+class EstrategiaListaHTML extends EstrategiaLista {
+  iniciar(buffer){
+    buffer.push("<ul>");
+  }
+  
+  finalizar(buffer){
+    buffer.push("</ul>");
+  }
+  
+  agregarElementoLista(buffer, elemento) {
+    buffer.push(' <li>${item}</li>');
+  }
+}
 ```
 
 Creando la clase ProcesadorTexto:
 
 ```
-codigo
+class ProcesadorTexto {
+  constructor(FormatoSalida) {
+    this.buffer = [];
+    this.ajustarFormatoSalida(formatoSalida);
+  }
+  
+  ajustarFormatoSalida(formatoSalida);
+
+  ajustarFormatoSalida(formato) {
+    switch (formato) {
+      case FormatoSalida.markdown:
+        this.estrategiaDeLista = new MarkDownEstrategiaLista();
+        break;
+      case FormatoSalida.html:
+        this.estrategiaLista = new HTMLEstrategiaLista();
+        break;
+    }
+  }
+
+  agregarLista(elementos) {
+    this.estrategiaLista.iniciar(this.buffer);
+    for(let articulo of articulos) {
+      this.estrategiaLista.agregarElementoLista(this.buffer, item);
+    }
+    this.estrategiaLista.finalizar(this.buffer);
+  }
+  
+  limpiar() {
+    this.buffer = [];
+  }
+  
+  toString() {
+    return this.buffer.join("\n");
+  }
+
+}
 ```
 
 Así es como usaremos esto,
 
 ```
-codigo
+let pt = new ProcesadorTexto();
+
+pt.ajustarFormatoSalida(FormatoSalida.markdown);
+pt.agregarLista(["uno", "dos", "tres"]);
+console.log(pt.toString());
+
+pt.limpiar();
+pt.ajustarFormatoSalida(FormatoSalida.html);
+pt.agregarLista(["uno", "dos", "tres"]);
+console.log(pt.toString());
 ```
 
 ### Estado
@@ -467,17 +1291,67 @@ El patrón de estado es un patrón de diseño de software de comportamiento que 
 Estaremos tomando un ejemplo de un interruptor de luz en el que si encendemos o apagamos el interruptor, su estado cambia.
 
 ```
-codigo
+class EstadoEncendido extends Estado {
+  constructor() {
+    super();
+    console.log("Luces encendidas");
+  }
+  
+  apagar(sw) {
+    console.log("Apagando luces...");
+    sw.estado = new EstadoApagado();
+  }
+}
+
+class EstadoApagado extends Estado {
+  constructor() {
+    super();
+    console.log("Luz apagada...");
+  }
+  
+  encender(sw) {
+    console.log("Encendiendo luz...");
+    sw.estado = new EstadoEncendido();
+  }
+}
+
 ```
 
 Vamos a crear una clase Switch para usar estos estados de encendido y apagado.
 
 ```
-codigo
-```
+class Switch {
+  constructor() {
+    this.estado = new EstadoApagado();
+  }
+  
+  encender() {
+    this.estado.encender(this);
+  }
+  
+  apagar() {
+    this.state.off(this);
+  }
+}
 
-```
-codigo
+class Estado {
+  constructor() {
+    if(this.constructor === Estado) throw new Error("¡Abstracto!")ñ
+  }
+  
+  encender(sw) {
+    console.log("La luz está encendida.");
+  }
+  
+  apagar(sw) {
+    console.log("La luz está apagada");
+  }
+}
+
+// Usemos la clase Switch
+let swtich = new Switch();
+switch.encender();
+switch.apagar();
 ```
 
 ### Método de plantilla
@@ -491,23 +1365,59 @@ Template Method (método de plantilla) es un método en una superclase, generalm
 Tomaremos un ejemplo de un juego de ajedrez,
 
 ```
-codigo
+class Juego {
+  constructor(numeroJugadores) {
+    this.numeroDeJugadores = numeroDeJugadores;
+    this.jugadorActual = 0;
+  }
+  
+  ejecutar() {
+    this.iniciar();
+    while(!this.hayaGanador) {
+      this.tomarTurno();
+    }
+    console.log(`Jugador ${this.jugadorGanador} gana.`);
+  }
+  iniciar() {}
+  get hayaJugador {}
+  tomarTurno();
+  get jugadorGanador() {}
+}
 ```
 
 Creando nuestra clase Ajedrez,
 
 ```
-codigo
+class Ajedrez extends Juego {
+  constructor() {
+    super(2);
+    this.turnosMaximos = 10;
+    this.turno = 1;
+  }
+  
+  iniciar() {
+    console.log(`Iniciando un juego de ajedrez con ${this.numeroDeJugadores} jugadores.`);
+  }
+  
+  get hayaGanador() {
+    return this.turno === this.turnosMaximos;
+  }
+  
+  tomarTurno(){
+    console.log(`Turno ${this.turno} tomado por jugador ${this.jugadorActual}`);
+    this.jugadorActual = (this.jugadorActual + 1) % this.numeroDeJugadores;
+  }
+  
+  get jugadorGanador() {
+    return this.jugadorActual;
+  }
+  
+}
 ```
 
 Así usaremos esto:
 
 ```
-codigo
+let ajedrez = new Ajedrez();
+ajedrez.ejecutar();
 ```
-
-
-
-
-
-
