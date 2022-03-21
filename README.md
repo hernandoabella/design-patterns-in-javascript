@@ -1,4 +1,4 @@
-# Patrones de diseño de JavaScript.
+# Patrones de diseño en JavaScript.
 
 ¿Qué son los patrones de diseño?
 
