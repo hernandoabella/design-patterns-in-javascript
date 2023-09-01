@@ -1,12 +1,10 @@
-### Decorador
+**Decorador**
 
-Agrega o anula dinámicamente el comportamiento de un objeto.
+El patrón decorador permite agregar o anular dinámicamente comportamientos a un objeto individual sin afectar a otros objetos de la misma clase. Es especialmente útil cuando se desea extender las capacidades de un objeto sin crear subclases.
 
-El patrón decorador es un patrón de diseño que permite agregar comportamiento a un objeto individual, de forma dinámica, sin afectar el comportamiento de otros objetos de la misma clase.
+**Ejemplo:**
 
-### Ejemplo:
-
-Tomaremos el ejemplo del color y las formas. Si tenemos que dibujar un círculo crearemos métodos y dibujaremos un círculo. Si tenemos que dibujar un círculo rojo. Ahora el comportamiento se agrega a un objeto y el patrón Decorator (decorador) me ayudará en eso.
+**1. Definición de Clases:** En este ejemplo, creamos las clases Forma como base y Circulo como una forma concreta que queremos decorar. También creamos una clase llamada FormaColoreada que actuará como un decorador para agregar colores a las formas.
 
 ```
 class Forma {
@@ -26,11 +24,10 @@ class Circulo extends Forma {
   }
   
   toString() {
-    return `Un circulo ${this.radio}`;
+    return `Un círculo de radio ${this.radio}`;
   }
 }
 
-// Creemos la clase FormaColoreada
 class FormaColoreada extends Forma {
   constructor(forma, color) {
     super();
@@ -39,14 +36,65 @@ class FormaColoreada extends Forma {
   }
   
   toString() {
-    return `${this.forma.toString()}` + `tiene el color ${this.color}`;
+    return `${this.forma.toString()}, coloreado de ${this.color}`;
+  }
+}
+```
+
+**2. Uso del Decorador:** Creamos una instancia de un círculo y luego decoramos ese círculo con un color rojo usando la clase FormaColoreada.
+
+// Crear un círculo
+let circulo = new Circulo(2);
+console.log(circulo.toString()); // Salida: Un círculo de radio 2
+
+// Decorar el círculo con un color rojo
+let circuloRojo = new FormaColoreada(circulo, "rojo");
+console.log(circuloRojo.toString()); // Salida: Un círculo de radio 2, coloreado de rojo
+
+**Código final**
+
+```
+// Clase base para todas las formas
+class Forma {
+  constructor(color) {
+    this.color = color;
   }
 }
 
-// Así es como la usamos
-let circulo = Circulo(2);
-console.log(circulo);
+// Clase concreta para un círculo que hereda de Forma
+class Circulo extends Forma {
+  constructor(radio = 0) {
+    super();
+    this.radio = radio;
+  }
+  
+  cambiarTamano(factor) {
+    this.radio *= factor;
+  }
+  
+  toString() {
+    return `Un círculo de radio ${this.radio}`;
+  }
+}
 
+// Clase decoradora que agrega color a una forma existente
+class FormaColoreada extends Forma {
+  constructor(forma, color) {
+    super();
+    this.forma = forma;
+    this.color = color;
+  }
+  
+  toString() {
+    return `${this.forma.toString()}, coloreado de ${this.color}`;
+  }
+}
+
+// Crear un círculo base
+let circulo = new Circulo(2);
+console.log(circulo.toString()); // Salida: Un círculo de radio 2
+
+// Decorar el círculo con un color rojo
 let circuloRojo = new FormaColoreada(circulo, "rojo");
-console.log(circuloRojo.toString());
+console.log(circuloRojo.toString()); // Salida: Un círculo de radio 2, coloreado de rojo
 ```
