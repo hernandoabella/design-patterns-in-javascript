@@ -1,12 +1,10 @@
-### Proxy
+**Proxy (Proxy)**
 
-Al usar Proxy, una clase puede representar la funcionalidad de otra clase.
+El patrón Proxy permite que una clase represente la funcionalidad de otra clase, actuando como un intermediario o "proxy" entre el cliente y el objeto real. Esto puede ser útil para controlar el acceso al objeto real, realizar operaciones adicionales antes o después de acceder al objeto real o incluso reemplazar el objeto real por completo.
 
-El patrón proxy es un patrón de diseño de software. Un proxy, en su forma más general, es una clase que funciona como una interfaz para otra cosa.
+**Ejemplo:**
 
-### Ejemplo:
-
-Tomemos el ejemplo del valor de proxy.
+Imaginemos un ejemplo de un objeto Proxy llamado Porcentaje que se utiliza para representar porcentajes. Este Proxy permitirá manipular los valores de porcentaje y realizar operaciones matemáticas en ellos.
 
 ```
 class Porcentaje {
@@ -15,16 +13,18 @@ class Porcentaje {
   }
   
   toString() {
-    return `${this.porcentaje}&`';
+    return `${this.porcentaje}%`;
   }
   
   valueOf() {
-    return this.porcentae / 100;
+    return this.porcentaje / 100;
   }
 }
 
-// Usemos este ejemplo de Porcentaje
+// Utilicemos el objeto Proxy Porcentaje
 let porcentajeCinco = new Porcentaje(5);
-console.log(porcentajeCinco.toString());
-console.log(`El 5% de 50% es ${50 * porcentajeCinco}`);
+console.log(porcentajeCinco.toString()); // Salida: "5%"
+console.log(`El 5% de 50 es ${50 * porcentajeCinco}`); // Salida: "El 5% de 50 es 2.5"
 ```
+
+En este ejemplo, Porcentaje actúa como un proxy que permite representar valores de porcentaje y realizar cálculos con ellos. El Proxy Porcentaje facilita la manipulación de los valores de porcentaje y su uso en operaciones matemáticas.
