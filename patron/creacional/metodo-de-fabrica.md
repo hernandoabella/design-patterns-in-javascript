@@ -44,7 +44,7 @@ const puntoPolar = PuntoFactory.crearPuntoPolar(5, Math.PI / 2);
 
 Este ejemplo ilustra cómo el Factory Method permite crear objetos con diferentes comportamientos utilizando una interfaz común, en este caso, la clase PuntoFactory.
 
-// Código completo:
+**Código completo:**
 
 ```
 // Clase Punto que representa un punto en el plano
