@@ -125,6 +125,6 @@ circulo.cambiarTamano(2);
 circulo.dibujar();
 
 // Salida esperada:
-Dibujando un círculo de radio 5
-Dibujando un círculo de radio 10
+// Dibujando un círculo de radio 5
+// Dibujando un círculo de radio 10
 ```
