@@ -2,7 +2,7 @@
 
 El patrón adaptador permite que las clases con interfaces incompatibles trabajen juntas ajustando su propia interfaz alrededor de la clase existente. Esto es especialmente útil cuando necesitamos que objetos con interfaces diferentes colaboren sin modificar su código fuente.
 
-**Ejemplo:**
+**Ejemplo:** 
 
 **1. Definición de las Interfaces Incompatibles:** En este ejemplo, tenemos dos interfaces de calculadora: Calculadora1 (antigua) y Calculadora2 (nueva).
 
