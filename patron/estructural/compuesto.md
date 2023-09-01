@@ -53,6 +53,8 @@ Utilizamos el método imprimir() para mostrar la estructura jerárquica, que inc
 grupoDesarrolladores.imprimir();
 ```
 
+**Código final:**
+
 ```
 class Empleador {
   constructor(nombre, rol) {
