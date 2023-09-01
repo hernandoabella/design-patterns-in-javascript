@@ -46,6 +46,7 @@ Este ejemplo ilustra cómo el Factory Method permite crear objetos con diferente
 
 // Código completo:
 
+```
 class Punto {
   constructor(x, y) {
     this.x = x;
@@ -72,3 +73,4 @@ const puntoPolar = PuntoFactory.crearPuntoPolar(5, Math.PI / 2);
 
 console.log("Punto Cartesiano:", puntoCartesiano.toString());
 console.log("Punto Polar:", puntoPolar.toString());
+```
