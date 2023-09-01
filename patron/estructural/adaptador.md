@@ -66,6 +66,7 @@ console.log(calcAdaptada.operaciones(10, 55, 'restar'));
 
 **Código final:**
 
+```
 // Definimos la clase para la Calculadora Antigua
 class CalculadoraAntigua {
   constructor() {
@@ -117,3 +118,4 @@ const calculadoraAdaptada = new CalculadoraAdaptadora();
 // Utilizamos la Calculadora Adaptadora para realizar una operación de resta
 console.log(calculadoraAdaptada.operaciones(10, 55, 'restar')); // -45
 console.log(calculadoraAdaptada.operaciones(10, 55, 'sumar')); // 65
+```
