@@ -1,12 +1,10 @@
-### Composite (Compuesto)
+Composite (Compuesto)
+Descripción del patrón:
+El patrón Composite se utiliza para componer objetos en estructuras de árbol para representar jerarquías de objetos. Esto permite que los objetos individuales y las composiciones de objetos sean tratados de la misma manera, lo que facilita su manipulación.
 
-Compone objetos para que puedan ser manipulados como objetos individuales.
-
-El patrón compuesto describe un grupo de objetos que se tratan de la misma manera que una sola instancia del mismo tipo de objeto.
-
-### Ejemplo:
-
-Usaremos ejemplos de trabajo:
+Ejemplo Paso a Paso:
+1. Definición de Clases:
+En este ejemplo, creamos dos clases: Empleador para representar a los empleados individuales y GrupoEmpleados para representar grupos de empleados.
 
 ```
 class Empleador {
@@ -16,28 +14,82 @@ class Empleador {
   }
   
   imprimir() {
-    console.log("nombre": + this.nombre + "tiempo relajado: ");
+    console.log("Nombre: " + this.nombre + ", Rol: " + this.rol);
   }
 }
 
-// Creando un grupo de empleados
 class GrupoEmpleados {
   constructor(nombre, compuesto = []) {
-    console.log(nombre);
     this.nombre = nombre;
     this.compuesto = compuesto;
   }
   
   imprimir() {
-    console.log(this.nombre);
+    console.log("Grupo: " + this.nombre);
+    this.compuesto.forEach(emp => {
+      emp.imprimir();
+    })
+  }
+}
+```
+
+2. Creación de Empleados y Grupos:
+Creamos instancias de empleados individuales y luego los agrupamos en un GrupoEmpleados.
+
+```
+// Creando empleados individuales
+let hernando = new Empleador("Hernando", "Desarrollador");
+let albert = new Empleador("Albert", "Desarrollador");
+
+// Creando un grupo de empleados y agregando empleados individuales
+let grupoDesarrolladores = new GrupoEmpleados("Desarrolladores", [hernando, albert]);
+```
+
+3. Imprimir la Estructura Jerárquica:
+Utilizamos el método imprimir() para mostrar la estructura jerárquica, que incluye tanto empleados individuales como grupos de empleados.
+
+```
+// Imprimir la estructura jerárquica
+grupoDesarrolladores.imprimir();
+```
+
+```
+class Empleador {
+  constructor(nombre, rol) {
+    this.nombre = nombre;
+    this.rol = rol;
+  }
+  
+  imprimir() {
+    console.log(`Nombre: ${this.nombre}, Rol: ${this.rol}`);
+  }
+}
+
+class GrupoEmpleados {
+  constructor(nombre, compuesto = []) {
+    this.nombre = nombre;
+    this.compuesto = compuesto;
+  }
+  
+  imprimir() {
+    console.log(`Grupo: ${this.nombre}`);
     this.compuesto.forEach(emp => {
       emp.imprimir();
     })
   }
 }
 
-// Usemos estas clases
-let hernando = new Empleador("hernando", "desarollador")
-let albert = new Empleador("albert", "desarrollador")
-let grupoDesarrolador = new GrupoEmpleados("Desarrolladores", [hernando, albert]);
+// Creando empleados individuales
+let hernando = new Empleador("Hernando", "Desarrollador");
+let albert = new Empleador("Albert", "Desarrollador");
+
+// Creando un grupo de empleados y agregando empleados individuales
+let grupoDesarrolladores = new GrupoEmpleados("Desarrolladores", [hernando, albert]);
+
+// Imprimir la estructura jerárquica
+grupoDesarrolladores.imprimir();
+// Salida Esperada:
+// Grupo: Desarrolladores
+// Nombre: Hernando, Rol: Desarrollador
+// Nombre: Albert, Rol: Desarrollador
 ```
