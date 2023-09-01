@@ -7,13 +7,13 @@ Un patrón de diseño representa una solución consolidada y madura para un prob
 
 ### Tipos de patrones de diseño:
 
-- Creacional
-- Estructural
-- Conductual
+- [Creacional](/patron/creacional.md)
+- [Estructural](/patron/estructural.md)
+- [Conductual](/patron/conductual.md)
 
-## Patrones de diseño creacional
+## Patrones de diseño creacionales
 
-Los patrones de diseño creacional crearán objetos para ti en lugar de instanciar un objeto directamente.
+Los patrones de diseño creacionales crearán objetos para ti en lugar de instanciar un objeto directamente.
 
 En ingeniería de software, los patrones de diseño creacionales son patrones de diseño que se ocupan de los mecanismos de creación de objetos, tratando de crear objetos de una manera adecuada a la situación. La forma básica de creación de objetos podría dar lugar a problemas de diseño o complejidad añadida al diseño. Los patrones de diseño creacional resuelven este problema al controlar de alguna manera la creación de este objeto.
 
