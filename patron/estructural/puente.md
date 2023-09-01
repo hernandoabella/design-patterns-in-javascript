@@ -75,7 +75,7 @@ circulo.dibujar();
 **Código final:**
 
 ```
-// Paso 1: Definición de las Clases de Renderizadores
+// Definición de las Clases de Renderizadores
 class RenderizadorVectores {
   renderizarCirculo(radio) {
     console.log(`Dibujando un círculo de radio ${radio}`);
@@ -88,21 +88,21 @@ class RenderizadorRaster {
   }
 }
 
-// Paso 2: Definición de la Clase Abstracta `Forma`
+// Definición de la Clase Abstracta `Forma`
 class Forma {
   constructor(renderizador) {
     this.renderizador = renderizador;
   }
 }
 
-// Paso 3: Definición de la Clase `Circulo`
+// Definición de la Clase `Circulo`
 class Circulo extends Forma {
   constructor(renderizador, radio) {
     super(renderizador);
     this.radio = radio;
   }
 
-  // Paso 4: Implementación del Método `dibujar`
+  // Implementación del Método `dibujar`
   dibujar() {
     this.renderizador.renderizarCirculo(this.radio);
   }
@@ -123,4 +123,8 @@ circulo.cambiarTamano(2);
 
 // Dibujar el Círculo Después del Cambio de Tamaño
 circulo.dibujar();
+
+// Salida esperada:
+Dibujando un círculo de radio 5
+Dibujando un círculo de radio 10
 ```
