@@ -1,12 +1,51 @@
-**Factory Method (método de fábrica)**
+**Factory Method (Método de Fábrica)**
 
-En diseño de software, el patrón de diseño Factory Method consiste en utilizar una clase constructora (al estilo del Abstract Factory) abstracta con unos cuantos métodos definidos y otro(s) abstracto(s): el dedicado a la construcción de objetos de un subtipo de un tipo determinado. Es una simplificación del Abstract Factory, en la que la clase abstracta tiene métodos concretos que usan algunos de los abstractos; según usemos una u otra hija de esta clase abstracta, tendremos uno u otro comportamiento.
+El patrón de diseño Factory Method es una técnica en el diseño de software que se basa en la creación de objetos de un subtipo específico a través de una interfaz común. Este patrón se logra mediante el uso de una clase constructora abstracta que contiene métodos concretos y métodos abstractos. Los métodos concretos se encargan de la creación de objetos, mientras que los métodos abstractos son implementados por subclases concretas. Dependiendo de la subclase utilizada, se obtiene un comportamiento específico.
 
 **Ejemplo:**
 
-Tomemos un ejemplo de un punto. Tenemos una clase de puntos y tenemos que crear un punto cartesiano y un punto polar. Definiremos una fábrica de Puntos que hará este trabajo.
+Para comprender mejor el Factory Method, consideremos un ejemplo concreto relacionado con la creación de puntos en un plano bidimensional. Imaginemos que estamos desarrollando una aplicación que necesita trabajar con puntos en coordenadas cartesianas y polares.
 
-```javascript
+Primero, creamos una clase llamada Punto que representa un punto en el plano. Esta clase tiene un constructor que toma las coordenadas x e y, y un método toString() que devuelve una representación legible del punto en formato (x, y).
+
+```
+class Punto {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  toString() {
+    return `(${this.x}, ${this.y})`;
+  }
+}
+```
+
+Luego, aplicamos el Factory Method a través de una clase llamada PuntoFactory. Esta clase contiene dos métodos estáticos: crearPuntoCartesiano y crearPuntoPolar. El método crearPuntoCartesiano toma las coordenadas cartesianas x e y y crea un objeto Punto con esas coordenadas. Por otro lado, el método crearPuntoPolar toma las coordenadas polares rho y theta, realiza la conversión a coordenadas cartesianas y crea un objeto Punto con esas coordenadas.
+
+```
+class PuntoFactory {
+  static crearPuntoCartesiano(x, y) {
+    return new Punto(x, y);
+  }
+
+  static crearPuntoPolar(rho, theta) {
+    return new Punto(rho * Math.cos(theta), rho * Math.sin(theta));
+  }
+}
+```
+
+Finalmente, en el ejemplo de uso, creamos dos puntos utilizando la PuntoFactory. Uno de los puntos se crea en coordenadas cartesianas y otro en coordenadas polares.
+
+```
+const puntoCartesiano = PuntoFactory.crearPuntoCartesiano(5, 6);
+const puntoPolar = PuntoFactory.crearPuntoPolar(5, Math.PI / 2);
+```
+
+Este ejemplo ilustra cómo el Factory Method permite crear objetos con diferentes comportamientos utilizando una interfaz común, en este caso, la clase PuntoFactory.
+
+// Código completo:
+
 class Punto {
   constructor(x, y) {
     this.x = x;
@@ -28,9 +67,8 @@ class PuntoFactory {
   }
 }
 
-// Ejemplo de uso
 const puntoCartesiano = PuntoFactory.crearPuntoCartesiano(5, 6);
 const puntoPolar = PuntoFactory.crearPuntoPolar(5, Math.PI / 2);
 
-console.log("Punto Cartesiano:", puntoCartesiano.toString()); // Punto Cartesiano: (5, 6)
-console.log("Punto Polar:", puntoPolar.toString()); // Punto Polar: (6.123233995736766e-17, 5)
+console.log("Punto Cartesiano:", puntoCartesiano.toString());
+console.log("Punto Polar:", puntoPolar.toString());
