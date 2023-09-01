@@ -1,10 +1,9 @@
-# Patrones de diseño en JavaScript.
+# Patrones de Diseño en JavaScript
 
-¿Qué son los patrones de diseño?
+## Introducción a los Patrones de Diseño
+Los patrones de diseño son enfoques probados y sólidos para resolver desafíos recurrentes en el diseño de software, así como en otros campos relacionados con la interacción y las interfaces. Estas técnicas ofrecen soluciones estructuradas a problemas comunes, promoviendo la eficiencia, la reusabilidad y la expresividad en el desarrollo.
 
-Los patrones de diseño son unas  técnicas para resolver problemas comunes en el diseño de software y a otros ámbitos referentes al diseño de interacción o interfaces. Estos patrones son fácilmente reutilizables y son expresivos.
-
-Un patrón de diseño resulta ser una solución a un problema de diseño. Para que una solución sea considerada un patrón debe poseer ciertas características. Una de ellas es que debe haber comprobado su efectividad resolviendo problemas similares en ocasiones anteriores. Otra es que debe ser reutilizable, lo que significa que es aplicable a diferentes problemas de diseño en distintas circunstancias.
+Un patrón de diseño representa una solución consolidada y madura para un problema de diseño específico. Para ser considerado como tal, debe cumplir con ciertas características clave. En primer lugar, debe haber demostrado su efectividad al abordar problemas similares en situaciones previas. Además, la reutilización es un pilar fundamental en los patrones de diseño; deben ser adaptables y aplicables a una variedad de contextos y desafíos de diseño.
 
 ### Tipos de patrones de diseño:
 
