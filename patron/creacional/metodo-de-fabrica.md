@@ -47,30 +47,37 @@ Este ejemplo ilustra cómo el Factory Method permite crear objetos con diferente
 // Código completo:
 
 ```
+// Clase Punto que representa un punto en el plano
 class Punto {
   constructor(x, y) {
     this.x = x;
     this.y = y;
   }
 
+  // Método para obtener una representación legible del punto
   toString() {
     return `(${this.x}, ${this.y})`;
   }
 }
 
+// Clase PuntoFactory que implementa el Factory Method
 class PuntoFactory {
+  // Método para crear un punto en coordenadas cartesianas
   static crearPuntoCartesiano(x, y) {
     return new Punto(x, y);
   }
 
+  // Método para crear un punto en coordenadas polares
   static crearPuntoPolar(rho, theta) {
     return new Punto(rho * Math.cos(theta), rho * Math.sin(theta));
   }
 }
 
+// Ejemplo de uso del Factory Method
 const puntoCartesiano = PuntoFactory.crearPuntoCartesiano(5, 6);
 const puntoPolar = PuntoFactory.crearPuntoPolar(5, Math.PI / 2);
 
-console.log("Punto Cartesiano:", puntoCartesiano.toString());
-console.log("Punto Polar:", puntoPolar.toString());
+// Impresión de los puntos
+console.log("Punto Cartesiano:", puntoCartesiano.toString()); // Punto Cartesiano: (5, 6)
+console.log("Punto Polar:", puntoPolar.toString()); // Punto Polar: (6.123233995736766e-17, 5)
 ```
