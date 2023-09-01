@@ -1,4 +1,4 @@
-# Patrones de Diseño en JavaScript
+![header](/images/header-image.png)
 
 ## ¿Qué son los Patrones de Diseño?
 
