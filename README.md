@@ -7,6 +7,6 @@ Un patrón de diseño representa una solución consolidada y madura para un prob
 
 ### Tipos de patrones de diseño:
 
-- [Patrones Creacionales](/patron/creacional.md)
-- [Patrones Estructurales](/patron/estructural.md)
-- [Patrones Conductuales](/patron/conductual.md)
+- [Patrones Creacionales](/patron/creacional/creacional.md)
+- [Patrones Estructurales](/patron/estructural/estructural.md)
+- [Patrones Conductuales](/patron/condtual/conductual.md)
