@@ -1,4 +1,4 @@
-![header](/images/header-image.png)
+![header](/ES/imagen-encabezado.png)
 
 ## ¿Qué son los Patrones de Diseño?
 
