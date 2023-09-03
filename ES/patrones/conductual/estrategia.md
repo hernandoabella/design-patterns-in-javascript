@@ -205,7 +205,7 @@ console.log(pt.toString());
 
 ```
 
-Salida esperada en formato HTML:
+**Salida esperada en formato HTML:**
 
 ```
 <ul>
