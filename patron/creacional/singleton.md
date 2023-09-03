@@ -43,7 +43,13 @@ Aquí verificamos si s1 y s2 son la misma instancia utilizando (s1 === s2) y mos
 
 ```s1.decir();```
 
+<<<<<<< HEAD
 **Código final:**
+=======
+En este último paso, llamamos al método decir() de la instancia s1, lo que imprimirá "Diciendo..." en la consola.
+
+**Código completo:**
+>>>>>>> 1f0e0ae80d63df0cdef87cd602402c07625c985f
 
 ```// Definición de la clase Singleton
 class Singleton {
