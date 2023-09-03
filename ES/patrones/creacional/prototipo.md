@@ -11,7 +11,8 @@ Usaremos el ejemplo de un automóvil.
 **Paso 1: Definición de la clase Carro (Prototipo)**
 
 
-```class Carro {
+```
+class Carro {
   constructor(nombre, modelo) {
     this.nombre = nombre;
     this.modelo = modelo;
