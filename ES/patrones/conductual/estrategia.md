@@ -88,8 +88,7 @@ class ProcesadorTexto {
 
 ```
 
-Uso del Procesador de Texto:
-Se crea una instancia de ProcesadorTexto, se ajusta el formato de salida y se agrega una lista. Luego, se muestra el resultado.
+**5.Uso del Procesador de Texto:** Se crea una instancia de ProcesadorTexto, se ajusta el formato de salida y se agrega una lista. Luego, se muestra el resultado.
 
 ```
 let pt = new ProcesadorTexto();
