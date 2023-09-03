@@ -1,95 +1,95 @@
-**Composite (Compuesto)**
+**Composite**
 
-El patrón Composite se utiliza para componer objetos en estructuras de árbol para representar jerarquías de objetos. Esto permite que los objetos individuales y las composiciones de objetos sean tratados de la misma manera, lo que facilita su manipulación.
+The Composite pattern is used to compose objects into tree structures to represent object hierarchies. This allows individual objects and compositions of objects to be treated in the same way, simplifying their manipulation.
 
-**Ejemplo:**
+**Example:**
 
-**1. Definición de Clases:** En este ejemplo, creamos dos clases: Empleador para representar a los empleados individuales y GrupoEmpleados para representar grupos de empleados.
+**1. Class Definitions:** In this example, we create two classes: Employee to represent individual employees and EmployeeGroup to represent groups of employees.
 
 ```
-class Empleador {
-  constructor(nombre, rol) {
-    this.nombre = nombre;
-    this.rol = rol;
+class Employee {
+  constructor(name, role) {
+    this.name = name;
+    this.role = role;
   }
   
-  imprimir() {
-    console.log("Nombre: " + this.nombre + ", Rol: " + this.rol);
+  print() {
+    console.log("Name: " + this.name + ", Role: " + this.role);
   }
 }
 
-class GrupoEmpleados {
-  constructor(nombre, compuesto = []) {
-    this.nombre = nombre;
-    this.compuesto = compuesto;
+class EmployeeGroup {
+  constructor(name, composite = []) {
+    this.name = name;
+    this.composite = composite;
   }
   
-  imprimir() {
-    console.log("Grupo: " + this.nombre);
-    this.compuesto.forEach(emp => {
-      emp.imprimir();
+  print() {
+    console.log("Group: " + this.name);
+    this.composite.forEach(emp => {
+      emp.print();
     })
   }
 }
 ```
 
-**2. Creación de Empleados y Grupos:** Creamos instancias de empleados individuales y luego los agrupamos en un GrupoEmpleados.
+**2. Creating Employees and Groups:** We create instances of individual employees and then group them into an EmployeeGroup.
 
 ```
-// Creando empleados individuales
-let hernando = new Empleador("Hernando", "Desarrollador");
-let albert = new Empleador("Albert", "Desarrollador");
+// Creating individual employees
+let hernando = new Employee("Hernando", "Developer");
+let albert = new Employee("Albert", "Developer");
 
-// Creando un grupo de empleados y agregando empleados individuales
-let grupoDesarrolladores = new GrupoEmpleados("Desarrolladores", [hernando, albert]);
+// Creating an employee group and adding individual employees
+let developerGroup = new EmployeeGroup("Developers", [hernando, albert]);
 ```
 
-**3. Imprimir la Estructura Jerárquica:** Utilizamos el método imprimir() para mostrar la estructura jerárquica, que incluye tanto empleados individuales como grupos de empleados.
+**3. Printing the Hierarchical Structure:** We use the print() method to display the hierarchical structure, which includes both individual employees and employee groups.
 
 ```
-// Imprimir la estructura jerárquica
-grupoDesarrolladores.imprimir();
+// Print the hierarchical structure
+developerGroup.print();
 ```
 
-**Código final:**
+**Final Code:**
 
 ```
-class Empleador {
-  constructor(nombre, rol) {
-    this.nombre = nombre;
-    this.rol = rol;
+class Employee {
+  constructor(name, role) {
+    this.name = name;
+    this.role = role;
   }
   
-  imprimir() {
-    console.log(`Nombre: ${this.nombre}, Rol: ${this.rol}`);
+  print() {
+    console.log(`Name: ${this.name}, Role: ${this.role}`);
   }
 }
 
-class GrupoEmpleados {
-  constructor(nombre, compuesto = []) {
-    this.nombre = nombre;
-    this.compuesto = compuesto;
+class EmployeeGroup {
+  constructor(name, composite = []) {
+    this.name = name;
+    this.composite = composite;
   }
   
-  imprimir() {
-    console.log(`Grupo: ${this.nombre}`);
-    this.compuesto.forEach(emp => {
-      emp.imprimir();
+  print() {
+    console.log(`Group: ${this.name}`);
+    this.composite.forEach(emp => {
+      emp.print();
     })
   }
 }
 
-// Creando empleados individuales
-let hernando = new Empleador("Hernando", "Desarrollador");
-let albert = new Empleador("Albert", "Desarrollador");
+// Creating individual employees
+let hernando = new Employee("Hernando", "Developer");
+let albert = new Employee("Albert", "Developer");
 
-// Creando un grupo de empleados y agregando empleados individuales
-let grupoDesarrolladores = new GrupoEmpleados("Desarrolladores", [hernando, albert]);
+// Creating an employee group and adding individual employees
+let developerGroup = new EmployeeGroup("Developers", [hernando, albert]);
 
-// Imprimir la estructura jerárquica
-grupoDesarrolladores.imprimir();
-// Salida Esperada:
-// Grupo: Desarrolladores
-// Nombre: Hernando, Rol: Desarrollador
-// Nombre: Albert, Rol: Desarrollador
+// Print the hierarchical structure
+developerGroup.print();
+// Expected Output:
+// Group: Developers
+// Name: Hernando, Role: Developer
+// Name: Albert, Role: Developer
 ```
