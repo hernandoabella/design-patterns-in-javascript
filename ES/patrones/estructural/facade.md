@@ -1,4 +1,4 @@
-**Facade (fachada)**
+### Facade (fachada)
 
 El patrón de fachada (también deletreado fachada) es un patrón de diseño de software comúnmente utilizado en la programación orientada a objetos. De manera análoga a una fachada en arquitectura, una fachada es un objeto que sirve como una interfaz frontal que enmascara un código subyacente o estructural más complejo. Proporciona una interfaz simplificada para acceder a un conjunto de subsistemas o clases relacionadas, lo que facilita la interacción con el sistema sin necesidad de conocer los detalles internos.
 
