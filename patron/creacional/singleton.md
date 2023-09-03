@@ -8,8 +8,8 @@ En ingeniería de software, el patrón singleton es un patrón de diseño de sof
 
 **Paso 1: Definición de la clase Singleton:**
 
-``
-`class Singleton {
+```
+class Singleton {
   constructor() {
     // ...
   }
@@ -38,7 +38,8 @@ En este paso, creamos dos instancias, s1 y s2, de la clase Singleton.
 
 ***Paso 4. Verificar si s1 y s2 son la misma instancia***
 
-```console.log('¿Son lo mismo? ' + (s1 === s2));
+```
+console.log('¿Son lo mismo? ' + (s1 === s2));
 ```
 
 Aquí verificamos si s1 y s2 son la misma instancia utilizando (s1 === s2) y mostramos el resultado en la consola.
@@ -50,7 +51,7 @@ s1.decir();
 ```
 
 **Código final:**
-=======
+
 En este último paso, llamamos al método decir() de la instancia s1, lo que imprimirá "Diciendo..." en la consola.
 
 **Código completo:**
@@ -89,4 +90,4 @@ s1.decir();`
 // Salida esperada:
 // ¿Son lo mismo? true
 // Diciendo...
-``
+```
