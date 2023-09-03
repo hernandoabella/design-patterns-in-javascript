@@ -4,7 +4,7 @@ Construye objetos complejos a partir de objetos simples.
 
 El patrón constructor es un patrón de diseño diseñado para proporcionar una solución flexible a varios problemas de creación de objetos en la programación orientada a objetos.
 
-### Ejemplo:
+**Ejemplo:**
 
 Usaremos un ejemplo ab de una clase Persona que almacena la información de una Persona.
 
