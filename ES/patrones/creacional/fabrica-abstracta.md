@@ -1,4 +1,4 @@
-## Fábrica Abstracta (Abstract Factory)
+**Fábrica Abstracta (Abstract Factory)**
 
 En diseño de software, el patrón de diseño de Fábrica Abstracta es una técnica que se utiliza para crear familias o grupos de objetos relacionados sin especificar sus clases concretas. Este patrón proporciona una forma de encapsular un conjunto de fábricas individuales que comparten un tema común sin necesidad de conocer los detalles de las clases exactas de los objetos que se crearán. Esto promueve la creación de objetos de manera coherente y modular, lo que facilita la gestión y extensión del código.
 
