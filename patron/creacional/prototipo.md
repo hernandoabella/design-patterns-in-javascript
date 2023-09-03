@@ -21,16 +21,16 @@ Usaremos el ejemplo de un automóvil.
 
 **Paso 2: Método para ajustar el nombre del carro**
 
-  // Método para ajustar el nombre del carro
+```  // Método para ajustar el nombre del carro
   ajustarNombre(nombre) {
     this.nombre = nombre;
     console.log(`Nombre del carro ajustado a: ${this.nombre}`);
   }
-
+```
 
 **Paso 3: Método para clonar el carro (crear una copia)**
 
-  // Método para clonar el carro (crear una copia)
+```  // Método para clonar el carro (crear una copia)
   clonar() {
     // Crear una nueva instancia de Carro con los mismos atributos
     return new Carro(this.nombre, this.modelo);
@@ -43,14 +43,14 @@ const carroOriginal = new Carro('Audi', 'A3');
 
 // Clonar el carro original para crear una nueva instancia
 const carroClonado = carroOriginal.clonar();
-carroClonado.ajustarNombre('BMW');
+carroClonado.ajustarNombre('BMW');```
 
 
 **Paso 5: Verificar que los carros son diferentes**
 
-// Verificar que los carros son diferentes
+```// Verificar que los carros son diferentes
 console.log('Carro Original:', carroOriginal.nombre, carroOriginal.modelo);
-console.log('Carro Clonado:', carroClonado.nombre, carroClonado.modelo);
+console.log('Carro Clonado:', carroClonado.nombre, carroClonado.modelo);```
 
 **Código final:**
 
