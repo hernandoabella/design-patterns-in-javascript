@@ -1,53 +1,53 @@
-### Adaptador 🔌
+### Adapter 🔌
 
-El patrón adaptador permite que las clases con interfaces incompatibles trabajen juntas ajustando su propia interfaz alrededor de la clase existente. Esto es especialmente útil cuando necesitamos que objetos con interfaces diferentes colaboren sin modificar su código fuente.
+The adapter pattern enables classes with incompatible interfaces to collaborate by adapting their own interface to fit around the existing class. This is particularly useful when we need objects with different interfaces to work together without altering their source code.
 
-**Ejemplo:** 
+**Example::** 
 
-**1. Definición de las Interfaces Incompatibles:** En este ejemplo, tenemos dos interfaces de calculadora: Calculadora1 (antigua) y Calculadora2 (nueva).
+**1. Definition of Incompatible Interfaces:** In this example, we have two calculator interfaces: Calculator1 (old) and Calculator2 (new).
 
 ```
-class Calculadora1 {
+class Calculator1 {
   constructor() {
-    this.operaciones = function(valor1, valor2, operacion) {
-      // Implementación de la calculadora antigua
-      switch(operacion) {
-        case 'sumar':
-          return valor1 + valor2;
-        case 'restar':
-          return valor1 - valor2;
+    this.operations = function(value1, value2, operation) {
+      // Implementation of the old calculator
+      switch(operation) {
+        case 'sum':
+          return value1 + value2;
+        case 'subtract':
+          return value1 - value2;
       }
     };
   }
 }
 
-class Calculadora2 {
+class Calculator2 {
   constructor() {
-    this.sumar = function(valor1, valor2) {
-      // Implementación de la calculadora nueva
-      return valor1 + valor2;
+    this.add = function(value1, value2) {
+      // Implementation of the new calculator
+      return value1 + value2;
     };
     
-    this.restar = function(valor1, valor2) {
-      // Implementación de la calculadora nueva
-      return valor1 - valor2;
+    this.subtract = function(value1, value2) {
+      // Implementation of the new calculator
+      return value1 - value2;
     };
   }
 }
 ```
 
-**2. Creación de un Adaptador:** Creamos una clase CalcAdaptador que actuará como adaptador entre las dos interfaces de calculadora. El adaptador envolverá la nueva interfaz (Calculadora2) y proporcionará métodos para las operaciones requeridas.
+**2. Creating an Adapter:** We create a CalcAdapter class that will act as an adapter between the two calculator interfaces. The adapter wraps the new interface (Calculator2) and provides methods for the required operations.
 
 ```
-class CalcAdaptador {
+class CalcAdapter {
   constructor() {
-    const cal2 = new Calculadora2();
-    this.operaciones = function(valor1, valor2, operacion) {
-      switch(operacion) {
-        case 'sumar':
-          return cal2.sumar(valor1, valor2);
-        case 'restar':
-          return cal2.restar(valor1, valor2);
+    const cal2 = new Calculator2();
+    this.operations = function(value1, value2, operation) {
+      switch(operation) {
+        case 'sum':
+          return cal2.add(value1, value2);
+        case 'subtract':
+          return cal2.subtract(value1, value2);
       }
     };
   }
@@ -64,7 +64,7 @@ const calcAdaptada = new CalcAdaptador();
 console.log(calcAdaptada.operaciones(10, 55, 'restar'));
 ```
 
-**Código final:**
+**Final Code:**
 
 ```
 // Definimos la clase para la Calculadora Antigua
