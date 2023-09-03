@@ -8,19 +8,23 @@ En ingeniería de software, el patrón singleton es un patrón de diseño de sof
 
 **Paso 1: Definición de la clase Singleton:**
 
-```class Singleton {
+``
+`class Singleton {
   constructor() {
     // ...
   }
   // ...
-}```
+}
+```
 
-***Paso 2. Comprobar si ya existe una instancia de la clase***
+**Paso 2. Comprobar si ya existe una instancia de la clase**
 
-```const instancia = this.constructor.instancia;
+```
+const instancia = this.constructor.instancia;
 if (instancia) {
   return instancia;
-}```
+}
+```
 
 En este paso, dentro del constructor de la clase Singleton, verificamos si ya existe una instancia de la clase utilizando this.constructor.instancia. Si existe una instancia, devolvemos esa instancia en lugar de crear una nueva.
 
@@ -41,17 +45,18 @@ Aquí verificamos si s1 y s2 son la misma instancia utilizando (s1 === s2) y mos
 
 **Paso 5. Llamar al método decir():** En este último paso, llamamos al método decir() de la instancia s1, lo que imprimirá "Diciendo..." en la consola.
 
-```s1.decir();```
+```
+s1.decir();
+```
 
-<<<<<<< HEAD
 **Código final:**
 =======
 En este último paso, llamamos al método decir() de la instancia s1, lo que imprimirá "Diciendo..." en la consola.
 
 **Código completo:**
->>>>>>> 1f0e0ae80d63df0cdef87cd602402c07625c985f
 
-```// Definición de la clase Singleton
+```
+// Definición de la clase Singleton
 class Singleton {
   constructor() {
     // Comprobar si ya existe una instancia de la clase
