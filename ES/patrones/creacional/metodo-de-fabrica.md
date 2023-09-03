@@ -1,4 +1,4 @@
-**Factory Method (Método de Fábrica)**
+### Factory Method (Método de Fábrica)
 
 El patrón de diseño Factory Method es una técnica en el diseño de software que se basa en la creación de objetos de un subtipo específico a través de una interfaz común. Este patrón se logra mediante el uso de una clase constructora abstracta que contiene métodos concretos y métodos abstractos. Los métodos concretos se encargan de la creación de objetos, mientras que los métodos abstractos son implementados por subclases concretas. Dependiendo de la subclase utilizada, se obtiene un comportamiento específico.
 
