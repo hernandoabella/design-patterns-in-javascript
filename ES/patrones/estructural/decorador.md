@@ -1,4 +1,4 @@
-**Decorador**
+### Decorador
 
 El patrón decorador permite agregar o anular dinámicamente comportamientos a un objeto individual sin afectar a otros objetos de la misma clase. Es especialmente útil cuando se desea extender las capacidades de un objeto sin crear subclases.
 
