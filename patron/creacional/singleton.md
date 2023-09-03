@@ -86,7 +86,7 @@ let s2 = new Singleton();
 console.log('¿Son lo mismo? ' + (s1 === s2));
 
 // Llamar al método decir de la instancia s1
-s1.decir();`
+s1.decir();
 
 // Salida esperada:
 // ¿Son lo mismo? true
