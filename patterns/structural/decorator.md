@@ -1,8 +1,8 @@
-**Decorador**
+**Decorator**
 
-El patrón decorador permite agregar o anular dinámicamente comportamientos a un objeto individual sin afectar a otros objetos de la misma clase. Es especialmente útil cuando se desea extender las capacidades de un objeto sin crear subclases.
+The decorator pattern allows dynamically adding or overriding behaviors to an individual object without affecting other objects of the same class. It is especially useful when you want to extend the capabilities of an object without creating subclasses.
 
-**Ejemplo:**
+**Example:**
 
 **1. Definición de Clases:** En este ejemplo, creamos las clases Forma como base y Circulo como una forma concreta que queremos decorar. También creamos una clase llamada FormaColoreada que actuará como un decorador para agregar colores a las formas.
 

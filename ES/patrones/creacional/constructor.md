@@ -112,7 +112,7 @@ console.log(persona.toString());
 
 Este ejemplo demuestra cómo el patrón constructor permite construir objetos complejos de manera organizada y clara, separando la construcción de los detalles específicos de la clase.
 
-**Código completo:**
+**Código final:**
 
 ```
 // Definición de la clase Persona que almacenará información personal y laboral

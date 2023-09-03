@@ -10,6 +10,7 @@ Usaremos el ejemplo de un automóvil.
 
 **Paso 1: Definición de la clase Carro (Prototipo)**
 
+
 ```class Carro {
   constructor(nombre, modelo) {
     this.nombre = nombre;
@@ -17,9 +18,11 @@ Usaremos el ejemplo de un automóvil.
   }
 
   // ... (Métodos de la clase)
-}```
+}
+```
 
 **Paso 2: Método para ajustar el nombre del carro**
+
 
 ```  
 // Método para ajustar el nombre del carro
@@ -31,6 +34,7 @@ Usaremos el ejemplo de un automóvil.
 
 **Paso 3: Método para clonar el carro (crear una copia)**
 
+
 ```  
 // Método para clonar el carro (crear una copia)
   clonar() {
@@ -41,6 +45,8 @@ Usaremos el ejemplo de un automóvil.
 
 **Paso 4: Uso del patrón Prototipo**
 
+
+```
 // Uso del patrón Prototipo
 const carroOriginal = new Carro('Audi', 'A3');
 
@@ -57,6 +63,8 @@ carroClonado.ajustarNombre('BMW');
 console.log('Carro Original:', carroOriginal.nombre, carroOriginal.modelo);
 console.log('Carro Clonado:', carroClonado.nombre, carroClonado.modelo);
 ```
+
+Este código muestra cómo usar el patrón Prototipo para crear una copia de un objeto existente (carroOriginal) y ajustar sus atributos (nombre) sin afectar al objeto original. Al final, se verifica que los dos carros sean diferentes y que el clon haya funcionado correctamente.
 
 **Código final:**
 
