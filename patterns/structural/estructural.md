@@ -1,49 +1,49 @@
-# Patrones de Diseño Estructurales
+# Structural Design Patterns
 
-Los patrones de diseño estructurales se centran en la composición de clases y objetos para formar estructuras más complejas. Utilizan la herencia y la composición de interfaces para crear relaciones entre entidades de manera eficiente y flexible.
+Structural design patterns focus on the composition of classes and objects to form more complex structures. They use inheritance and interface composition to create efficient and flexible relationships between entities.
 
-A continuación, se presentan los patrones de diseño estructurales más comunes en JavaScript:
+Below are the most common structural design patterns in JavaScript:
 
-## 1. Adaptador
+## 1. Adapter
 
-El patrón **Adaptador** permite que interfaces incompatibles trabajen juntas. Convierte la interfaz de una clase en otra que el cliente espera. Es útil cuando necesitas que objetos con interfaces diferentes colaboren.
+The **Adapter** pattern allows incompatible interfaces to work together. It converts the interface of one class into another that the client expects. It's useful when you need objects with different interfaces to collaborate.
 
-- [Más sobre el Adaptador](/patron/estructural/adaptador.md)
+- [Learn more about the Adapter](/patterns/structural/adapter.md)
 
-## 2. Puente
+## 2. Bridge
 
-El patrón **Puente** separa una abstracción de su implementación, lo que permite que ambas evolucionen independientemente. Es útil cuando deseas evitar una unión permanente entre una abstracción y su implementación.
+The **Bridge** pattern separates an abstraction from its implementation, allowing them to evolve independently. It's useful when you want to avoid a permanent bond between an abstraction and its implementation.
 
-- [Más sobre el Puente](/patron/estructural/puente.md)
+- [Learn more about the Bridge](/patterns/structural/bridge.md)
 
-## 3. Compuesto
+## 3. Composite
 
-El patrón **Compuesto** compone objetos en estructuras de árbol para representar jerarquías de parte-todo. Permite tratar objetos individuales y composiciones de objetos de manera uniforme.
+The **Composite** pattern composes objects into tree structures to represent part-whole hierarchies. It allows treating individual objects and object compositions uniformly.
 
-- [Más sobre el Compuesto](/patron/estructural/compuesto.md)
+- [Learn more about the Composite](/patterns/structural/composite.md)
 
-## 4. Decorador
+## 4. Decorator
 
-El patrón **Decorador** agrega funcionalidad a objetos existentes dinámicamente sin modificar su estructura. Es útil cuando deseas extender la funcionalidad de un objeto de manera flexible.
+The **Decorator** pattern dynamically adds functionality to existing objects without modifying their structure. It's useful when you want to extend an object's functionality flexibly.
 
-- [Más sobre el Decorador](/patron/estructural/decorador.md)
+- [Learn more about the Decorator](/patterns/structural/decorator.md)
 
-## 5. Fachada
+## 5. Facade
 
-El patrón **Fachada** proporciona una interfaz simplificada para un conjunto de interfaces en un subsistema. Facilita el uso de sistemas complejos al proporcionar una interfaz más fácil de usar.
+The **Facade** pattern provides a simplified interface for a set of interfaces in a subsystem. It makes using complex systems easier by providing a more user-friendly interface.
 
-- [Más sobre la Fachada](/patron/estructural/facade.md)
+- [Learn more about the Facade](/patterns/structural/facade.md)
 
-## 6. Peso Mosca
+## 6. Flyweight
 
-El patrón **Peso Mosca** minimiza el uso de la memoria o el almacenamiento en disco al compartir lo más posible con objetos similares. Es útil cuando necesitas gestionar un gran número de objetos con uso eficiente de recursos.
+The **Flyweight** pattern minimizes memory or disk storage usage by sharing as much as possible with similar objects. It's useful when you need to manage a large number of objects with efficient resource usage.
 
-- [Más sobre el Peso Mosca](/patron/estructural/peso-mosca.md)
+- [Learn more about the Flyweight](/patterns/structural/flyweight.md)
 
 ## 7. Proxy
 
-El patrón **Proxy** proporciona un sustituto o representante de otro objeto para controlar el acceso a él. Puede utilizarse para agregar funcionalidad adicional, como el control de acceso o la carga perezosa.
+The **Proxy** pattern provides a substitute or placeholder for another object to control access to it. It can be used to add additional functionality like access control or lazy loading.
 
-- [Más sobre el Proxy](/patron/estructural/proxy.md)
+- [Learn more about the Proxy](/patterns/structural/proxy.md)
 
-Cada uno de estos patrones de diseño estructurales ofrece soluciones eficientes y flexibles para crear relaciones entre clases y objetos en proyectos de JavaScript. Al comprender estos patrones, podrás diseñar sistemas más modularizados y fáciles de mantener.
+Each of these structural design patterns offers efficient and flexible solutions for creating relationships between classes and objects in JavaScript projects. By understanding these patterns, you can design more modular and maintainable systems.
