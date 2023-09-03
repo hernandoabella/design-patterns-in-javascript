@@ -1,37 +1,37 @@
-# Patrones de Diseño Creacionales
+# Creational Design Patterns
 
-Los patrones de diseño creacionales se centran en cómo se crean los objetos, proporcionando soluciones para instanciar objetos de manera adecuada a la situación. Abordan problemas de diseño y complejidad que pueden surgir al crear objetos en la forma más básica. Estos patrones resuelven estos problemas al controlar la creación de objetos de alguna manera.
+Creational design patterns focus on how objects are created, providing solutions for instantiating objects appropriately for the situation. They address design and complexity problems that can arise when creating objects in the most basic form. These patterns solve these problems by controlling the object creation in some way.
 
-A continuación, se presentan los patrones de diseño creacionales más comunes en JavaScript:
+Below are the most common creational design patterns in JavaScript:
 
-## 1. Método de Fábrica
+## 1. Factory Method
 
-El **Método de Fábrica** proporciona una interfaz para crear objetos, permitiendo que las subclases alteren el tipo de objetos que se crearán. Es útil cuando se necesita una lógica de creación flexible y adaptable.
+The **Factory Method** provides an interface for creating objects, allowing subclasses to alter the type of objects that will be created. It's useful when flexible and adaptable creation logic is needed.
 
-- [Más sobre el Método de Fábrica](/ES/patrones/creacional/metodo-de-fabrica.md)
+- [Learn more about the Factory Method](/patterns/creational/factory-method.md)
 
-## 2. Fábrica Abstracta
+## 2. Abstract Factory
 
-El patrón **Fábrica Abstracta** proporciona una interfaz para crear familias de objetos relacionados o dependientes sin especificar sus clases concretas. Esto promueve la creación de objetos coherentes y compatibles.
+The **Abstract Factory** pattern provides an interface for creating families of related or dependent objects without specifying their concrete classes. This promotes the creation of consistent and compatible objects.
 
-- [Más sobre la Fábrica Abstracta](/ES/patrones/creacional/fabrica-abstracta.md)
+- [Learn more about the Abstract Factory](/patterns/creational/abstract-factory.md)
 
-## 3. Constructor
+## 3. Builder
 
-El patrón **Constructor** se utiliza para construir un objeto paso a paso. Permite la creación de objetos complejos al especificar su tipo y contenido de manera incremental.
+The **Builder** pattern is used to construct an object step by step. It allows the creation of complex objects by specifying their type and content incrementally.
 
-- [Más sobre el Constructor](/ES/patrones/creacional/constructor.md)
+- [Learn more about the Builder](/patterns/creational/builder.md)
 
-## 4. Prototipo
+## 4. Prototype
 
-El **Prototipo** se centra en la creación de nuevos objetos copiando un objeto existente, llamado prototipo. Es útil cuando la creación de un objeto es más eficiente mediante la duplicación de un objeto existente en lugar de construirlo desde cero.
+The **Prototype** focuses on creating new objects by copying an existing object, called a prototype. It's useful when creating an object is more efficient by duplicating an existing object rather than building it from scratch.
 
-- [Más sobre el Prototipo](/ES/patrones/creacional/prototipo.md)
+- [Learn more about the Prototype](/patterns/creational/prototype.md)
 
 ## 5. Singleton
 
-El patrón **Singleton** garantiza que una clase tenga una única instancia y proporciona un punto de acceso global a esa instancia. Se utiliza cuando una sola instancia de una clase debe coordinar acciones en todo el sistema.
+The **Singleton** pattern ensures that a class has a single instance and provides a global point of access to that instance. It is used when a single instance of a class needs to coordinate actions throughout the system.
 
-- [Más sobre el Singleton](/ES/patrones/creacional/singleton.md)
+- [Learn more about the Singleton](/patterns/creational/singleton.md)
 
-Estos patrones creacionales son herramientas valiosas para abordar problemas de creación de objetos de manera eficiente y estructurada en proyectos de JavaScript. Cada uno tiene su propósito y aplicación específicos, lo que los convierte en recursos esenciales en el diseño de software.
+These creational patterns are valuable tools for addressing object creation problems efficiently and structuredly in JavaScript projects. Each one has its specific purpose and application, making them essential resources in software design.
