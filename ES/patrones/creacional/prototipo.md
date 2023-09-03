@@ -1,4 +1,4 @@
-### Prototipo
+**Prototipo**
 
 Crea nuevos objetos a partir de los objetos existentes.
 
