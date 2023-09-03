@@ -1,4 +1,4 @@
-**Composite (Compuesto)**
+### Composite (Compuesto)
 
 El patrón Composite se utiliza para componer objetos en estructuras de árbol para representar jerarquías de objetos. Esto permite que los objetos individuales y las composiciones de objetos sean tratados de la misma manera, lo que facilita su manipulación.
 
