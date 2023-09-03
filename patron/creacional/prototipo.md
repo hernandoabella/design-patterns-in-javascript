@@ -54,7 +54,7 @@ console.log('Carro Clonado:', carroClonado.nombre, carroClonado.modelo);
 
 **Código final:**
 
-````// Definición de la clase Carro (Prototipo)
+```// Definición de la clase Carro (Prototipo)
 class Carro {
   constructor(nombre, modelo) {
     this.nombre = nombre;
