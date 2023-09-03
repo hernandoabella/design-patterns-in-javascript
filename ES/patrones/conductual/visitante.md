@@ -8,9 +8,12 @@ El patrón de diseño del visitante es una forma de separar un algoritmo de una 
 
 Tomaremos un ejemplo de la clase ExpresionNumerica en el que nos da el resultado de la expresión dada.
 
-```
+
+
 **1.Clase ExpresionNumerica:** Esta clase representa una expresión numérica simple con un valor.
 
+
+```
 class ExpresionNumerica {
   constructor(valor) {
     this.valor = valor;
