@@ -6,69 +6,157 @@ El patrón mediador define un objeto que encapsula cómo interactúa un conjunto
 
 Usaremos un ejemplo de una persona que usa una sala de chat. Aquí, una sala de chat actúa como mediador entre dos personas que se comunican entre sí.
 
+**Ejemplo:**
+
+**Paso 1:** Definición de la clase Persona, que representa a las personas en la sala de chat:
+
 ```
 class Persona {
-  constructor(nombre) {
-    this.nombre = nombre;
-    this.registroChat = [];
+  constructor(nombre, salaChat) {
+    this.nombre = nombre;         // Nombre de la persona
+    this.salaChat = salaChat;     // Sala de chat a la que pertenece
   }
-  
-  recibir(enviador, mensaje) {
-    let s = `${enviador}: ${mensaje}`;
-    console.log(`La sesión de chat de [${this.nombre}] ${s}`);
-    this.registroChat.push(s);
-  }
-  
+
+  // Método para enviar un mensaje en la sala de chat
   decir(mensaje) {
-    this.room.broadcast(this.nombre, mensaje);
+    this.salaChat.enviarMensaje(this, mensaje);
   }
-  
-  pm(quien, mensaje) {
-    this.room.mensaje(this.nombre, quien, mensaje);
+
+  // Método para recibir un mensaje
+  recibir(mensaje) {
+    console.log(`${this.nombre} recibe: ${mensaje}`);
   }
 }
+
 ```
 
-Crear sala de chat,
+**Paso 2:** Definición de la clase SalaChat, que actúa como mediador:
 
 ```
 class SalaChat {
   constructor() {
-    this.gente = [];
+    this.personas = [];  // Almacena las personas en la sala de chat
   }
-  
-  transmision(origen, mensaje) {
-    for(let p of this.gente)
-      if(p.nombre !== origen) p.recibir(origen, mensaje);
+
+  // Método para agregar una persona a la sala de chat
+  unirPersona(persona) {
+    this.personas.push(persona);  // Agrega la persona a la lista
+    persona.salaChat = this;      // Establece la sala de chat de la persona como esta sala
   }
-  
-  unir(p) {
-    let unirMensaje = `${p.nombre} se unió al chat`;
-    this.transmision("room", unirMensaje) {
-    p.room == this;
-    this.gente.push(p);
+
+  // Método para enviar un mensaje a todas las personas en la sala
+  enviarMensaje(emisor, mensaje) {
+    for (const persona of this.personas) {
+      if (persona !== emisor) {
+        persona.recibir(`${emisor.nombre}: ${mensaje}`);
+      }
     }
   }
-  
-  message(origen, destinacion, mensaje) {
-    for(let p of this.gente)
-      if(p.nombre === destino) p.recibir(origen, mensaje);
+}
+
+```
+
+**Paso 3:** Creación de una sala de chat (SalaChat):
+
+```
+const sala = new SalaChat();
+
+```
+
+**Paso 4:** Creación de personas y unión a la sala de chat:
+
+```
+const john = new Persona("John", sala);
+const tony = new Persona("Tony", sala);
+
+sala.unirPersona(john);
+sala.unirPersona(tony);
+
+```
+
+**Paso 5:** John envía un mensaje en la sala de chat:
+
+```
+john.decir("¡Hola a todos!");
+```
+
+**Paso 6:** Creación de una nueva persona y unión a la sala de chat:
+
+```
+const doe = new Persona("Doe", sala);
+sala.unirPersona(doe);
+
+```
+
+**Paso 7:** Doe envía un mensaje en la sala de chat:
+
+```
+doe.decir("¡Hola a todos!");
+```
+
+Cada vez que alguien envía un mensaje, la sala de chat se encarga de distribuir ese mensaje a todas las demás personas en la sala.
+
+**Código final:**
+
+```
+// Definición de la clase Persona, que representa a las personas en la sala de chat
+class Persona {
+  constructor(nombre, salaChat) {
+    this.nombre = nombre;         // Nombre de la persona
+    this.salaChat = salaChat;     // Sala de chat a la que pertenece
+  }
+
+  // Método para enviar un mensaje en la sala de chat
+  decir(mensaje) {
+    this.salaChat.enviarMensaje(this, mensaje);
+  }
+
+  // Método para recibir un mensaje
+  recibir(mensaje) {
+    console.log(`${this.nombre} recibe: ${mensaje}`);
   }
 }
-```
 
-Así es como usamos esto,
+// Definición de la clase SalaChat, que actúa como mediador
+class SalaChat {
+  constructor() {
+    this.personas = [];  // Almacena las personas en la sala de chat
+  }
 
-```
-let sala = new SalaChat();
-let John = new Persona("John");
-let Tony = new Persona("Tony");
+  // Método para agregar una persona a la sala de chat
+  unirPersona(persona) {
+    this.personas.push(persona);  // Agrega la persona a la lista
+    persona.salaChat = this;      // Establece la sala de chat de la persona como esta sala
+  }
 
-sala.unir(John);
-sala.unir(Tony);
-John.decir("¡Hola!");
+  // Método para enviar un mensaje a todas las personas en la sala
+  enviarMensaje(emisor, mensaje) {
+    for (const persona of this.personas) {
+      if (persona !== emisor) {
+        persona.recibir(`${emisor.nombre}: ${mensaje}`);
+      }
+    }
+  }
+}
 
-let doe = new Persona("Doe");
-sala.unir(doe);
+// Creación de una sala de chat
+const sala = new SalaChat();
+
+// Creación de personas y unión a la sala de chat
+const john = new Persona("John", sala);
+const tony = new Persona("Tony", sala);
+
+sala.unirPersona(john);
+sala.unirPersona(tony);
+
+// John envía un mensaje en la sala de chat
+john.decir("¡Hola a todos!");
+
+// Creación de una nueva persona y unión a la sala de chat
+const doe = new Persona("Doe", sala);
+sala.unirPersona(doe);
+
+// Doe envía un mensaje en la sala de chat
 doe.decir("¡Hola a todos!");
+
 ```
