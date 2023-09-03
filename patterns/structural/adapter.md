@@ -2,7 +2,7 @@
 
 The adapter pattern enables classes with incompatible interfaces to collaborate by adapting their own interface to fit around the existing class. This is particularly useful when we need objects with different interfaces to work together without altering their source code.
 
-**Example::** 
+**Example:** 
 
 **1. Definition of Incompatible Interfaces:** In this example, we have two calculator interfaces: Calculator1 (old) and Calculator2 (new).
 
