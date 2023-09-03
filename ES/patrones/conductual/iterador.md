@@ -21,7 +21,6 @@ class Cosa {
 
 **Paso 2:** Implementar el método [Symbol.iterator]() para recorrer las propiedades 'a' y 'b' de la clase 'Cosa'.
 
-
 ```
 class Cosa {
   // ...
@@ -94,10 +93,12 @@ for (let v in valores) {
 ```
 
 **Paso 7:** Crear una instancia de la clase 'Cosa' llamada 'cosa'.
+
 ```
 let cosa = new Cosa();
 
 ```
+
 **Paso 8:** Utilizar un bucle 'for...of' para recorrer las propiedades de 'cosa'.
 
 ```
@@ -117,8 +118,6 @@ for (let elemento of cosa.haciaAtras) {
 }
 
 ```
-
-
 
 **Código final:**
 
@@ -186,4 +185,16 @@ for (let elemento of cosa.haciaAtras) {
   console.log(`${elemento}`);
 }
 
+// Salida esperada:
+// Elemento en la posición 0 es 100
+// Elemento en la posición 1 es 200
+// El valor es 0
+// El valor es 1
+// El valor es 2
+// Recorriendo 'a' y 'b':
+// 11
+// 22
+// Recorriendo en orden inverso:
+// 22
+// 11
 ```
