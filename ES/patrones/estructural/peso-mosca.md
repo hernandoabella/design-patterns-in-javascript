@@ -1,4 +1,4 @@
-**Peso Mosca (Flyweight)**
+### Peso Mosca (Flyweight)
 
 El patrón Peso Mosca es utilizado para minimizar el uso de memoria al crear objetos similares compartiendo la mayor cantidad de datos posible entre ellos. Esto significa que, en lugar de crear múltiples instancias de objetos con datos idénticos, se utiliza una instancia compartida para representar esos datos en común. Esto reduce significativamente la cantidad de memoria utilizada, especialmente cuando se trabaja con grandes cantidades de objetos similares.
 
