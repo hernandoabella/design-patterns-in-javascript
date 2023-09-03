@@ -30,9 +30,10 @@ En este paso, dentro del constructor de la clase Singleton, verificamos si ya ex
 
 **Paso 3: Crear instancias de la clase Singleton:**
 
-``
+```
 let s1 = new Singleton();
-let s2 = new Singleton();```
+let s2 = new Singleton();
+```
 
 En este paso, creamos dos instancias, s1 y s2, de la clase Singleton.
 
