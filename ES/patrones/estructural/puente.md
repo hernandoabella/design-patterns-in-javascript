@@ -1,6 +1,4 @@
-
-
-**Bridge (Puente)**
+### Bridge (Puente)
 
 El patrón de diseño Bridge se utiliza para separar la abstracción de la implementación, permitiendo que ambas puedan cambiar de forma independiente. En otras palabras, el patrón Bridge se utiliza cuando se desea evitar una conexión rígida entre una clase abstracta y sus clases concretas, permitiendo que ambas evolucionen de manera independiente sin afectar a la otra.
 
@@ -27,9 +25,9 @@ class RenderizadorRaster {
 **Paso 2. Definición de la Clase Abstracta Forma:** En este paso, creamos la clase abstracta Forma que actuará como nuestra abstracción. Esta clase tiene un atributo renderizador que es una referencia al renderizador que utilizaremos para dibujar la forma.
 
 class Forma {
-  constructor(renderizador) {
-    this.renderizador = renderizador;
-  }
+constructor(renderizador) {
+this.renderizador = renderizador;
+}
 }
 
 **Paso 3. Definición de la Clase Circulo:** En este paso, creamos la clase Circulo que hereda de Forma. La clase Circulo tiene un atributo radio que representa el radio del círculo.
