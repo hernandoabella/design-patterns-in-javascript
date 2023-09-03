@@ -9,20 +9,20 @@ El patrón de diseño del visitante es una forma de separar un algoritmo de una 
 Tomaremos un ejemplo de la clase ExpresionNumerica en el que nos da el resultado de la expresión dada.
 
 ```
-1.Clase ExpresionNumerica: Esta clase representa una expresión numérica simple con un valor.
+**1.Clase ExpresionNumerica:** Esta clase representa una expresión numérica simple con un valor.
 
 class ExpresionNumerica {
   constructor(valor) {
     this.valor = valor;
   }
-  
+
   imprimir(buffer) {
     buffer.push(this.valor.toString());
   }
 }
 ```
 
-2.Clase ExpresionSuma: Esta clase representa una expresión de suma que toma dos expresiones numéricas (izquierda y derecha) y las suma.
+**2.Clase ExpresionSuma:** Esta clase representa una expresión de suma que toma dos expresiones numéricas (izquierda y derecha) y las suma.
 
 ```
 class ExpresionSuma {
@@ -30,7 +30,7 @@ class ExpresionSuma {
     this.izquierda = izquierda;
     this.derecha = derecha;
   }
-  
+
   imprimir(buffer) {
     buffer.push('(');
     this.izquierda.imprimir(buffer);
@@ -41,8 +41,7 @@ class ExpresionSuma {
 }
 ```
 
-3.Uso del Patrón del Visitante: Luego, creas una expresión compuesta que representa "5 + (1 + 9)" utilizando instancias de las clases ExpresionNumerica y ExpresionSuma.
-
+**3.Uso del Patrón del Visitante:** Luego, creas una expresión compuesta que representa "5 + (1 + 9)" utilizando instancias de las clases ExpresionNumerica y ExpresionSuma.
 
 ```
 let e = new ExpresionSuma(
@@ -64,7 +63,6 @@ console.log(buffer.join('')); // Salida: (5+(1+9))
 
 Este ejemplo ilustra cómo el patrón de diseño del visitante permite agregar la operación de impresión a objetos complejos sin tener que modificar su estructura interna. Esto hace que el código sea más flexible y extensible para futuras operaciones sin afectar las clases existentes.
 
-
 **Código final:**
 
 ```
@@ -72,7 +70,7 @@ class ExpresionNumerica {
   constructor(valor) {
     this.valor = valor;
   }
-  
+
   imprimir(buffer) {
     buffer.push(this.valor.toString());
   }
@@ -83,7 +81,7 @@ class ExpresionSuma {
     this.izquierda = izquierda;
     this.derecha = derecha;
   }
-  
+
   imprimir(buffer) {
     buffer.push('(');
     this.izquierda.imprimir(buffer);
