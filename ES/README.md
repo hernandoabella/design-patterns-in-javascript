@@ -12,15 +12,15 @@ Existen tres categorías principales de patrones de diseño, cada una enfocada e
 
 - **Patrones Creacionales:** Estos patrones se centran en cómo se crean las instancias de clases y objetos. Ofrecen soluciones flexibles para la creación de objetos en diversas situaciones.
 
-  - [Patrones Creacionales](/patron/creacional/creacional.md)
+  - [Patrones Creacionales](/ES/patrones/creacional/creacional.md)
 
 - **Patrones Estructurales:** Los patrones estructurales tratan la composición de clases y objetos para formar estructuras más grandes. Facilitan la creación de relaciones eficientes y flexibles entre las partes del sistema.
 
-  - [Patrones Estructurales](/patron/estructural/estructural.md)
+  - [Patrones Estructurales](/ES/patrones/estructural/estructural.md)
 
 - **Patrones Conductuales:** Estos patrones se centran en la interacción entre objetos y cómo se comunican entre sí. Ayudan a definir flujos de trabajo y comportamientos colaborativos.
 
-  - [Patrones Conductuales](/patron/conductual/conductual.md)
+  - [Patrones Conductuales](/ES/patrones/conductual/conductual.md)
 
 Al comprender estos tipos de patrones de diseño, podrás abordar problemas específicos de manera más efectiva y aplicar soluciones probadas en diversas áreas del desarrollo de software.
 
