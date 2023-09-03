@@ -37,7 +37,7 @@ let s2 = new Singleton();
 
 En este paso, creamos dos instancias, s1 y s2, de la clase Singleton.
 
-***Paso 4. Verificar si s1 y s2 son la misma instancia***
+**Paso 4. Verificar si s1 y s2 son la misma instancia**
 
 ```
 console.log('¿Son lo mismo? ' + (s1 === s2));
