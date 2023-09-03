@@ -35,6 +35,7 @@ Usaremos el ejemplo de un automóvil.
     // Crear una nueva instancia de Carro con los mismos atributos
     return new Carro(this.nombre, this.modelo);
   }
+```  
 
 **Paso 4: Uso del patrón Prototipo**
 
