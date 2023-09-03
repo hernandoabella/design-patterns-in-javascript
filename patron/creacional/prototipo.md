@@ -44,18 +44,22 @@ const carroOriginal = new Carro('Audi', 'A3');
 
 // Clonar el carro original para crear una nueva instancia
 const carroClonado = carroOriginal.clonar();
-carroClonado.ajustarNombre('BMW');```
+carroClonado.ajustarNombre('BMW');
+```
 
 
 **Paso 5: Verificar que los carros son diferentes**
 
-```// Verificar que los carros son diferentes
+```
+// Verificar que los carros son diferentes
 console.log('Carro Original:', carroOriginal.nombre, carroOriginal.modelo);
-console.log('Carro Clonado:', carroClonado.nombre, carroClonado.modelo);```
+console.log('Carro Clonado:', carroClonado.nombre, carroClonado.modelo);
+```
 
 **Código final:**
 
-```// Definición de la clase Carro (Prototipo)
+```
+// Definición de la clase Carro (Prototipo)
 class Carro {
   constructor(nombre, modelo) {
     this.nombre = nombre;
