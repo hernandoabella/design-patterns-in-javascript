@@ -4,7 +4,7 @@ Memento restaura un objeto a su estado anterior.
 
 El patrón memento es un patrón de diseño de software que brinda la capacidad de restaurar un objeto a su estado anterior. El patrón memento se implementa con tres objetos: el originador, un cuidador y un recuerdo.
 
-### Ejemplo:
+**Ejemplo:**
 
 Estaremos tomando un ejemplo de una cuenta bancaria en la que almacenamos nuestro estado anterior y tendrá la funcionalidad de deshacer.
 
