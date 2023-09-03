@@ -21,7 +21,8 @@ Usaremos el ejemplo de un automóvil.
 
 **Paso 2: Método para ajustar el nombre del carro**
 
-```  // Método para ajustar el nombre del carro
+```  
+// Método para ajustar el nombre del carro
   ajustarNombre(nombre) {
     this.nombre = nombre;
     console.log(`Nombre del carro ajustado a: ${this.nombre}`);
@@ -30,7 +31,8 @@ Usaremos el ejemplo de un automóvil.
 
 **Paso 3: Método para clonar el carro (crear una copia)**
 
-```  // Método para clonar el carro (crear una copia)
+```  
+// Método para clonar el carro (crear una copia)
   clonar() {
     // Crear una nueva instancia de Carro con los mismos atributos
     return new Carro(this.nombre, this.modelo);
