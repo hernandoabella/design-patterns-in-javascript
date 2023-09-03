@@ -1,4 +1,4 @@
-**Prototipo**
+### Prototipo
 
 Crea nuevos objetos a partir de los objetos existentes.
 
@@ -57,6 +57,7 @@ carroClonado.ajustarNombre('BMW');
 
 
 **Paso 5: Verificar que los carros son diferentes**
+
 
 ```
 // Verificar que los carros son diferentes
