@@ -1,4 +1,4 @@
-**Composite**
+### Composite
 
 The Composite pattern is used to compose objects into tree structures to represent object hierarchies. This allows individual objects and compositions of objects to be treated in the same way, simplifying their manipulation.
 
@@ -12,7 +12,7 @@ class Employee {
     this.name = name;
     this.role = role;
   }
-  
+
   print() {
     console.log("Name: " + this.name + ", Role: " + this.role);
   }
@@ -23,7 +23,7 @@ class EmployeeGroup {
     this.name = name;
     this.composite = composite;
   }
-  
+
   print() {
     console.log("Group: " + this.name);
     this.composite.forEach(emp => {
@@ -59,7 +59,7 @@ class Employee {
     this.name = name;
     this.role = role;
   }
-  
+
   print() {
     console.log(`Name: ${this.name}, Role: ${this.role}`);
   }
@@ -70,7 +70,7 @@ class EmployeeGroup {
     this.name = name;
     this.composite = composite;
   }
-  
+
   print() {
     console.log(`Group: ${this.name}`);
     this.composite.forEach(emp => {

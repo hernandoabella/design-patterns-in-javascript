@@ -1,4 +1,4 @@
-**Decorator**
+### Decorator
 
 The decorator pattern allows dynamically adding or overriding behaviors to an individual object without affecting other objects of the same class. It is especially useful when you want to extend the capabilities of an object without creating subclasses.
 
@@ -18,11 +18,11 @@ class Circulo extends Forma {
     super();
     this.radio = radio;
   }
-  
+
   cambiarTamano(factor) {
     this.radio *= factor;
   }
-  
+
   toString() {
     return `Un círculo de radio ${this.radio}`;
   }
@@ -34,7 +34,7 @@ class FormaColoreada extends Forma {
     this.forma = forma;
     this.color = color;
   }
-  
+
   toString() {
     return `${this.forma.toString()}, coloreado de ${this.color}`;
   }
@@ -67,11 +67,11 @@ class Circulo extends Forma {
     super();
     this.radio = radio;
   }
-  
+
   cambiarTamano(factor) {
     this.radio *= factor;
   }
-  
+
   toString() {
     return `Un círculo de radio ${this.radio}`;
   }
@@ -84,7 +84,7 @@ class FormaColoreada extends Forma {
     this.forma = forma;
     this.color = color;
   }
-  
+
   toString() {
     return `${this.forma.toString()}, coloreado de ${this.color}`;
   }

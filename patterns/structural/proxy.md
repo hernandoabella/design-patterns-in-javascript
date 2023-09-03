@@ -1,4 +1,4 @@
-**Proxy (Proxy)**
+### Proxy (Proxy)
 
 El patrón Proxy permite que una clase represente la funcionalidad de otra clase, actuando como un intermediario o "proxy" entre el cliente y el objeto real. Esto puede ser útil para controlar el acceso al objeto real, realizar operaciones adicionales antes o después de acceder al objeto real o incluso reemplazar el objeto real por completo.
 
@@ -11,11 +11,11 @@ class Porcentaje {
   constructor(porcentaje) {
     this.porcentaje = porcentaje;
   }
-  
+
   toString() {
     return `${this.porcentaje}%`;
   }
-  
+
   valueOf() {
     return this.porcentaje / 100;
   }
