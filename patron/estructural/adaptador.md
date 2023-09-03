@@ -1,4 +1,4 @@
-### Adaptador
+### Adaptador 🔌
 
 El patrón adaptador permite que las clases con interfaces incompatibles trabajen juntas ajustando su propia interfaz alrededor de la clase existente. Esto es especialmente útil cuando necesitamos que objetos con interfaces diferentes colaboren sin modificar su código fuente.
 
