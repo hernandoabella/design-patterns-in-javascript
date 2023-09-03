@@ -1,4 +1,4 @@
-**Singleton:**
+### Singleton:
 
 Asegura que solo haya un objeto creado para una clase en particular.
 
