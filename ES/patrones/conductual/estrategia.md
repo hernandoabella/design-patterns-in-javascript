@@ -4,7 +4,7 @@ Permite seleccionar uno de los algoritmos en determinadas situaciones.
 
 El patrón de estrategia es un patrón de diseño de software de comportamiento que permite seleccionar un algoritmo en tiempo de ejecución. En lugar de implementar un solo algoritmo directamente, el código recibe instrucciones en tiempo de ejecución sobre cuál usar en una familia de algoritmos.
 
-### Ejemplo:
+**Ejemplo:**
 
 Tomaremos un ejemplo en el que tenemos un procesador de texto que mostrará datos en función de la estrategia (HTML o Markdown).
 
