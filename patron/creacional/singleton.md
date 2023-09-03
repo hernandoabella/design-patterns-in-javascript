@@ -2,7 +2,7 @@
 
 Asegura que solo haya un objeto creado para una clase en particular.
 
-En ing  eniería de software, el patrón singleton es un patrón de diseño de software que restringe la creación de instancias de una clase a una instancia "única". Esto es útil cuando se necesita exactamente un objeto para coordinar acciones en todo el sistema.
+En ingeniería de software, el patrón singleton es un patrón de diseño de software que restringe la creación de instancias de una clase a una instancia "única". Esto es útil cuando se necesita exactamente un objeto para coordinar acciones en todo el sistema.
 
 **Ejemplo:**
 
@@ -43,7 +43,7 @@ Aquí verificamos si s1 y s2 son la misma instancia utilizando (s1 === s2) y mos
 
 ```s1.decir();```
 
-**Código completo:**
+**Código final:**
 
 ```// Definición de la clase Singleton
 class Singleton {
