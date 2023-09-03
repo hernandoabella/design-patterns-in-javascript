@@ -43,6 +43,7 @@ class Carro {
 
 **Paso 4: Uso del patrón Prototipo**
 
+```
 // Uso del patrón Prototipo
 const carroOriginal = new Carro('Audi', 'A3');
 
