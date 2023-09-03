@@ -4,7 +4,7 @@ Iterator accede a los elementos de un objeto sin exponer su representación suby
 
 En la programación orientada a objetos, el patrón de iterador es un patrón de diseño en el que se utiliza un iterador para atravesar un contenedor y acceder a los elementos del contenedor.
 
-### Ejemplo:
+**Ejemplo:**
 
 Tomaremos el ejemplo de un arreglo en el que imprimimos los valores de un arreglo y luego, mediante el uso de un iterador, imprimimos sus valores hacia atrás.
 
