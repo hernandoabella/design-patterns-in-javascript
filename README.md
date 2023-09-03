@@ -1,27 +1,27 @@
-![header](/images/header-image.png)
+![header](/header-image.png)
 
-## ¿Qué son los Patrones de Diseño?
+## What Are Design Patterns?
 
-Los patrones de diseño son soluciones probadas y sólidas para abordar problemas comunes en el diseño de software y en otros contextos relacionados con la interacción y las interfaces. Estas técnicas proporcionan enfoques estructurados y efectivos para resolver desafíos recurrentes, lo que impulsa la eficiencia, la reusabilidad y la claridad en el desarrollo de software.
+Design patterns are proven and robust solutions for addressing common problems in software design and other contexts related to interaction and interfaces. These techniques provide structured and effective approaches to solving recurring challenges, promoting efficiency, reusability, and clarity in software development.
 
-Un patrón de diseño se considera una solución consolidada y madura para un problema de diseño específico. Para obtener el reconocimiento de ser un patrón, debe cumplir con ciertas características clave. En primer lugar, debe haber demostrado su eficacia al resolver problemas similares en situaciones anteriores. Además, un patrón debe ser altamente reutilizable, lo que significa que es aplicable a una variedad de contextos y desafíos de diseño.
+A design pattern is considered a mature and consolidated solution for a specific design problem. To earn the recognition of being a pattern, it must exhibit certain key characteristics. Firstly, it must have demonstrated its effectiveness in solving similar problems in previous situations. Additionally, a pattern should be highly reusable, meaning it is applicable in various contexts and design challenges.
 
-## Tipos de Patrones de Diseño
+## Types of Design Patterns
 
-Existen tres categorías principales de patrones de diseño, cada una enfocada en una dimensión particular del diseño de software:
+There are three main categories of design patterns, each focusing on a particular dimension of software design:
 
-- **Patrones Creacionales:** Estos patrones se centran en cómo se crean las instancias de clases y objetos. Ofrecen soluciones flexibles para la creación de objetos en diversas situaciones.
+- **Creational Patterns:** These patterns center around how class instances and objects are created. They offer flexible solutions for object creation in various scenarios.
 
-  - [Patrones Creacionales](/patron/creacional/creacional.md)
+  - [Creational Patterns](/patterns/creational/)
 
-- **Patrones Estructurales:** Los patrones estructurales tratan la composición de clases y objetos para formar estructuras más grandes. Facilitan la creación de relaciones eficientes y flexibles entre las partes del sistema.
+- **Structural Patterns:** Structural patterns deal with the composition of classes and objects to form larger structures. They facilitate the creation of efficient and flexible relationships between parts of the system.
 
-  - [Patrones Estructurales](/patron/estructural/estructural.md)
+  - [Structural Patterns](/patterns/structural/)
 
-- **Patrones Conductuales:** Estos patrones se centran en la interacción entre objetos y cómo se comunican entre sí. Ayudan a definir flujos de trabajo y comportamientos colaborativos.
+- **Behavioral Patterns:** These patterns focus on the interaction between objects and how they communicate with each other. They help define workflows and collaborative behaviors.
 
-  - [Patrones Conductuales](/patron/conductual/conductual.md)
+  - [Behavioral Patterns](/patterns/behavioral/)
 
-Al comprender estos tipos de patrones de diseño, podrás abordar problemas específicos de manera más efectiva y aplicar soluciones probadas en diversas áreas del desarrollo de software.
+By understanding these types of design patterns, you can effectively address specific problems and apply proven solutions across various areas of software development.
 
-Te animo a que enlaces a los archivos específicos para cada tipo de patrón en caso de que tengas información más detallada en esos documentos. Esto ayudará a los lectores a profundizar en cada categoría de patrones de diseño.
+I encourage you to link to specific files for each type of pattern in case you have more detailed information in those documents. This will help readers delve deeper into each category of design patterns.
