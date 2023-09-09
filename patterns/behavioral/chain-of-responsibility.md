@@ -1,12 +1,13 @@
-### Cadena de responsabilidad
+### Responsibility Chain
 
-Crea una cadena de objetos. Partiendo de un punto, se detiene hasta encontrar una determinada condición.
 
-En el diseño orientado a objetos, el patrón de cadena de responsabilidad es un patrón de diseño que consta de una fuente de objetos de comando y una serie de objetos de procesamiento.
+Create a chain of objects. Starting from a point, it stops until a certain condition is met.
 
-**Ejemplo:**
+In object-oriented design, the Chain of Responsibility pattern is a design pattern consisting of a source of command objects and a series of processing objects.
 
-Usaremos un ejemplo de un juego que tiene una criatura. La criatura aumentará su defensa y ataque cuando llegue a cierto punto. Creará una cadena y el ataque y la defensa aumentarán y disminuirán.
+**Example:**
+
+Let's use an example of a game that has a creature. The creature will increase its defense and attack when it reaches a certain point. It will create a chain, and the attack and defense will increase and decrease.
 
 **Paso 1. Definición de las clases clave y el patrón Cadena de Responsabilidad:** En este paso, definimos las clases principales, incluyendo Creatura y ModificadorCreatura, así como las clases de modificadores específicos.
 
@@ -99,87 +100,87 @@ Este código final combina todos los pasos y muestra la salida esperada cuando s
 **Código final:**
 
 ```
-class Creatura {
-  constructor(nombre, ataque, defensa) {
-    this.nombre = nombre;
-    this.ataque = ataque;
-    this.defensa = defensa;
+class Creature {
+  constructor(name, attack, defense) {
+    this.name = name;
+    this.attack = attack;
+    this.defense = defense;
   }
 
   toString() {
-    return `${this.nombre} (${this.ataque} / ${this.defensa})`;
+    return `${this.name} (${this.attack} / ${this.defense})`;
   }
 }
 
-class ModificadorCreatura {
-  constructor(creatura) {
-    this.creatura = creatura;
-    this.siguiente = null;
+class CreatureModifier {
+  constructor(creature) {
+    this.creature = creature;
+    this.next = null;
   }
 
-  agregar(modificador) {
-    if (this.siguiente) this.siguiente.agregar(modificador);
-    else this.siguiente = modificador;
+  add(modifier) {
+    if (this.next) this.next.add(modifier);
+    else this.next = modifier;
   }
 
-  manejar() {
-    if (this.siguiente) this.siguiente.manejar();
-  }
-}
-
-class ModificadorSinBonificaciones extends ModificadorCreatura {
-  constructor(creatura) {
-    super(creatura);
-  }
-
-  manejar() {
-    console.log("¡No hay bonificaciones para ti!");
+  handle() {
+    if (this.next) this.next.handle();
   }
 }
 
-class ModificadorDobleAtaque extends ModificadorCreatura {
-  constructor(creatura) {
-    super(creatura);
+class NoBonusesModifier extends CreatureModifier {
+  constructor(creature) {
+    super(creature);
   }
 
-  manejar() {
-    console.log(`Doblando ataque de ${this.creatura.nombre}`);
-    this.creatura.ataque *= 2;
-    super.manejar();
+  handle() {
+    console.log("No bonuses for you!");
   }
 }
 
-class ModificadorAumentarDefensa extends ModificadorCreatura {
-  constructor(creatura) {
-    super(creatura);
+class DoubleAttackModifier extends CreatureModifier {
+  constructor(creature) {
+    super(creature);
   }
 
-  manejar() {
-    if (this.creatura.ataque <= 2) {
-      console.log(`Incrementando defensa de ${this.creatura.nombre}`);
-      this.creatura.defensa++;
+  handle() {
+    console.log(`Doubling attack of ${this.creature.name}`);
+    this.creature.attack *= 2;
+    super.handle();
+  }
+}
+
+class IncreaseDefenseModifier extends CreatureModifier {
+  constructor(creature) {
+    super(creature);
+  }
+
+  handle() {
+    if (this.creature.attack <= 2) {
+      console.log(`Increasing defense of ${this.creature.name}`);
+      this.creature.defense++;
     }
-    super.manejar();
+    super.handle();
   }
 }
 
-// Crear una criatura y mostrar su estado inicial
-let picachu = new Creatura("Picachu", 1, 1);
-console.log(picachu.toString());
+// Create a creature and show its initial state
+let pikachu = new Creature("Pikachu", 1, 1);
+console.log(pikachu.toString());
 
-// Crear una cadena de responsabilidad y agregar modificadores
-let raiz = new ModificadorCreatura(picachu);
-raiz.agregar(new ModificadorSinBonificaciones(picachu));
-raiz.agregar(new ModificadorAumentarDefensa(picachu));
+// Create a chain of responsibility and add modifiers
+let root = new CreatureModifier(pikachu);
+root.add(new NoBonusesModifier(pikachu));
+root.add(new IncreaseDefenseModifier(pikachu));
 
-// Aplicar los modificadores a la criatura
-raiz.manejar();
+// Apply the modifiers to the creature
+root.handle();
 
-// Mostrar el estado final de la criatura después de aplicar modificadores
-console.log(picachu.toString());
+// Show the final state of the creature after applying modifiers
+console.log(pikachu.toString());
 
-// Salida esperada:
-// Picachu (1 / 1)
-// Incrementando defensa de Picachu
-// Picachu (1 / 2)
+// Expected Output:
+// Pikachu (1 / 1)
+// Increasing defense of Pikachu
+// Pikachu (1 / 2)
 ```
