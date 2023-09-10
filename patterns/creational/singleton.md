@@ -1,12 +1,12 @@
 ### Singleton:
 
-Asegura que solo haya un objeto creado para una clase en particular.
+Ensures that there is only one object created for a particular class.
 
-En ingeniería de software, el patrón singleton es un patrón de diseño de software que restringe la creación de instancias de una clase a una instancia "única". Esto es útil cuando se necesita exactamente un objeto para coordinar acciones en todo el sistema.
+In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to a "single" instance. This is useful when you need exactly one object to coordinate actions throughout the system.
 
-**Ejemplo:**
+**Example:**
 
-**Paso 1: Definición de la clase Singleton:**
+**Step 1: Singleton Class Definition:**
 
 ```
 class Singleton {
@@ -17,78 +17,76 @@ class Singleton {
 }
 ```
 
-**Paso 2. Comprobar si ya existe una instancia de la clase**
+**Step 2: Check if an instance of the class already exists:**
 
 ```
-const instancia = this.constructor.instancia;
-if (instancia) {
-  return instancia;
+const instance = this.constructor.instance;
+if (instance) {
+  return instance;
 }
 ```
 
-En este paso, dentro del constructor de la clase Singleton, verificamos si ya existe una instancia de la clase utilizando this.constructor.instancia. Si existe una instancia, devolvemos esa instancia en lugar de crear una nueva.
+In this step, within the constructor of the Singleton class, we check if an instance of the class already exists using this.constructor.instance. If an instance exists, we return that instance instead of creating a new one.
 
-**Paso 3: Crear instancias de la clase Singleton:**
+**Step 3: Create instances of the Singleton class:**
 
 ```
 let s1 = new Singleton();
 let s2 = new Singleton();
 ```
 
-En este paso, creamos dos instancias, s1 y s2, de la clase Singleton.
+In this step, we create two instances, s1 and s2, of the Singleton class.
 
-**Paso 4. Verificar si s1 y s2 son la misma instancia**
-
-```
-console.log('¿Son lo mismo? ' + (s1 === s2));
-```
-
-Aquí verificamos si s1 y s2 son la misma instancia utilizando (s1 === s2) y mostramos el resultado en la consola.
-
-**Paso 5. Llamar al método decir():** En este último paso, llamamos al método decir() de la instancia s1, lo que imprimirá "Diciendo..." en la consola.
+**Step 4: Check if s1 and s2 are the same instance:**
 
 ```
-s1.decir();
+console.log('Are they the same? ' + (s1 === s2));
 ```
 
-**Código final:**
+Here, we check if s1 and s2 are the same instance using (s1 === s2) and display the result in the console.
 
-En este último paso, llamamos al método decir() de la instancia s1, lo que imprimirá "Diciendo..." en la consola.
-
-**Código completo:**
+**Step 5: Call the say() method:** In this final step, we call the say() method of the s1 instance, which will print "Saying..." to the console.
 
 ```
-// Definición de la clase Singleton
+s1.say();
+```
+
+**Final Code:**
+
+In this last step, we call the say() method of the s1 instance, which will print "Saying..." to the console.
+
+```
+// Singleton class definition
 class Singleton {
   constructor() {
-    // Comprobar si ya existe una instancia de la clase
-    const instancia = this.constructor.instancia;
-    if (instancia) {
-      // Si existe, devolver la instancia existente
-      return instancia;
+    // Check if an instance of the class already exists
+    const instance = this.constructor.instance;
+    if (instance) {
+      // If it exists, return the existing instance
+      return instance;
     }
-    
-    // Si no existe una instancia, almacenar esta como la instancia única
-    this.constructor.instancia = this;
+
+    // If no instance exists, store this as the unique instance
+    this.constructor.instance = this;
   }
-  
-  // Método para mostrar un mensaje
-  decir() {
-    console.log('Diciendo...');
+
+  // Method to display a message
+  say() {
+    console.log('Saying...');
   }
 }
 
-// Crear instancias de la clase Singleton
+// Create instances of the Singleton class
 let s1 = new Singleton();
 let s2 = new Singleton();
 
-// Verificar si s1 y s2 son la misma instancia
-console.log('¿Son lo mismo? ' + (s1 === s2));
+// Check if s1 and s2 are the same instance
+console.log('Are they the same? ' + (s1 === s2));
 
-// Llamar al método decir de la instancia s1
-s1.decir();
+// Call the say() method of the s1 instance
+s1.say();
 
-// Salida esperada:
-// ¿Son lo mismo? true
-// Diciendo...
+// Expected Output:
+// Are they the same? true
+// Saying...
 ```
