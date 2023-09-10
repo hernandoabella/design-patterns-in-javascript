@@ -1,98 +1,101 @@
 ### Facade
 
-El patrón de fachada (también deletreado fachada) es un patrón de diseño de software comúnmente utilizado en la programación orientada a objetos. De manera análoga a una fachada en arquitectura, una fachada es un objeto que sirve como una interfaz frontal que enmascara un código subyacente o estructural más complejo. Proporciona una interfaz simplificada para acceder a un conjunto de subsistemas o clases relacionadas, lo que facilita la interacción con el sistema sin necesidad de conocer los detalles internos.
+The facade pattern (also spelled as "fachada") is a commonly used software design pattern in object-oriented programming. Analogous to a facade in architecture, a facade is an object that serves as a front-end interface that masks more complex underlying or structural code. It provides a simplified interface for accessing a set of related subsystems or classes, making interaction with the system easier without needing to know the internal details.
 
-**Ejemplo:**
+**Example:**
 
-En este ejemplo, vamos a simular el funcionamiento de una computadora utilizando el patrón de fachada. La computadora consta de varios componentes, como CPU, memoria y disco duro. La fachada ComputerFacade simplificará la interacción con estos componentes.
+In this example, we will simulate the operation of a computer using the facade pattern. The computer consists of various components such as CPU, memory, and hard drive. The ComputerFacade will simplify the interaction with these components.
 
-1. Definimos las clases para los componentes de la computadora: CPU, Memoria y DiscoDuro. Estas clases tienen métodos para realizar diversas operaciones, como congelar la CPU, cargar datos en la memoria y leer desde el disco duro.
+1. We define classes for computer components: CPU, Memory, and HardDrive. These classes have methods to perform various operations, such as freezing the CPU, loading data into memory, and reading from the hard drive.
 
 ```
 class CPU {
-  congelar() { console.log("CPU Congelada...") }
-  saltar(posicion) { console.log("Saltar a la posición " + posicion) }
-  ejecutar() { console.log("Ejecutar CPU...") }
+  freeze() { console.log("CPU Frozen...") }
+  jump(position) { console.log("Jump to position " + position) }
+  execute() { console.log("Execute CPU...") }
 }
 
-class Memoria {
-  cargar(posicion, dato) { console.log("Cargar en posición " + posicion + " el dato: " + dato) }
+class Memory {
+  load(position, data) { console.log("Load data at position " + position + ": " + data) }
 }
 
-class DiscoDuro {
-  leer(lba, tamano) { console.log("Leer desde LBA " + lba + " con tamaño " + tamano) }
+class HardDrive {
+  read(lba, size) { console.log("Read from LBA " + lba + " with size " + size) }
 }
 ```
 
-2. Creamos la fachada ComputerFacade que proporcionará una interfaz simplificada para interactuar con los componentes de la computadora. En el método iniciar(), se utilizan los componentes de manera coherente y enmascaran los detalles complejos.
+2. We create the ComputerFacade, which provides a simplified interface for interacting with computer components. In the start() method, components are used coherently and mask complex details.
 
 ```
 class ComputerFacade {
   constructor() {
-    this.procesador = new CPU();
-    this.ram = new Memoria();
-    this.hd = new DiscoDuro();
+    this.processor = new CPU();
+    this.ram = new Memory();
+    this.hdd = new HardDrive();
   }
 
-  iniciar() {
-    this.procesador.congelar();
-    this.ram.cargar(this.DIRECCION_ARRANQUE, this.hd.leer(this.SECTOR_ARRANQUE, this.TAMANO_SECTOR));
-    this.procesador.saltar(this.DIRECCION_ARRANQUE);
-    this.procesador.ejecutar();
+  start() {
+    this.processor.freeze();
+    this.ram.load(this.BOOT_ADDRESS, this.hdd.read(this.BOOT_SECTOR, this.SECTOR_SIZE));
+    this.processor.jump(this.BOOT_ADDRESS);
+    this.processor.execute();
   }
 }
-```
-
-3.Finalmente, creamos una instancia de ComputerFacade y utilizamos su método iniciar() para simular el arranque de la computadora.
 
 ```
-let computadora = new ComputerFacade();
-computadora.iniciar();
-```
 
-**Código final:**
+3.Finally, we create an instance of ComputerFacade and use its start() method to simulate the computer's booting process.
 
 ```
-// Definición de la clase CPU que representa la unidad central de procesamiento.
+let computer = new ComputerFacade();
+computer.start();
+
+```
+
+**Final Code:**
+
+```
+// Definition of the CPU class representing the central processing unit.
 class CPU {
-  congelar() { console.log("CPU Congelada...") } // Método para congelar la CPU.
-  saltar(posicion) { console.log("Saltar a la posición " + posicion) } // Método para saltar a una posición específica.
-  ejecutar() { console.log("Ejecutar CPU...") } // Método para ejecutar la CPU.
+  freeze() { console.log("CPU Frozen...") } // Method to freeze the CPU.
+  jump(position) { console.log("Jump to position " + position) } // Method to jump to a specific position.
+  execute() { console.log("Execute CPU...") } // Method to execute the CPU.
 }
 
-// Definición de la clase Memoria que representa la memoria de la computadora.
-class Memoria {
-  cargar(posicion, dato) { console.log("Cargar en posición " + posicion + " el dato: " + dato) } // Método para cargar datos en la memoria.
+// Definition of the Memory class representing the computer's memory.
+class Memory {
+  load(position, data) { console.log("Load data at position " + position + ": " + data) } // Method to load data into memory.
 }
 
-// Definición de la clase DiscoDuro que representa el disco duro de la computadora.
-class DiscoDuro {
-  leer(lba, tamano) { console.log("Leer desde LBA " + lba + " con tamaño " + tamano) } // Método para leer desde el disco duro.
+// Definition of the HardDrive class representing the computer's hard drive.
+class HardDrive {
+  read(lba, size) { console.log("Read from LBA " + lba + " with size " + size) } // Method to read from the hard drive.
 }
 
-// Definición de la clase ComputerFacade que actúa como la fachada para interactuar con los componentes de la computadora.
+// Definition of the ComputerFacade class that acts as a facade to interact with computer components.
 class ComputerFacade {
   constructor() {
-    this.procesador = new CPU(); // Crear una instancia de la CPU.
-    this.ram = new Memoria(); // Crear una instancia de la Memoria.
-    this.hd = new DiscoDuro(); // Crear una instancia del Disco Duro.
+    this.processor = new CPU(); // Create an instance of CPU.
+    this.ram = new Memory(); // Create an instance of Memory.
+    this.hdd = new HardDrive(); // Create an instance of Hard Drive.
   }
 
-  iniciar() {
-    this.procesador.congelar(); // Congelar la CPU.
-    this.ram.cargar(this.DIRECCION_ARRANQUE, this.hd.leer(this.SECTOR_ARRANQUE, this.TAMANO_SECTOR)); // Cargar datos en la memoria desde el disco duro.
-    this.procesador.saltar(this.DIRECCION_ARRANQUE); // Saltar a la dirección de inicio.
-    this.procesador.ejecutar(); // Ejecutar la CPU.
+  start() {
+    this.processor.freeze(); // Freeze the CPU.
+    this.ram.load(this.BOOT_ADDRESS, this.hdd.read(this.BOOT_SECTOR, this.SECTOR_SIZE)); // Load data into memory from the hard drive.
+    this.processor.jump(this.BOOT_ADDRESS); // Jump to the start address.
+    this.processor.execute(); // Execute the CPU.
   }
 }
 
-// Crear una instancia de ComputerFacade y utilizarla para simular el arranque de la computadora.
-let computadora = new ComputerFacade();
-computadora.iniciar();
+// Create an instance of ComputerFacade and use it to simulate the computer's boot process.
+let computer = new ComputerFacade();
+computer.start();
 
-// Salida esperada:
-// CPU Congelada...
-// Cargar en posición DIRECCION_ARRANQUE el dato: Leer desde LBA SECTOR_ARRANQUE con tamaño TAMANO_SECTOR
-// Saltar a la posición DIRECCION_ARRANQUE
-// Ejecutar CPU...
+// Expected output:
+// CPU Frozen...
+// Load data at position BOOT_ADDRESS: Read from LBA BOOT_SECTOR with size SECTOR_SIZE
+// Jump to position BOOT_ADDRESS
+// Execute CPU...
+
 ```
