@@ -4,97 +4,100 @@ The decorator pattern allows dynamically adding or overriding behaviors to an in
 
 **Example:**
 
-**1. Definición de Clases:** En este ejemplo, creamos las clases Forma como base y Circulo como una forma concreta que queremos decorar. También creamos una clase llamada FormaColoreada que actuará como un decorador para agregar colores a las formas.
+**1. Class Definitions:** In this example, we create the Form class as the base and Circle as a concrete shape we want to decorate. We also create a class called ColoredShape that acts as a decorator to add colors to shapes.
 
 ```
-class Forma {
+class Form {
   constructor(color) {
     this.color = color;
   }
 }
 
-class Circulo extends Forma {
-  constructor(radio = 0) {
+class Circle extends Form {
+  constructor(radius = 0) {
     super();
-    this.radio = radio;
+    this.radius = radius;
   }
 
-  cambiarTamano(factor) {
-    this.radio *= factor;
+  resize(factor) {
+    this.radius *= factor;
   }
 
   toString() {
-    return `Un círculo de radio ${this.radio}`;
+    return `A circle of radius ${this.radius}`;
   }
 }
 
-class FormaColoreada extends Forma {
-  constructor(forma, color) {
+class ColoredShape extends Form {
+  constructor(shape, color) {
     super();
-    this.forma = forma;
+    this.shape = shape;
     this.color = color;
   }
 
   toString() {
-    return `${this.forma.toString()}, coloreado de ${this.color}`;
+    return `${this.shape.toString()}, colored ${this.color}`;
   }
 }
 ```
 
-**2. Uso del Decorador:** Creamos una instancia de un círculo y luego decoramos ese círculo con un color rojo usando la clase FormaColoreada.
-
-// Crear un círculo
-let circulo = new Circulo(2);
-console.log(circulo.toString()); // Salida: Un círculo de radio 2
-
-// Decorar el círculo con un color rojo
-let circuloRojo = new FormaColoreada(circulo, "rojo");
-console.log(circuloRojo.toString()); // Salida: Un círculo de radio 2, coloreado de rojo
-
-**Código final**
+**2. Using the Decorator:** We create an instance of a base circle and then decorate that circle with a red color using the ColoredShape class.
 
 ```
-// Clase base para todas las formas
-class Forma {
+// Create a base circle
+let circle = new Circle(2);
+console.log(circle.toString()); // Output: A circle of radius 2
+
+// Decorate the circle with red color
+let redCircle = new ColoredShape(circle, "red");
+console.log(redCircle.toString()); // Output: A circle of radius 2, colored red
+```
+
+**Final Code:**
+
+```
+// Base class for all shapes
+class Form {
   constructor(color) {
     this.color = color;
   }
 }
 
-// Clase concreta para un círculo que hereda de Forma
-class Circulo extends Forma {
-  constructor(radio = 0) {
+// Concrete class for a circle that inherits from Form
+class Circle extends Form {
+  constructor(radius = 0) {
     super();
-    this.radio = radio;
+    this.radius = radius;
   }
 
-  cambiarTamano(factor) {
-    this.radio *= factor;
+  resize(factor) {
+    this.radius *= factor;
   }
 
   toString() {
-    return `Un círculo de radio ${this.radio}`;
+    return `A circle of radius ${this.radius}`;
   }
 }
 
-// Clase decoradora que agrega color a una forma existente
-class FormaColoreada extends Forma {
-  constructor(forma, color) {
+// Decorator class that adds color to an existing shape
+class ColoredShape extends Form {
+  constructor(shape, color) {
     super();
-    this.forma = forma;
+    this.shape = shape;
     this.color = color;
   }
 
   toString() {
-    return `${this.forma.toString()}, coloreado de ${this.color}`;
+    return `${this.shape.toString()}, colored ${this.color}`;
   }
 }
 
-// Crear un círculo base
-let circulo = new Circulo(2);
-console.log(circulo.toString()); // Salida: Un círculo de radio 2
+// Create a base circle
+let circle = new Circle(2);
+console.log(circle.toString()); // Output: A circle of radius 2
 
-// Decorar el círculo con un color rojo
-let circuloRojo = new FormaColoreada(circulo, "rojo");
-console.log(circuloRojo.toString()); // Salida: Un círculo de radio 2, coloreado de rojo
+// Decorate the circle with red color
+let redCircle = new ColoredShape(circle, "red");
+console.log(redCircle.toString()); // Output: A circle of radius 2, colored red
+
 ```
