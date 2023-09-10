@@ -24,11 +24,13 @@ class RenderizadorRaster {
 
 **Paso 2. Definición de la Clase Abstracta Forma:** En este paso, creamos la clase abstracta Forma que actuará como nuestra abstracción. Esta clase tiene un atributo renderizador que es una referencia al renderizador que utilizaremos para dibujar la forma.
 
+```
 class Forma {
 constructor(renderizador) {
 this.renderizador = renderizador;
 }
 }
+```
 
 **Paso 3. Definición de la Clase Circulo:** En este paso, creamos la clase Circulo que hereda de Forma. La clase Circulo tiene un atributo radio que representa el radio del círculo.
 
