@@ -1,83 +1,81 @@
-### Estrategia
+### Strategy
 
-Permite seleccionar uno de los algoritmos en determinadas situaciones.
+Allows selecting one of the algorithms in certain situations.
 
-El patrón de estrategia es un patrón de diseño de software de comportamiento que permite seleccionar un algoritmo en tiempo de ejecución. En lugar de implementar un solo algoritmo directamente, el código recibe instrucciones en tiempo de ejecución sobre cuál usar en una familia de algoritmos.
+The strategy pattern is a behavioral software design pattern that allows selecting an algorithm at runtime. Instead of implementing a single algorithm directly, the code receives instructions at runtime on which one to use from a family of algorithms.
 
-**Ejemplo:**
+**Example:**
 
-Tomaremos un ejemplo en el que tenemos un procesador de texto que mostrará datos en función de la estrategia (HTML o Markdown).
+Let's take an example where we have a text processor that will display data based on the chosen strategy (HTML or Markdown).
 
-El patrón de diseño de estrategia permite seleccionar un algoritmo en tiempo de ejecución. Aquí está el ejemplo paso a paso:
+The strategy design pattern allows selecting an algorithm at runtime. Here's the example step by step:
 
-**1.Definición de Formatos de Salida:** Se define un objeto FormatoSalida que enumera los formatos de salida disponibles, en este caso, Markdown y HTML.
+**1. Definition of Output Formats:** An OutputFormat object is defined that lists the available output formats, in this case, Markdown and HTML.
 
-**2.Clase Abstracta EstrategiaDeLista:** Se crea una clase abstracta llamada EstrategiaDeLista que define métodos abstractos iniciar, finalizar, y agregarElementoLista. Estos métodos serán implementados por estrategias específicas.
+**2. Abstract Strategy Class `ListStrategy`:** An abstract class called `ListStrategy` is created, which defines abstract methods `start`, `end`, and `addListItem`. These methods will be implemented by specific strategies.
 
 ```
-class EstrategiaDeLista {
-  iniciar(buffer) {}
-  finalizar(buffer) {}
-  agregarElementoLista(buffer, elemento) {}
+class ListStrategy {
+  start(buffer) {}
+  end(buffer) {}
+  addListItem(buffer, item) {}
 }
-
 ```
 
-**3. Estrategias de Lista Específicas:**
-Se crean dos clases que heredan de EstrategiaDeLista para implementar estrategias específicas: MarkDownEstrategiaLista y EstrategiaListaHTML. Cada una implementa los métodos abstractos de la estrategia base según su formato específico.
+**3. Specific List Strategies:** Two classes are created that inherit from ListStrategy to implement specific strategies: MarkdownListStrategy and HTMLListStrategy. Each one implements the abstract methods of the base strategy according to its specific format.
 
 ```
-class MarkDownEstrategiaLista extends EstrategiaLista {
-  agregarElementoLista(buffer, elemento) {
-    buffer.push(` * ${elemento}`);
+class MarkdownListStrategy extends ListStrategy {
+  addListItem(buffer, item) {
+    buffer.push(` * ${item}`);
   }
 }
 
-class EstrategiaListaHTML extends EstrategiaLista {
-  iniciar(buffer) {
+class HTMLListStrategy extends ListStrategy {
+  start(buffer) {
     buffer.push("<ul>");
   }
 
-  finalizar(buffer) {
+  end(buffer) {
     buffer.push("</ul>");
   }
 
-  agregarElementoLista(buffer, elemento) {
-    buffer.push(` <li>${elemento}</li>`);
+  addListItem(buffer, item) {
+    buffer.push(` <li>${item}</li>`);
   }
 }
 
 ```
 
-**4.Clase ProcesadorTexto:** Se crea una clase ProcesadorTexto que acepta un formato de salida y utiliza una estrategia de lista específica en función del formato seleccionado.
+**4. TextProcessor Class:** A TextProcessor class is created that accepts an output format and uses a specific list strategy based on the selected format.
 
 ```
-class ProcesadorTexto {
-  constructor(formatoSalida) {
+class TextProcessor {
+  constructor(outputFormat) {
     this.buffer = [];
-    this.ajustarFormatoSalida(formatoSalida);
+    this.setFormat(outputFormat);
   }
 
-  ajustarFormatoSalida(formato) {
-    switch (formato) {
-      case FormatoSalida.markdown:
-        this.estrategiaLista = new MarkDownEstrategiaLista();
+  setFormat(format) {
+    switch (format) {
+      case OutputFormat.markdown:
+        this.listStrategy = new MarkdownListStrategy();
         break;
-      case FormatoSalida.html:
-        this.estrategiaLista = new EstrategiaListaHTML();
+      case OutputFormat.html:
+        this.listStrategy = new HTMLListStrategy();
         break;
     }
   }
 
-  agregarLista(elementos) {
-    this.estrategiaLista.iniciar(this.buffer);
-    for (let elemento of elementos) {
-      this.estrategiaLista.agregarElementoLista(this.buffer, elemento);
+  appendList(items) {
+    this.listStrategy.start(this.buffer);
+    for (let item of items) {
+      this.listStrategy.addListItem(this.buffer, item);
     }
-    this.estrategiaLista.finalizar(this.buffer);
+    this.listStrategy.end(this.buffer);
   }
 
-  limpiar() {
+  clear() {
     this.buffer = [];
   }
 
@@ -85,90 +83,88 @@ class ProcesadorTexto {
     return this.buffer.join("\n");
   }
 }
-
 ```
 
-**5.Uso del Procesador de Texto:** Se crea una instancia de ProcesadorTexto, se ajusta el formato de salida y se agrega una lista. Luego, se muestra el resultado.
+**5. Using the Text Processor:** An instance of TextProcessor is created, the output format is set, and a list is added. Then, the result is displayed.
 
 ```
-let pt = new ProcesadorTexto();
+let textProcessor = new TextProcessor();
 
-pt.ajustarFormatoSalida(FormatoSalida.markdown);
-pt.agregarLista(["uno", "dos", "tres"]);
-console.log(pt.toString());
+textProcessor.setFormat(OutputFormat.markdown);
+textProcessor.appendList(["one", "two", "three"]);
+console.log(textProcessor.toString());
 
-pt.limpiar();
-pt.ajustarFormatoSalida(FormatoSalida.html);
-pt.agregarLista(["uno", "dos", "tres"]);
-console.log(pt.toString());
-
+textProcessor.clear();
+textProcessor.setFormat(OutputFormat.html);
+textProcessor.appendList(["one", "two", "three"]);
+console.log(textProcessor.toString());
 ```
 
-**Código final:**
+**Final Code:**
 
 ```
-// Enumeración de formatos de salida
-let FormatoSalida = Object.freeze({
+// Enumeration of output formats
+let OutputFormat = Object.freeze({
   markdown: 0,
   html: 1,
 });
 
-// Clase abstracta EstrategiaDeLista
-class EstrategiaDeLista {
-  iniciar(buffer) {}
-  finalizar(buffer) {}
-  agregarElementoLista(buffer, elemento) {}
+// Abstract class ListStrategy
+class ListStrategy {
+  start(buffer) {}
+  end(buffer) {}
+  addListItem(buffer, item) {}
 }
 
-// Estrategia específica para formato Markdown
-class MarkDownEstrategiaLista extends EstrategiaDeLista {
-  agregarElementoLista(buffer, elemento) {
-    buffer.push(` * ${elemento}`);
+// Specific strategy for Markdown format
+class MarkdownListStrategy extends ListStrategy {
+  addListItem(buffer, item) {
+    buffer.push(` * ${item}`);
   }
 }
 
-// Estrategia específica para formato HTML
-class EstrategiaListaHTML extends EstrategiaDeLista {
-  iniciar(buffer) {
+// Specific strategy for HTML format
+class HTMLListStrategy extends ListStrategy {
+  start(buffer) {
     buffer.push("<ul>");
   }
 
-  finalizar(buffer) {
+  end(buffer) {
     buffer.push("</ul>");
   }
 
-  agregarElementoLista(buffer, elemento) {
-    buffer.push(` <li>${elemento}</li>`);
+  addListItem(buffer, item) {
+    buffer.push(` <li>${item}</li>`);
   }
 }
 
-// Clase ProcesadorTexto
-class ProcesadorTexto {
-  constructor(formatoSalida) {
+// TextProcessor class
+class TextProcessor {
+  constructor(outputFormat) {
     this.buffer = [];
-    this.ajustarFormatoSalida(formatoSalida);
+    this.setFormat(outputFormat);
   }
 
-  ajustarFormatoSalida(formato) {
-    switch (formato) {
-      case FormatoSalida.markdown:
-        this.estrategiaLista = new MarkDownEstrategiaLista();
+  setFormat(format) {
+    switch (format) {
+      case OutputFormat.markdown:
+        this.listStrategy = new MarkdownListStrategy();
         break;
-      case FormatoSalida.html:
-        this.estrategiaLista = new EstrategiaListaHTML();
+      case OutputFormat.html:
+        this.listStrategy = new HTMLListStrategy();
         break;
     }
   }
 
-  agregarLista(elementos) {
-    this.estrategiaLista.iniciar(this.buffer);
-    for (let elemento of elementos) {
-      this.estrategiaLista.agregarElementoLista(this.buffer, elemento);
+  appendList(items) {
+    this.listStrategy.start(this.buffer);
+    for (let item of items) {
+      this.listStrategy.addListItem(this.buffer, item);
     }
-    this.estrategiaLista.finalizar(this.buffer);
+    this.listStrategy.end(this.buffer);
   }
 
-  limpiar() {
+  clear() {
     this.buffer = [];
   }
 
@@ -177,43 +173,41 @@ class ProcesadorTexto {
   }
 }
 
-// Crear una instancia del procesador de texto
-let pt = new ProcesadorTexto();
+// Create an instance of the text processor
+let textProcessor = new TextProcessor();
 
-// Configurar el formato de salida a Markdown
-pt.ajustarFormatoSalida(FormatoSalida.markdown);
+// Set the output format to Markdown
+textProcessor.setFormat(OutputFormat.markdown);
 
-// Agregar una lista de elementos
-pt.agregarLista(["uno", "dos", "tres"]);
+// Append a list of items
+textProcessor.appendList(["one", "two", "three"]);
 
-// Mostrar la salida en formato Markdown
-console.log("Salida en formato Markdown:");
-console.log(pt.toString());
+// Display the output in Markdown format
+console.log("Markdown Format Output:");
+console.log(textProcessor.toString());
 
-// Limpiar el procesador de texto
-pt.limpiar();
+// Clear the text processor
+textProcessor.clear();
 
-// Configurar el formato de salida a HTML
-pt.ajustarFormatoSalida(FormatoSalida.html);
+// Set the output format to HTML
+textProcessor.setFormat(OutputFormat.html);
 
-// Agregar una lista de elementos
-pt.agregarLista(["uno", "dos", "tres"]);
+// Append a list of items
+textProcessor.appendList(["one", "two", "three"]);
 
-// Mostrar la salida en formato HTML
-console.log("\nSalida en formato HTML:");
-console.log(pt.toString());
-
+// Display the output in HTML format
+console.log("\nHTML Format Output:");
+console.log(textProcessor.toString());
 ```
 
 **Salida esperada en formato HTML:**
 
 ```
 <ul>
- <li>uno</li>
- <li>dos</li>
- <li>tres</li>
+ <li>one</li>
+ <li>two</li>
+ <li>three</li>
 </ul>
-
 ```
 
-Este código muestra cómo se puede cambiar fácilmente entre diferentes estrategias de formato de salida (Markdown y HTML) en tiempo de ejecución utilizando el patrón de diseño de estrategia.
+This code demonstrates how different output format strategies (Markdown and HTML) can be easily switched at runtime using the strategy design pattern.
