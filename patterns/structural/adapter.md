@@ -54,68 +54,68 @@ class CalcAdapter {
 }
 ```
 
-**3. Uso del Adaptador:** Ahora podemos utilizar el adaptador CalcAdaptador para realizar operaciones en la nueva interfaz (Calculadora2) sin modificar su código. Esto facilita la transición de la calculadora antigua a la nueva.
+**3. Using the Adapter:** Now, we can use the CalcAdapter to perform operations on the new interface (Calculator2) without modifying its code. This makes transitioning from the old calculator to the new one easier.
 
 ```
-// Creemos una instancia del adaptador
-const calcAdaptada = new CalcAdaptador();
+// Create an instance of the adapter
+const calcAdapter = new CalcAdapter();
 
-// Utilizamos el adaptador para realizar una operación de resta
-console.log(calcAdaptada.operaciones(10, 55, 'restar'));
+// Use the adapter to perform a subtraction operation
+console.log(calcAdapter.operations(10, 55, 'subtract'));
 ```
 
 **Final Code:**
 
 ```
-// Definimos la clase para la Calculadora Antigua
-class CalculadoraAntigua {
+// Definition of the Old Calculator Class
+class OldCalculator {
   constructor() {
-    this.operaciones = function(valor1, valor2, operacion) {
-      switch(operacion) {
-        case 'sumar':
-          return valor1 + valor2;
-        case 'restar':
-          return valor1 - valor2;
+    this.operations = function(value1, value2, operation) {
+      switch(operation) {
+        case 'add':
+          return value1 + value2;
+        case 'subtract':
+          return value1 - value2;
       }
     };
   }
 }
 
-// Definimos la clase para la Calculadora Nueva
-class CalculadoraNueva {
+// Definition of the New Calculator Class
+class NewCalculator {
   constructor() {
-    this.sumar = function(valor1, valor2) {
-      return valor1 + valor2;
+    this.add = function(value1, value2) {
+      return value1 + value2;
     };
     
-    this.restar = function(valor1, valor2) {
-      return valor1 - valor2;
+    this.subtract = function(value1, value2) {
+      return value1 - value2;
     };
   }
 }
 
-// Definimos la clase para el Adaptador
-class CalculadoraAdaptadora {
+// Definition of the Adapter Class
+class CalculatorAdapter {
   constructor() {
-    // Creamos una instancia de la Calculadora Nueva
-    const calculadoraNueva = new CalculadoraNueva();
+    // Create an instance of the New Calculator
+    const newCalculator = new NewCalculator();
     
-    // Definimos el método operaciones que utilizará la Calculadora Nueva
-    this.operaciones = function(valor1, valor2, operacion) {
-      switch(operacion) {
-        case 'sumar':
-          return calculadoraNueva.sumar(valor1, valor2);
-        case 'restar':
-          return calculadoraNueva.restar(valor1, valor2);
+    // Define the operations method that will use the New Calculator
+    this.operations = function(value1, value2, operation) {
+      switch(operation) {
+        case 'add':
+          return newCalculator.add(value1, value2);
+        case 'subtract':
+          return newCalculator.subtract(value1, value2);
       }
     };
   }
 }
 
-// Creamos una instancia de la Calculadora Adaptadora
-const calculadoraAdaptada = new CalculadoraAdaptadora();
+// Create an instance of the Calculator Adapter
+const calculatorAdapter = new CalculatorAdapter();
 
-// Utilizamos la Calculadora Adaptadora para realizar una operación de resta
-console.log(calculadoraAdaptada.operaciones(10, 55, 'restar')); // -45
-console.log(calculadoraAdaptada.operaciones(10, 55, 'sumar')); // 65
+// Use the Calculator Adapter to perform a subtraction operation
+console.log(calculatorAdapter.operations(10, 55, 'subtract')); // -45
+console.log(calculatorAdapter.operations(10, 55, 'add')); // 65
 ```
