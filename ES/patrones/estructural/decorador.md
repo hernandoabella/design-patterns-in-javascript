@@ -43,6 +43,7 @@ class FormaColoreada extends Forma {
 
 **2. Uso del Decorador:** Creamos una instancia de un círculo y luego decoramos ese círculo con un color rojo usando la clase FormaColoreada.
 
+```
 // Crear un círculo
 let circulo = new Circulo(2);
 console.log(circulo.toString()); // Salida: Un círculo de radio 2
@@ -50,6 +51,7 @@ console.log(circulo.toString()); // Salida: Un círculo de radio 2
 // Decorar el círculo con un color rojo
 let circuloRojo = new FormaColoreada(circulo, "rojo");
 console.log(circuloRojo.toString()); // Salida: Un círculo de radio 2, coloreado de rojo
+```
 
 **Código final**
 
