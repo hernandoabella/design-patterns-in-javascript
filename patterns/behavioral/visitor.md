@@ -1,113 +1,109 @@
 ### Visitor
 
-Agrega operaciones a los objetos sin tener que modificarlos.
+Add operations to objects without having to modify them.
 
-El patrón de diseño del visitante es una forma de separar un algoritmo de una estructura de objeto en la que opera. Un resultado práctico de esta separación es la capacidad de agregar nuevas operaciones a estructuras de objetos existentes sin modificar las estructuras.
+The visitor design pattern is a way to separate an algorithm from an object structure it operates on. A practical result of this separation is the ability to add new operations to existing object structures without modifying those structures.
 
-**Ejemplo:**
+**Example:**
 
-Tomaremos un ejemplo de la clase ExpresionNumerica en el que nos da el resultado de la expresión dada.
+Let's take an example of the NumericExpression class that gives us the result of the given expression.
 
-
-
-**1.Clase ExpresionNumerica:** Esta clase representa una expresión numérica simple con un valor.
-
+**1. NumericExpression Class:** This class represents a simple numeric expression with a value.
 
 ```
-class ExpresionNumerica {
-  constructor(valor) {
-    this.valor = valor;
+class NumericExpression {
+  constructor(value) {
+    this.value = value;
   }
 
-  imprimir(buffer) {
-    buffer.push(this.valor.toString());
+  print(buffer) {
+    buffer.push(this.value.toString());
   }
 }
 ```
 
-**2.Clase ExpresionSuma:** Esta clase representa una expresión de suma que toma dos expresiones numéricas (izquierda y derecha) y las suma.
+**2. SumExpression Class:** This class represents a sum expression that takes two numeric expressions (left and right) and adds them.
 
 ```
-class ExpresionSuma {
-  constructor(izquierda, derecha) {
-    this.izquierda = izquierda;
-    this.derecha = derecha;
+class SumExpression {
+  constructor(left, right) {
+    this.left = left;
+    this.right = right;
   }
 
-  imprimir(buffer) {
+  print(buffer) {
     buffer.push('(');
-    this.izquierda.imprimir(buffer);
+    this.left.print(buffer);
     buffer.push('+');
-    this.derecha.imprimir(buffer);
+    this.right.print(buffer);
     buffer.push(')');
   }
 }
 ```
 
-**3.Uso del Patrón del Visitante:** Luego, creas una expresión compuesta que representa "5 + (1 + 9)" utilizando instancias de las clases ExpresionNumerica y ExpresionSuma.
+**3. Using the Visitor Pattern:** Next, you create a composite expression that represents "5 + (1 + 9)" using instances of the NumericExpression and SumExpression classes.
 
 ```
-let e = new ExpresionSuma(
-    new ExpresionNumerica(5),
-    new ExpresionSuma(
-        new ExpresionNumerica(1),
-        new ExpresionNumerica(9)
+let e = new SumExpression(
+    new NumericExpression(5),
+    new SumExpression(
+        new NumericExpression(1),
+        new NumericExpression(9)
     )
 );
 ```
 
-Impresión de la Expresión: Finalmente, se utiliza el método imprimir() para obtener una representación legible de la expresión y se almacena en un buffer.
+Printing the Expression: Finally, you use the print() method to get a readable representation of the expression and store it in a buffer.
 
 ```
 let buffer = [];
-e.imprimir(buffer);
-console.log(buffer.join('')); // Salida: (5+(1+9))
+e.print(buffer);
+console.log(buffer.join('')); // Output: (5+(1+9))
 ```
 
-Este ejemplo ilustra cómo el patrón de diseño del visitante permite agregar la operación de impresión a objetos complejos sin tener que modificar su estructura interna. Esto hace que el código sea más flexible y extensible para futuras operaciones sin afectar las clases existentes.
+This example illustrates how the visitor design pattern allows you to add the printing operation to complex objects without having to modify their internal structure. This makes the code more flexible and extensible for future operations without affecting existing classes.
 
-**Código final:**
+**Final Code:**
 
 ```
-class ExpresionNumerica {
-  constructor(valor) {
-    this.valor = valor;
+class NumericExpression {
+  constructor(value) {
+    this.value = value;
   }
 
-  imprimir(buffer) {
-    buffer.push(this.valor.toString());
+  print(buffer) {
+    buffer.push(this.value.toString());
   }
 }
 
-class ExpresionSuma {
-  constructor(izquierda, derecha) {
-    this.izquierda = izquierda;
-    this.derecha = derecha;
+class SumExpression {
+  constructor(left, right) {
+    this.left = left;
+    this.right = right;
   }
 
-  imprimir(buffer) {
+  print(buffer) {
     buffer.push('(');
-    this.izquierda.imprimir(buffer);
+    this.left.print(buffer);
     buffer.push('+');
-    this.derecha.imprimir(buffer);
+    this.right.print(buffer);
     buffer.push(')');
   }
 }
 
-// Creación de una expresión compuesta: 5 + (1 + 9)
-let e = new ExpresionSuma(
-    new ExpresionNumerica(5),
-    new ExpresionSuma(
-        new ExpresionNumerica(1),
-        new ExpresionNumerica(9)
+// Creating a composite expression: 5 + (1 + 9)
+let e = new SumExpression(
+    new NumericExpression(5),
+    new SumExpression(
+        new NumericExpression(1),
+        new NumericExpression(9)
     )
 );
 
 let buffer = [];
-e.imprimir(buffer);
+e.print(buffer);
 
-console.log(buffer.join('')); // Salida esperada: (5+(1+9))
-
+console.log(buffer.join('')); // Expected Output: (5+(1+9))
 ```
 
-La salida esperada es (5+(1+9)), que es la representación de la expresión "5 + (1 + 9)" después de imprimirla utilizando el patrón del visitante. Este código demuestra cómo el patrón del visitante permite agregar la operación de impresión a objetos complejos sin modificar su estructura interna.
+The expected output is (5+(1+9)), which is the representation of the "5 + (1 + 9)" expression after printing it using the visitor pattern. This code demonstrates how the visitor pattern allows adding the printing operation to complex objects without modifying their internal structure.
