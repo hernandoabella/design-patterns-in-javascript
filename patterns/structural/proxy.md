@@ -1,30 +1,30 @@
 ### Proxy
 
-El patrón Proxy permite que una clase represente la funcionalidad de otra clase, actuando como un intermediario o "proxy" entre el cliente y el objeto real. Esto puede ser útil para controlar el acceso al objeto real, realizar operaciones adicionales antes o después de acceder al objeto real o incluso reemplazar el objeto real por completo.
+The Proxy pattern allows one class to represent the functionality of another class, acting as an intermediary or "proxy" between the client and the real object. This can be useful for controlling access to the real object, performing additional operations before or after accessing the real object, or even replacing the real object entirely.
 
-**Ejemplo:**
+**Example:**
 
-Imaginemos un ejemplo de un objeto Proxy llamado Porcentaje que se utiliza para representar porcentajes. Este Proxy permitirá manipular los valores de porcentaje y realizar operaciones matemáticas en ellos.
+Let's imagine an example of a Proxy object called "Percentage" used to represent percentages. This Proxy allows manipulating percentage values and performing mathematical operations on them.
 
 ```
-class Porcentaje {
-  constructor(porcentaje) {
-    this.porcentaje = porcentaje;
+class Percentage {
+  constructor(percentage) {
+    this.percentage = percentage;
   }
 
   toString() {
-    return `${this.porcentaje}%`;
+    return `${this.percentage}%`;
   }
 
   valueOf() {
-    return this.porcentaje / 100;
+    return this.percentage / 100;
   }
 }
 
-// Utilicemos el objeto Proxy Porcentaje
-let porcentajeCinco = new Porcentaje(5);
-console.log(porcentajeCinco.toString()); // Salida: "5%"
-console.log(`El 5% de 50 es ${50 * porcentajeCinco}`); // Salida: "El 5% de 50 es 2.5"
+// Let's use the Percentage Proxy object
+let percentageFive = new Percentage(5);
+console.log(percentageFive.toString()); // Output: "5%"
+console.log(`5% of 50 is ${50 * percentageFive}`); // Output: "5% of 50 is 2.5"
 ```
 
-En este ejemplo, Porcentaje actúa como un proxy que permite representar valores de porcentaje y realizar cálculos con ellos. El Proxy Porcentaje facilita la manipulación de los valores de porcentaje y su uso en operaciones matemáticas.
+In this example, the "Percentage" acts as a proxy that allows representing percentage values and performing calculations with them. The Percentage Proxy makes it easy to manipulate percentage values and use them in mathematical operations.
