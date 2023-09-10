@@ -1,166 +1,166 @@
-### Command (Comando)
+### Command
 
-En la programación orientada a objetos, el patrón de comando es un patrón de diseño de comportamiento en el que se utiliza un objeto para encapsular toda la información necesaria para realizar una acción o desencadenar un evento en un momento posterior. Esta información incluye el nombre del método, el objeto que posee el método y los valores de los parámetros del método.
+In object-oriented programming, the Command pattern is a behavioral design pattern in which an object is used to encapsulate all the information needed to perform an action or trigger an event at a later time. This information includes the method's name, the object that owns the method, and the method's parameter values.
 
-**Ejemplo:**
+**Example:**
 
-Estaremos tomando un ejemplo sencillo de una cuenta bancaria en la que damos una orden si tenemos que depositar o retirar una determinada cantidad de dinero.
+We'll take a simple example of a bank account where we issue an order to deposit or withdraw a certain amount of money.
 
-**Paso 1. Definición de la clase CuentaBanco:** En este paso, definimos la clase CuentaBanco, que representa una cuenta bancaria con métodos para depositar, retirar y obtener el saldo.
+**Step 1. Definition of the `BankAccount` class:** In this step, we define the `BankAccount` class, which represents a bank account with methods for depositing, withdrawing, and getting the balance.
 
 ```
-class CuentaBanco {
+class BankAccount {
   constructor(balance = 0) {
     this.balance = balance;
   }
   
-  deposito(cantidad) {
-    this.balance += cantidad;
-    console.log(`${cantidad} depositado en el saldo total ${this.balance}`);
+  deposit(amount) {
+    this.balance += amount;
+    console.log(`${amount} deposited into the total balance ${this.balance}`);
   }
   
-  retirar(cantidad) {
-    if (this.balance - cantidad >= CuentaBanco.limiteDescubierto) {
-      this.balance -= cantidad;
-      console.log(`Se retiraron ${cantidad} del saldo total.`);
+  withdraw(amount) {
+    if (this.balance - amount >= BankAccount.overdraftLimit) {
+      this.balance -= amount;
+      console.log(`${amount} withdrawn from the total balance.`);
     } else {
-      console.log(`Fondos insuficientes para retirar ${cantidad}`);
+      console.log(`Insufficient funds to withdraw ${amount}`);
     }
   }
   
   toString() {
-    return `Saldo: ${this.balance}`;
+    return `Balance: ${this.balance}`;
   }
 }
 
-CuentaBanco.limiteDescubierto = -500;
+BankAccount.overdraftLimit = -500;
 ```
 
-**Paso 2. Creación de comandos:** En este paso, creamos una enumeración Accion para representar las acciones de depósito y retiro, y luego definimos la clase ComandoCuentaBanco que encapsula una acción junto con su cantidad.
+**Step 2. Creating Commands:** In this step, we create an enumeration Action to represent deposit and withdraw actions, and then define the BankAccountCommand class that encapsulates an action along with its amount.
 
 ```
-let Accion = Object.freeze({
-  deposito: 1,
-  retirar: 2,
+let Action = Object.freeze({
+  deposit: 1,
+  withdraw: 2,
 });
 
-class ComandoCuentaBanco {
-  constructor(cuenta, accion, cantidad) {
-    this.cuenta = cuenta;
-    this.accion = accion;
-    this.cantidad = cantidad;
+class BankAccountCommand {
+  constructor(account, action, amount) {
+    this.account = account;
+    this.action = action;
+    this.amount = amount;
   }
   
-  llamar() {
-    switch (this.accion) {
-      case Accion.deposito:
-        this.cuenta.deposito(this.cantidad);
+  execute() {
+    switch (this.action) {
+      case Action.deposit:
+        this.account.deposit(this.amount);
         break;
-      case Accion.retirar:
-        this.cuenta.retirar(this.cantidad);
+      case Action.withdraw:
+        this.account.withdraw(this.amount);
         break;
     }
   }
   
   undo() {
-    switch (this.accion) {
-      case Accion.deposito:
-        this.cuenta.retirar(this.cantidad); // Revertir un depósito es retirar
+    switch (this.action) {
+      case Action.deposit:
+        this.account.withdraw(this.amount); // Reversing a deposit is a withdrawal
         break;
-      case Accion.retirar:
-        this.cuenta.deposito(this.cantidad); // Revertir un retiro es depositar
+      case Action.withdraw:
+        this.account.deposit(this.amount); // Reversing a withdrawal is a deposit
         break;
     }
   }
 }
-```
-
-**Paso 3. Uso del patrón Command:** En este paso, creamos una instancia de CuentaBanco y un comando para depositar y luego deshacer ese depósito.
 
 ```
-let cuentaBancaria = new CuentaBanco(100);
-let cmd = new ComandoCuentaBanco(cuentaBancaria, Accion.deposito, 50);
 
-cmd.llamar(); // Realizar un depósito de 50
-console.log(cuentaBancaria.toString()); // Saldo: 150
-
-cmd.undo(); // Deshacer el depósito de 50
-console.log(cuentaBancaria.toString()); // Saldo: 100\
-```
-
-Este código muestra cómo el patrón Command permite encapsular solicitudes como objetos, lo que facilita la ejecución y reversión de acciones.
-
-**Código final:** 
+**Step 3. Using the Command Pattern:** In this step, we create an instance of BankAccount and a command to deposit and then undo that deposit.
 
 ```
-class CuentaBanco {
+let bankAccount = new BankAccount(100);
+let cmd = new BankAccountCommand(bankAccount, Action.deposit, 50);
+
+cmd.execute(); // Perform a deposit of 50
+console.log(bankAccount.toString()); // Balance: 150
+
+cmd.undo(); // Undo the deposit of 50
+console.log(bankAccount.toString()); // Balance: 100
+```
+
+This code demonstrates how the Command pattern allows encapsulating requests as objects, making it easy to execute and undo actions.
+
+**Final Code:** 
+
+```
+class BankAccount {
   constructor(balance = 0) {
     this.balance = balance;
   }
   
-  deposito(cantidad) {
-    this.balance += cantidad;
-    console.log(`${cantidad} depositado en el saldo total ${this.balance}`);
+  deposit(amount) {
+    this.balance += amount;
+    console.log(`${amount} deposited into the total balance ${this.balance}`);
   }
   
-  retirar(cantidad) {
-    if (this.balance - cantidad >= CuentaBanco.limiteDescubierto) {
-      this.balance -= cantidad;
-      console.log(`Se retiraron ${cantidad} del saldo total.`);
+  withdraw(amount) {
+    if (this.balance - amount >= BankAccount.overdraftLimit) {
+      this.balance -= amount;
+      console.log(`${amount} withdrawn from the total balance.`);
     } else {
-      console.log(`Fondos insuficientes para retirar ${cantidad}`);
+      console.log(`Insufficient funds to withdraw ${amount}`);
     }
   }
   
   toString() {
-    return `Saldo: ${this.balance}`;
+    return `Balance: ${this.balance}`;
   }
 }
 
-CuentaBanco.limiteDescubierto = -500;
+BankAccount.overdraftLimit = -500;
 
-let Accion = Object.freeze({
-  deposito: 1,
-  retirar: 2,
+let Action = Object.freeze({
+  deposit: 1,
+  withdraw: 2,
 });
 
-class ComandoCuentaBanco {
-  constructor(cuenta, accion, cantidad) {
-    this.cuenta = cuenta;
-    this.accion = accion;
-    this.cantidad = cantidad;
+class BankAccountCommand {
+  constructor(account, action, amount) {
+    this.account = account;
+    this.action = action;
+    this.amount = amount;
   }
   
-  llamar() {
-    switch (this.accion) {
-      case Accion.deposito:
-        this.cuenta.deposito(this.cantidad);
+  execute() {
+    switch (this.action) {
+      case Action.deposit:
+        this.account.deposit(this.amount);
         break;
-      case Accion.retirar:
-        this.cuenta.retirar(this.cantidad);
+      case Action.withdraw:
+        this.account.withdraw(this.amount);
         break;
     }
   }
   
   undo() {
-    switch (this.accion) {
-      case Accion.deposito:
-        this.cuenta.retirar(this.cantidad); // Revertir un depósito es retirar
+    switch (this.action) {
+      case Action.deposit:
+        this.account.withdraw(this.amount); // Reversing a deposit is a withdrawal
         break;
-      case Accion.retirar:
-        this.cuenta.deposito(this.cantidad); // Revertir un retiro es depositar
+      case Action.withdraw:
+        this.account.deposit(this.amount); // Reversing a withdrawal is a deposit
         break;
     }
   }
 }
 
-let cuentaBancaria = new CuentaBanco(100);
-let cmd = new ComandoCuentaBanco(cuentaBancaria, Accion.deposito, 50);
+let bankAccount = new BankAccount(100);
+let cmd = new BankAccountCommand(bankAccount, Action.deposit, 50);
 
-cmd.llamar(); // Realizar un depósito de 50
-console.log(cuentaBancaria.toString()); // Saldo: 150
+cmd.execute(); // Perform a deposit of 50
+console.log(bankAccount.toString()); // Balance: 150
 
-cmd.undo(); // Deshacer el depósito de 50
-console.log(cuentaBancaria.toString()); // Saldo: 100
-
+cmd.undo(); // Undo the deposit of 50
+console.log(bankAccount.toString()); // Balance: 100
 ```
