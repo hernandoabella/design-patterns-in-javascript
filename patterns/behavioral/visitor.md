@@ -1,4 +1,4 @@
-### Visitante
+### Visitor
 
 Agrega operaciones a los objetos sin tener que modificarlos.
 
