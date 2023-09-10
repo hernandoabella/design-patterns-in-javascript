@@ -1,147 +1,147 @@
 ### Flyweight
 
-El patrón Peso Mosca es utilizado para minimizar el uso de memoria al crear objetos similares compartiendo la mayor cantidad de datos posible entre ellos. Esto significa que, en lugar de crear múltiples instancias de objetos con datos idénticos, se utiliza una instancia compartida para representar esos datos en común. Esto reduce significativamente la cantidad de memoria utilizada, especialmente cuando se trabaja con grandes cantidades de objetos similares.
+The Flyweight pattern is used to minimize memory usage when creating similar objects by sharing as much data as possible among them. This means that instead of creating multiple instances of objects with identical data, a shared instance is used to represent that common data. This significantly reduces the amount of memory used, especially when working with large quantities of similar objects.
 
-**Ejemplo:**
+**Example:**
 
-**Paso 1: Definición de las Clases Usuario y Usuario2**: En este paso, definimos dos clases: Usuario y Usuario2. La primera representa un usuario simple con un nombre completo, mientras que la segunda implementa el patrón Peso Mosca para reducir el uso de memoria al compartir nombres completos similares.
+**Step 1: Definition of User and User2 Classes:**: In this step, we define two classes: User and User2. The first represents a simple user with a full name, while the second implements the Flyweight pattern to reduce memory usage by sharing similar full names.
 
 ```
-// Definición de la clase Usuario
-class Usuario {
-  constructor(nombreCompleto) {
-    this.nombreCompleto = nombreCompleto;
+// Definition of the User class
+class User {
+  constructor(fullName) {
+    this.fullName = fullName;
   }
 }
 
-// Definición de la clase Usuario2 que implementa el patrón Peso Mosca
-class Usuario2 {
-  constructor(nombreCompleto) {
-    let obtenerOAgregar = function(s) {
-      let idx = Usuario2.strings.indexOf(s);
+// Definition of the User2 class that implements the Flyweight pattern
+class User2 {
+  constructor(fullName) {
+    let getOrAdd = function(s) {
+      let idx = User2.strings.indexOf(s);
       if (idx !== -1) return idx;
       else {
-        Usuario2.strings.push(s);
-        return Usuario2.strings.length - 1;
+        User2.strings.push(s);
+        return User2.strings.length - 1;
       }
     };
-    this.nombres = nombreCompleto.split(' ').map(obtenerOAgregar);
+    this.names = fullName.split(' ').map(getOrAdd);
   }
 }
 
-Usuario2.strings = [];
+User2.strings = [];
 ```
 
-**Paso 2: Funciones Auxiliares:** En este paso, creamos dos funciones auxiliares: obtenerEnteroAleatorio para obtener números enteros aleatorios y cadenaTextoAleatoria para generar cadenas de texto aleatorias.
+**Step 2: Auxiliary Functions:** In this step, we create two auxiliary functions: getRandomInteger to obtain random integers and getRandomText to generate random text strings.
 
 ```
-// Funciones auxiliares
-function obtenerEnteroAleatorio(max) {
+// Auxiliary functions
+function getRandomInteger(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-function cadenaTextoAleatoria() {
-  let resultado = [];
+function getRandomText() {
+  let result = [];
   for (let x = 0; x < 10; ++x)
-    resultado.push(String.fromCharCode(65 + obtenerEnteroAleatorio(26)));
-  return resultado.join('');
+    result.push(String.fromCharCode(65 + getRandomInteger(26)));
+  return result.join('');
 }
 ```
 
-**Paso 3: Creación de Nombres Aleatorios:** En este paso, creamos dos arreglos, nombres y apellidos, que contienen nombres y apellidos generados aleatoriamente que servirán para crear los usuarios.
+**Step 3: Creating Random Names:** In this step, we create two arrays, names and lastNames, which contain randomly generated names and last names that will be used to create users.
 
 ```
-// Creación de Nombres Aleatorios
-let nombres = apellidos = [];
+// Creating Random Names
+let names = lastNames = [];
 for (let i = 0; i < 100; ++i) {
-  nombres.push(cadenaTextoAleatoria());
-  apellidos.push(cadenaTextoAleatoria());
+  names.push(getRandomText());
+  lastNames.push(getRandomText());
 }
 ```
 
-**Paso 4: Creación de Usuarios:** En este paso, creamos dos arreglos, usuarios y usuarios2, que contendrán los usuarios creados. Recorremos los arreglos de nombres y apellidos para crear 10,000 usuarios tanto sin el patrón Peso Mosca como con él.
+**Step 4: Creating Users:** In this step, we create two arrays, users and users2, which will contain the created users. We iterate through the names and last names arrays to create 10,000 users both without the Flyweight pattern and with it.
 
 ```
-let usuarios = [];
-let usuarios2 = [];
+let users = [];
+let users2 = [];
 
-// Creación de Usuarios
-for (let nombre of nombres) {
-  for (let apellido of apellidos) {
-    usuarios.push(new Usuario(`${nombre} ${apellido}`));
-    usuarios2.push(new Usuario2(`${nombre} ${apellido}`));
+// Creating Users
+for (let name of names) {
+  for (let lastName of lastNames) {
+    users.push(new User(`${name} ${lastName}`));
+    users2.push(new User2(`${name} ${lastName}`));
   }
 }
 ```
 
-**Paso 5: Comparación de Uso de Memoria:** En este paso, comparamos el uso de memoria entre los usuarios sin el patrón Peso Mosca y los usuarios con él utilizando JSON.stringify. Imprimimos los resultados en la consola.
+**Step 5: Memory Usage Comparison:** In this step, we compare the memory usage between users without the Flyweight pattern and users with it using JSON.stringify. We print the results to the console.
 
 ```
-// Comparación de Uso de Memoria
-console.log(`10,000 usuarios ocupan aproximadamente ${JSON.stringify(usuarios).length} caracteres`);
-let largoUsuarios2 = [usuarios2, Usuario2.strings].map(x => JSON.stringify(x).length).reduce((x, y) => x + y);
-console.log(`10,000 usuarios con Peso Mosca ocupan ~${largoUsuarios2} caracteres`);
+// Memory Usage Comparison
+console.log(`10,000 users occupy approximately ${JSON.stringify(users).length} characters`);
+let users2Length = [users2, User2.strings].map(x => JSON.stringify(x).length).reduce((x, y) => x + y);
+console.log(`10,000 users with Flyweight occupy ~${users2Length} characters`);
 ```
 
-**Código final:**
+**Final Code:**
 
 ```
-// Definición de la clase Usuario
-class Usuario {
-  constructor(nombreCompleto) {
-    this.nombreCompleto = nombreCompleto;
+// Definition of the User class
+class User {
+  constructor(fullName) {
+    this.fullName = fullName;
   }
 }
 
-// Definición de la clase Usuario2 que implementa el patrón Peso Mosca
-class Usuario2 {
-  constructor(nombreCompleto) {
-    let obtenerOAgregar = function(s) {
-      let idx = Usuario2.strings.indexOf(s);
+// Definition of the User2 class that implements the Flyweight pattern
+class User2 {
+  constructor(fullName) {
+    let getOrAdd = function(s) {
+      let idx = User2.strings.indexOf(s);
       if (idx !== -1) return idx;
       else {
-        Usuario2.strings.push(s);
-        return Usuario2.strings.length - 1;
+        User2.strings.push(s);
+        return User2.strings.length - 1;
       }
     };
-    this.nombres = nombreCompleto.split(' ').map(obtenerOAgregar);
+    this.names = fullName.split(' ').map(getOrAdd);
   }
 }
 
-Usuario2.strings = [];
+User2.strings = [];
 
-// Funciones auxiliares
-function obtenerEnteroAleatorio(max) {
+// Auxiliary functions
+function getRandomInteger(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-function cadenaTextoAleatoria() {
-  let resultado = [];
+function getRandomText() {
+  let result = [];
   for (let x = 0; x < 10; ++x)
-    resultado.push(String.fromCharCode(65 + obtenerEnteroAleatorio(26)));
-  return resultado.join('');
+    result.push(String.fromCharCode(65 + getRandomInteger(26)));
+  return result.join('');
 }
 
-// Creación de Nombres Aleatorios
-let nombres = apellidos = [];
+// Creating Random Names
+let names = lastNames = [];
 for (let i = 0; i < 100; ++i) {
-  nombres.push(cadenaTextoAleatoria());
-  apellidos.push(cadenaTextoAleatoria());
+  names.push(getRandomText());
+  lastNames.push(getRandomText());
 }
 
-let usuarios = [];
-let usuarios2 = [];
+let users = [];
+let users2 = [];
 
-// Creación de Usuarios
-for (let nombre of nombres) {
-  for (let apellido of apellidos) {
-    usuarios.push(new Usuario(`${nombre} ${apellido}`));
-    usuarios2.push(new Usuario2(`${nombre} ${apellido}`));
+// Creating Users
+for (let name of names) {
+  for (let lastName of lastNames) {
+    users.push(new User(`${name} ${lastName}`));
+    users2.push(new User2(`${name} ${lastName}`));
   }
 }
 
-// Comparación de Uso de Memoria
-console.log(`10,000 usuarios ocupan aproximadamente ${JSON.stringify(usuarios).length} caracteres`); // 10,000 usuarios ocupan aproximadamente 1720001 caracteres
-let largoUsuarios2 = [usuarios2, Usuario2.strings].map(x => JSON.stringify(x).length).reduce((x, y) => x + y);
-console.log(`10,000 usuarios con Peso Mosca ocupan ~${largoUsuarios2} caracteres`); // 10,000 usuarios con Peso Mosca ocupan ~838602 caracteres
+// Memory Usage Comparison
+console.log(`10,000 users occupy approximately ${JSON.stringify(users).length} characters`); // 10,000 users occupy approximately 1720001 characters
+let users2Length = [users2, User2.strings].map(x => JSON.stringify(x).length).reduce((x, y) => x + y);
+console.log(`10,000 users with Flyweight occupy ~${users2Length} characters`); // 10,000 users with Flyweight occupy ~838602 characters
 ```
