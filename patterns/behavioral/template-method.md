@@ -1,144 +1,142 @@
-### Método de plantilla
+### Template Method
 
-Define el esqueleto de un algoritmo como una clase abstracta, cómo debe realizarse.
+Define the skeleton of an algorithm as an abstract class, specifying how it should be performed.
 
-Template Method (método de plantilla) es un método en una superclase, generalmente una superclase abstracta, y define el esqueleto de una operación en términos de una serie de pasos de alto nivel.
+Template Method is a method in a superclass, typically an abstract superclass, that defines the skeleton of an operation in terms of a series of high-level steps.
 
-**Ejemplo:**
+**Example:**
 
-Tomaremos un ejemplo de un juego de ajedrez.
+Let's take an example of a chess game.
 
-El patrón Template Method (Método de Plantilla) es un patrón de diseño que define el esqueleto de un algoritmo en una superclase, pero permite que las subclases implementen ciertos pasos del algoritmo sin cambiar su estructura general. Aquí está el código paso a paso:
+The Template Method design pattern is a design pattern that defines the skeleton of an algorithm in a superclass but allows subclasses to implement certain steps of the algorithm without changing its overall structure. Here's the code step by step:
 
-**Paso 1:** Creamos la clase base Juego que servirá como el esqueleto del juego y define el flujo general del juego.
+**Step 1:** We create the base class Game, which will serve as the game's skeleton and defines the overall flow of the game.
 
 ```
-class Juego {
-  constructor(numeroJugadores) {
-    this.numeroDeJugadores = numeroJugadores;
-    this.jugadorActual = 0;
+class Game {
+  constructor(numberOfPlayers) {
+    this.numberOfPlayers = numberOfPlayers;
+    this.currentPlayer = 0;
   }
-  
-  ejecutar() {
-    this.iniciar();
-    while (!this.hayaGanador) {
-      this.tomarTurno();
+
+  execute() {
+    this.initialize();
+    while (!this.haveWinner) {
+      this.takeTurn();
     }
-    console.log(`Jugador ${this.jugadorGanador} gana.`);
+    console.log(`Player ${this.winningPlayer} wins.`);
   }
-  
-  iniciar() {}
-  get hayaGanador() {}
-  tomarTurno() {}
-  get jugadorGanador() {}
+
+  initialize() {}
+  get haveWinner() {}
+  takeTurn() {}
+  get winningPlayer() {}
 }
 ```
 
-**Paso 2:** Creamos la clase Ajedrez que hereda de Juego y personaliza los detalles específicos del juego de ajedrez, como el número de jugadores y el número máximo de turnos.
+**Step 2:** We create the Chess class that inherits from Game and customizes specific details of the chess game, such as the number of players and maximum number of turns.
 
 ```
-class Ajedrez extends Juego {
+class Chess extends Game {
   constructor() {
     super(2);
-    this.turnosMaximos = 10;
-    this.turno = 1;
+    this.maxTurns = 10;
+    this.turn = 1;
   }
-  
-  iniciar() {
-    console.log(`Iniciando un juego de ajedrez con ${this.numeroDeJugadores} jugadores.`);
+
+  initialize() {
+    console.log(`Starting a chess game with ${this.numberOfPlayers} players.`);
   }
-  
-  get hayaGanador() {
-    return this.turno > this.turnosMaximos;
+
+  get haveWinner() {
+    return this.turn > this.maxTurns;
   }
-  
-  tomarTurno() {
-    console.log(`Turno ${this.turno} tomado por jugador ${this.jugadorActual}`);
-    this.jugadorActual = (this.jugadorActual + 1) % this.numeroDeJugadores;
-    this.turno++;
+
+  takeTurn() {
+    console.log(`Turn ${this.turn} taken by player ${this.currentPlayer}`);
+    this.currentPlayer = (this.currentPlayer + 1) % this.numberOfPlayers;
+    this.turn++;
   }
-  
-  get jugadorGanador() {
-    return this.jugadorActual;
+
+  get winningPlayer() {
+    return this.currentPlayer;
   }
 }
 ```
 
-**Paso 3:** Creamos una instancia de la clase Ajedrez y ejecutamos el juego llamando al método ejecutar.
+**Step 3:** We create an instance of the Chess class and execute the game by calling the execute method.
 
 ```
-let ajedrez = new Ajedrez();
-ajedrez.ejecutar();
+let chess = new Chess();
+chess.execute();
 ```
 
-Este ejemplo muestra cómo se utiliza el patrón de método de plantilla para definir el flujo general del juego en la clase base Juego y cómo se personalizan los detalles específicos del juego en la clase Ajedrez.
+This example demonstrates how the Template Method design pattern is used to define the overall flow of the game in the base class Game and how specific game details are customized in the Chess class.
 
-
-**Código final:**
+**Final Code:**
 
 ```
-class Juego {
-  constructor(numeroJugadores) {
-    this.numeroDeJugadores = numeroJugadores;
-    this.jugadorActual = 0;
+class Game {
+  constructor(numberOfPlayers) {
+    this.numberOfPlayers = numberOfPlayers;
+    this.currentPlayer = 0;
   }
-  
-  ejecutar() {
-    this.iniciar();
-    while (!this.hayaGanador) {
-      this.tomarTurno();
+
+  execute() {
+    this.initialize();
+    while (!this.haveWinner) {
+      this.takeTurn();
     }
-    console.log(`Jugador ${this.jugadorGanador} gana.`);
+    console.log(`Player ${this.winningPlayer} wins.`);
   }
-  
-  iniciar() {}
-  get hayaGanador() {}
-  tomarTurno() {}
-  get jugadorGanador() {}
+
+  initialize() {}
+  get haveWinner() {}
+  takeTurn() {}
+  get winningPlayer() {}
 }
 
-class Ajedrez extends Juego {
+class Chess extends Game {
   constructor() {
     super(2);
-    this.turnosMaximos = 10;
-    this.turno = 1;
+    this.maxTurns = 10;
+    this.turn = 1;
   }
-  
-  iniciar() {
-    console.log(`Iniciando un juego de ajedrez con ${this.numeroDeJugadores} jugadores.`);
+
+  initialize() {
+    console.log(`Starting a chess game with ${this.numberOfPlayers} players.`);
   }
-  
-  get hayaGanador() {
-    return this.turno > this.turnosMaximos;
+
+  get haveWinner() {
+    return this.turn > this.maxTurns;
   }
-  
-  tomarTurno() {
-    console.log(`Turno ${this.turno} tomado por jugador ${this.jugadorActual}`);
-    this.jugadorActual = (this.jugadorActual + 1) % this.numeroDeJugadores;
-    this.turno++;
+
+  takeTurn() {
+    console.log(`Turn ${this.turn} taken by player ${this.currentPlayer}`);
+    this.currentPlayer = (this.currentPlayer + 1) % this.numberOfPlayers;
+    this.turn++;
   }
-  
-  get jugadorGanador() {
-    return this.jugadorActual;
+
+  get winningPlayer() {
+    return this.currentPlayer;
   }
 }
 
-let ajedrez = new Ajedrez();
-ajedrez.ejecutar();
+let chess = new Chess();
+chess.execute();
 
-// Salida esperada:
+// Expected Output:
 
-// Iniciando un juego de ajedrez con 2 jugadores.
-// Turno 1 tomado por jugador 0
-// Turno 2 tomado por jugador 1
-// Turno 3 tomado por jugador 0
-// Turno 4 tomado por jugador 1
-// Turno 5 tomado por jugador 0
-// Turno 6 tomado por jugador 1
-// Turno 7 tomado por jugador 0
-// Turno 8 tomado por jugador 1
-// Turno 9 tomado por jugador 0
-// Turno 10 tomado por jugador 1
-// Jugador 1 gana.
-
+// Starting a chess game with 2 players.
+// Turn 1 taken by player 0
+// Turn 2 taken by player 1
+// Turn 3 taken by player 0
+// Turn 4 taken by player 1
+// Turn 5 taken by player 0
+// Turn 6 taken by player 1
+// Turn 7 taken by player 0
+// Turn 8 taken by player 1
+// Turn 9 taken by player 0
+// Turn 10 taken by player 1
+// Player 1 wins.
 ```
