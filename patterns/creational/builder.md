@@ -1,234 +1,238 @@
 ### Constructor
 
-Construye objetos complejos a partir de objetos simples.
+Builds complex objects from simple objects.
 
-El patrón constructor es un patrón de diseño diseñado para proporcionar una solución flexible a varios problemas de creación de objetos en la programación orientada a objetos.
+The constructor pattern is a design pattern designed to provide a flexible solution to various object creation problems in object-oriented programming.
 
-**Ejemplo:**
+**Example:**
 
-Usaremos un ejemplo ab de una clase Persona que almacena la información de una Persona.
+Let's use an example of a Person class to store information about a person.
 
-**Paso 1. Definición de la Clase Persona:** En este paso, definimos la clase Persona, que es la clase que queremos construir de manera estructurada. La clase Persona tiene varias propiedades, como direccionCalle, codigopostal, ciudad, nombreCompania, posicion e ingresoAnual, que almacenan información sobre una persona. También tiene un método toString() que devuelve una representación en cadena de la información de la persona.
+**Step 1. Definition of the Person Class:** In this step, we define the Person class, which is the class we want to build in a structured way. The Person class has several properties like addressStreet, postalCode, city, companyName, position, and annualIncome, which store information about a person. It also has a toString() method that returns a readable string representation of the person's information.
 
 ```
-class Persona {
+class Person {
   constructor() {
-    this.direccionCalle = this.codigopostal = this.ciudad = "";
-    this.nombreCompania = this.posicion = "";
-    this.ingresoAnual = 0;
+    this.addressStreet = this.postalCode = this.city = "";
+    this.companyName = this.position = "";
+    this.annualIncome = 0;
   }
 
   toString() {
     return (
-      `Persona vive en
-      ${this.direccionCalle}, ${this.ciudad}, ${this.codigopostal}
-      y trabaja en ${this.nombreCompania} como
-      ${this.posicion} ganando ${this.ingresoAnual}`
+      `Person lives at
+      ${this.addressStreet}, ${this.city}, ${this.postalCode}
+      and works at ${this.companyName} as
+      ${this.position} earning ${this.annualIncome}`
     );
   }
 }
 ```
 
-**Paso 2. Creación de Constructores:** En este paso, creamos tres constructores relacionados: ConstructorPersona, ConstructorTrabajoPersona, y ConstructorDireccionPersona.
+In this step, we have created the Person class with a constructor that initializes the properties and a toString() method to obtain a readable representation of the person.
 
-ConstructorPersona: Es el constructor principal que se utiliza para construir objetos Persona. Tiene dos métodos, vive y trabaja, que permiten especificar la dirección y el trabajo de la persona. El método build() finaliza la construcción y devuelve el objeto Persona construido.
 
-ConstructorTrabajoPersona: Extiende ConstructorPersona y se utiliza para especificar el trabajo de la persona. Tiene métodos como at, asA, y earning para definir el nombre de la compañía, la posición y el ingreso anual de la persona.
+**Step 2. Creating Constructors:** In this step, we create three related constructors: PersonBuilder, WorkPersonBuilder, and AddressPersonBuilder.
 
-ConstructorDireccionPersona: También extiende ConstructorPersona y se utiliza para especificar la dirección de la persona. Tiene métodos como at, withPostcode, e in para definir la dirección, el código postal y la ciudad.
+PersonBuilder: This is the main constructor used to build Person objects. It has two methods, lives and works, to specify the person's address and job. The build() method finalizes the construction and returns the built Person object.
+
+WorkPersonBuilder: Extends PersonBuilder and is used to specify the person's job. It has methods like at, asA, and earning to define the company name, position, and annual income of the person.
+
+AddressPersonBuilder: Also extends PersonBuilder and is used to specify the person's address. It has methods like at, withPostcode, and in to define the address, postal code, and city.
 
 ```
-class ConstructorPersona {
-  constructor(persona = new Persona()) {
-    this.persona = persona;
+class PersonBuilder {
+  constructor(person = new Person()) {
+    this.person = person;
   }
 
-  get vive() {
-    return new ConstructorDireccionPersona(this.persona);
+  get lives() {
+    return new AddressPersonBuilder(this.person);
   }
 
-  get trabaja() {
-    return new ConstructorTrabajoPersona(this.persona);
+  get works() {
+    return new WorkPersonBuilder(this.person);
   }
 
   build() {
-    return this.persona;
+    return this.person;
   }
 }
 
-class ConstructorTrabajoPersona extends ConstructorPersona {
-  constructor(persona) {
-    super(persona);
+class WorkPersonBuilder extends PersonBuilder {
+  constructor(person) {
+    super(person);
   }
 
-  at(nombreCompania) {
-    this.persona.nombreCompania = nombreCompania;
+  at(companyName) {
+    this.person.companyName = companyName;
     return this;
   }
 
-  asA(posicion) {
-    this.persona.posicion = posicion;
+  asA(position) {
+    this.person.position = position;
     return this;
   }
 
-  earning(ingresoAnual) {
-    this.persona.ingresoAnual = ingresoAnual;
+  earning(annualIncome) {
+    this.person.annualIncome = annualIncome;
+    return this;
+  }
+}
+
+class AddressPersonBuilder extends PersonBuilder {
+  constructor(person) {
+    super(person);
+  }
+
+  at(addressStreet) {
+    this.person.addressStreet = addressStreet;
+    return this;
+  }
+
+  withPostcode(postalCode) {
+    this.person.postalCode = postalCode;
+    return this;
+  }
+
+  in(city) {
+    this.person.city = city;
     return this;
   }
 }
 
-class ConstructorDireccionPersona extends ConstructorPersona {
-  constructor(persona) {
-    super(persona);
-  }
-
-  at(direccionCalle) {
-    this.persona.direccionCalle = direccionCalle;
-    return this;
-  }
-
-  withPostcode(codigopostal) {
-    this.persona.codigopostal = codigopostal;
-    return this;
-  }
-
-  in(ciudad) {
-    this.persona.ciudad = ciudad;
-    return this;
-  }
-}
 ```
 
-**Paso 3. Uso del Constructor:** En este paso, creamos una instancia de ConstructorPersona llamada constructorPersona. Luego, utilizamos una cadena de métodos para construir una instancia de Persona de manera estructurada.
+**Step 3. Using the Constructor:** In this step, we create an instance of PersonBuilder called personBuilder. Then, we use a method chain to build a Person instance in a structured way.
 
 ```
-let constructorPersona = new ConstructorPersona();
-let persona = ConstructorPersona.vive
-  .at("Calle ABC #13 Esquina")
-  .in("Santa Marta")
-  .withPostcode("404599")
-  .trabaja.at("Computer Systems")
-  .asA("Ingeniero")
-  .earning(10000)
+let personBuilder = new PersonBuilder();
+let person = personBuilder.lives
+  .at("123 Main Street")
+  .in("New York")
+  .withPostcode("10001")
+  .works.at("ABC Inc.")
+  .asA("Engineer")
+  .earning(80000)
   .build();
 ```
 
-**Paso 4. Resultado y Salida:** Finalmente, podemos imprimir la información de la persona construida utilizando el método toString() de la clase Persona.
+**Step 4. Result and Output:** Finally, we can print the information of the built person using the toString() method of the Person class.
 
 ```
-console.log(persona.toString());
+console.log(person.toString());
 ```
 
-La salida esperada será una representación en cadena de la información de la persona, que incluye detalles de dirección y trabajo:
+The expected output will be a string representation of the person's information, including details of address and job:
 
-Persona vive en
-Calle ABC #13 Esquina, Santa Marta, 404599
-y trabaja en Computer Systems como
-Ingeniero ganando 10000
+Person lives at
+123 Main Street, New York, 10001
+and works at ABC Inc. as
+Engineer earning 80000
 
-**Código final:**
+**Final Code:**
 
 ```
-// Definición de la clase Persona que almacenará información personal y laboral
-class Persona {
+// Definition of the Person class to store personal and job-related information
+class Person {
   constructor() {
-    this.direccionCalle = this.codigopostal = this.ciudad = "";
-    this.nombreCompania = this.posicion = "";
-    this.ingresoAnual = 0;
+    this.addressStreet = this.postalCode = this.city = "";
+    this.companyName = this.position = "";
+    this.annualIncome = 0;
   }
 
   toString() {
     return (
-      `Persona vive en
-      ${this.direccionCalle}, ${this.ciudad}, ${this.codigopostal}
-      y trabaja en ${this.nombreCompania} como
-      ${this.posicion} ganando ${this.ingresoAnual}`
+      `Person lives at
+      ${this.addressStreet}, ${this.city}, ${this.postalCode}
+      and works at ${this.companyName} as
+      ${this.position} earning ${this.annualIncome}`
     );
   }
 }
 
-// Clase base ConstructorPersona para construir objetos Persona
-class ConstructorPersona {
-  constructor(persona = new Persona()) {
-    this.persona = persona;
+// Base class PersonBuilder to build Person objects
+class PersonBuilder {
+  constructor(person = new Person()) {
+    this.person = person;
   }
 
-  get vive() {
-    return new ConstructorDireccionPersona(this.persona);
+  get lives() {
+    return new AddressPersonBuilder(this.person);
   }
 
-  get trabaja() {
-    return new ConstructorTrabajoPersona(this.persona);
+  get works() {
+    return new WorkPersonBuilder(this.person);
   }
 
   build() {
-    return this.persona;
+    return this.person;
   }
 }
 
-// Constructor para detalles de trabajo de Persona
-class ConstructorTrabajoPersona extends ConstructorPersona {
-  constructor(persona) {
-    super(persona);
+// Constructor for Person's job details
+class WorkPersonBuilder extends PersonBuilder {
+  constructor(person) {
+    super(person);
   }
 
-  at(nombreCompania) {
-    this.persona.nombreCompania = nombreCompania;
+  at(companyName) {
+    this.person.companyName = companyName;
     return this;
   }
 
-  asA(posicion) {
-    this.persona.posicion = posicion;
+  asA(position) {
+    this.person.position = position;
     return this;
   }
 
-  earning(ingresoAnual) {
-    this.persona.ingresoAnual = ingresoAnual;
-    return this;
-  }
-}
-
-// Constructor para detalles de dirección de Persona
-class ConstructorDireccionPersona extends ConstructorPersona {
-  constructor(persona) {
-    super(persona);
-  }
-
-  at(direccionCalle) {
-    this.persona.direccionCalle = direccionCalle;
-    return this;
-  }
-
-  withPostcode(codigopostal) {
-    this.persona.codigopostal = codigopostal;
-    return this;
-  }
-
-  in(ciudad) {
-    this.persona.ciudad = ciudad;
+  earning(annualIncome) {
+    this.person.annualIncome = annualIncome;
     return this;
   }
 }
 
-// Uso del patrón constructor para crear un objeto Persona de manera estructurada
-let constructorPersona = new ConstructorPersona();
-let persona = constructorPersona.vive
-  .at("Calle ABC #13 Esquina")
-  .in("Santa Marta")
-  .withPostcode("404599")
-  .trabaja.at("Computer Systems")
-  .asA("Ingeniero")
-  .earning(10000)
+// Constructor for Person's address details
+class AddressPersonBuilder extends PersonBuilder {
+  constructor(person) {
+    super(person);
+  }
+
+  at(addressStreet) {
+    this.person.addressStreet = addressStreet;
+    return this;
+  }
+
+  withPostcode(postalCode) {
+    this.person.postalCode = postalCode;
+    return this;
+  }
+
+  in(city) {
+    this.person.city = city;
+    return this;
+  }
+}
+
+// Using the constructor pattern to create a Person object in a structured way
+let personBuilder = new PersonBuilder();
+let person = personBuilder.lives
+  .at("123 Main Street")
+  .in("New York")
+  .withPostcode("10001")
+  .works.at("ABC Inc.")
+  .asA("Engineer")
+  .earning(80000)
   .build();
 
-// Impresión de los detalles de la Persona creada
-console.log(persona.toString());
+// Printing the details of the created Person
+console.log(person.toString());
 
 /*
-Salida esperada:
-Persona vive en
-Calle ABC #13 Esquina, Santa Marta, 404599
-y trabaja en Computer Systems como
-Ingeniero ganando 10000
+Expected Output:
+Person lives at
+123 Main Street, New York, 10001
+and works at ABC Inc. as
+Engineer earning 80000
 */
 ```
