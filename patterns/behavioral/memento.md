@@ -1,95 +1,14 @@
 ### Memento
 
-Memento restaura un objeto a su estado anterior.
+The Memento pattern allows restoring an object to its previous state.
 
-El patrón memento es un patrón de diseño de software que brinda la capacidad de restaurar un objeto a su estado anterior. El patrón memento se implementa con tres objetos: el originador, un cuidador y un recuerdo.
+The Memento pattern is a software design pattern that provides the capability to restore an object to a previous state. It is implemented using three objects: the originator, the caretaker, and the memento.
 
-**Ejemplo:**
+**Example:**
 
-Estaremos tomando un ejemplo de una cuenta bancaria en la que almacenamos nuestro estado anterior y tendrá la funcionalidad de deshacer.
+Let's take an example of a bank account in which we store our previous state and have the functionality to undo.
 
-**Paso 1. Definición de la clase Memento:**
-
-```
-class Memento {
-  constructor(balance) {
-    this.balance = balance;
-  }
-}
-```
-
-En este paso, creamos la clase Memento, que se utilizará para almacenar el estado de la cuenta bancaria en un momento dado.
-
-**Paso 2. Definición de la clase CuentaBanco:**
-
-```
-class CuentaBanco {
-  constructor(balance = 0) {
-    this.balance = balance;
-  }
-
-  deposito(cantidad) {
-    this.balance += cantidad;
-    return new Memento(this.balance);
-  }
-
-  restaurar(m) {
-    this.balance = m.balance;
-  }
-
-  toString() {
-    return `Balance: ${this.balance}`;
-  }
-}
-```
-
-Aquí creamos la clase CuentaBanco, que representa una cuenta bancaria con la capacidad de realizar depósitos, guardar estados en forma de Mementos y restaurar el estado anterior.
-
-**Paso 3. Definición de la clase Cuidador:**
-
-```
-class Cuidador {
-  constructor() {
-    this.mementos = [];
-  }
-
-  agregarMemento(memento) {
-    this.mementos.push(memento);
-  }
-
-  obtenerMemento(index) {
-    return this.mementos[index];
-  }
-}
-```
-
-La clase Cuidador es responsable de almacenar los Mementos en una lista para que se puedan restaurar estados anteriores cuando sea necesario.
-
-**Paso 4. Uso del patrón Memento**
-
-```
-// Crear una instancia de CuentaBanco
-const cuentaBancaria = new CuentaBanco(100);
-const cuidador = new Cuidador();
-
-// Realizar depósitos y guardar estados en Mementos
-cuidador.agregarMemento(cuentaBancaria.deposito(50));
-console.log(cuentaBancaria.toString()); // Saldo: 150
-
-cuidador.agregarMemento(cuentaBancaria.deposito(25));
-console.log(cuentaBancaria.toString()); // Saldo: 175
-
-// Restaurar estado anterior
-cuentaBancaria.restaurar(cuidador.obtenerMemento(0));
-console.log(cuentaBancaria.toString()); // Saldo: 150
-
-cuentaBancaria.restaurar(cuidador.obtenerMemento(1));
-console.log(cuentaBancaria.toString()); // Saldo: 175
-```
-
-En este paso, creamos una instancia de CuentaBanco y un Cuidador. Luego, realizamos depósitos en la cuenta bancaria y guardamos estados en forma de Mementos utilizando el Cuidador. Finalmente, restauramos estados anteriores de la cuenta bancaria usando los Mementos y verificamos los saldos resultantes.
-
-**Código final:**
+**Step 1. Definition of the Memento class:**
 
 ```
 class Memento {
@@ -97,19 +16,25 @@ class Memento {
     this.balance = balance;
   }
 }
+```
 
-class CuentaBanco {
+In this step, we create the Memento class, which will be used to store the state of the bank account at a given moment.
+
+**Step 2. Definition of the CuentaBanco class:**
+
+```
+class BankAccount {
   constructor(balance = 0) {
     this.balance = balance;
   }
 
-  deposito(cantidad) {
-    this.balance += cantidad;
+  deposit(amount) {
+    this.balance += amount;
     return new Memento(this.balance);
   }
 
-  restaurar(m) {
-    this.balance = m.balance;
+  restore(memento) {
+    this.balance = memento.balance;
   }
 
   toString() {
@@ -117,36 +42,114 @@ class CuentaBanco {
   }
 }
 
-class Cuidador {
+```
+
+Here, we create the BankAccount class, which represents a bank account with the ability to make deposits, save states in the form of Mementos, and restore the previous state.
+
+
+**Step 3. Definition of the Cuidador class:**
+
+```
+class Caretaker {
   constructor() {
     this.mementos = [];
   }
 
-  agregarMemento(memento) {
+  addMemento(memento) {
     this.mementos.push(memento);
   }
 
-  obtenerMemento(index) {
+  getMemento(index) {
+    return this.mementos[index];
+  }
+}
+```
+
+The Cuidador class is responsible for storing the Mementos in a list so that previous states can be restored when needed.
+
+**Step 4. Using the Memento pattern:**
+
+```
+// Create an instance of BankAccount
+const bankAccount = new BankAccount(100);
+const caretaker = new Caretaker();
+
+// Make deposits and save states in Mementos
+caretaker.addMemento(bankAccount.deposit(50));
+console.log(bankAccount.toString()); // Balance: 150
+
+caretaker.addMemento(bankAccount.deposit(25));
+console.log(bankAccount.toString()); // Balance: 175
+
+// Restore the previous state
+bankAccount.restore(caretaker.getMemento(0));
+console.log(bankAccount.toString()); // Balance: 150
+
+bankAccount.restore(caretaker.getMemento(1));
+console.log(bankAccount.toString()); // Balance: 175
+```
+
+In this step, we create an instance of CuentaBanco and a Cuidador. Then, we make deposits into the bank account and save states as Mementos using the Cuidador. Finally, we restore previous states of the bank account using the Mementos and verify the resulting balances.
+
+**Final Code:**
+
+```
+class Memento {
+  constructor(balance) {
+    this.balance = balance;
+  }
+}
+
+class BankAccount {
+  constructor(balance = 0) {
+    this.balance = balance;
+  }
+
+  deposit(amount) {
+    this.balance += amount;
+    return new Memento(this.balance);
+  }
+
+  restore(memento) {
+    this.balance = memento.balance;
+  }
+
+  toString() {
+    return `Balance: ${this.balance}`;
+  }
+}
+
+class Caretaker {
+  constructor() {
+    this.mementos = [];
+  }
+
+  addMemento(memento) {
+    this.mementos.push(memento);
+  }
+
+  getMemento(index) {
     return this.mementos[index];
   }
 }
 
-// Crear una instancia de CuentaBanco
-const cuentaBancaria = new CuentaBanco(100);
-const cuidador = new Cuidador();
+// Create an instance of BankAccount
+const bankAccount = new BankAccount(100);
+const caretaker = new Caretaker();
 
-// Realizar depósitos y guardar estados en Mementos
-cuidador.agregarMemento(cuentaBancaria.deposito(50));
-console.log(cuentaBancaria.toString()); // Saldo: 150
+// Make deposits and save states in Mementos
+caretaker.addMemento(bankAccount.deposit(50));
+console.log(bankAccount.toString()); // Balance: 150
 
-cuidador.agregarMemento(cuentaBancaria.deposito(25));
-console.log(cuentaBancaria.toString()); // Saldo: 175
+caretaker.addMemento(bankAccount.deposit(25));
+console.log(bankAccount.toString()); // Balance: 175
 
-// Restaurar estado anterior
-cuentaBancaria.restaurar(cuidador.obtenerMemento(0));
-console.log(cuentaBancaria.toString()); // Saldo: 150
+// Restore the previous state
+bankAccount.restore(caretaker.getMemento(0));
+console.log(bankAccount.toString()); // Balance: 150
 
-cuentaBancaria.restaurar(cuidador.obtenerMemento(1));
-console.log(cuentaBancaria.toString()); // Saldo: 175
+bankAccount.restore(caretaker.getMemento(1));
+console.log(bankAccount.toString()); // Balance: 175
+
 
 ```
