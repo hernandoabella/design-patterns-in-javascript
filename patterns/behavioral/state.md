@@ -1,157 +1,157 @@
-### Estado
+### State
 
-Altera el comportamiento de un objeto cuando cambia su estado interno.
+Modifies the behavior of an object when its internal state changes.
 
-El patrón de estado es un patrón de diseño de software de comportamiento que permite que un objeto altere su comportamiento cuando cambia su estado interno. Este patrón está cerca del concepto de máquinas de estados finitos.
+The State pattern is a behavioral software design pattern that allows an object to alter its behavior when its internal state changes. This pattern is closely related to the concept of finite state machines.
 
-**Ejemplo:**
+**Example:**
 
-Estaremos tomando un ejemplo de un interruptor de luz en el que si encendemos o apagamos el interruptor, su estado cambia.
+Let's take an example of a light switch in which turning the switch on or off changes its state.
 
-Este es un ejemplo del patrón de diseño "State", que permite que un objeto cambie su comportamiento cuando cambia su estado interno. Aquí tienes el código con comentarios que muestran cada paso:
+This is an example of the "State" design pattern, which allows an object to change its behavior when its internal state changes. Here is the code with comments explaining each step:
 
-**Paso 1:** Creamos dos clases de estado, EstadoEncendido y EstadoApagado, que heredan de la clase base Estado. Cada clase de estado define cómo debe comportarse el interruptor cuando está en ese estado particular.
+**Step 1:** We create two state classes, OnState and OffState, which inherit from the base State class. Each state class defines how the switch should behave when it is in that particular state.
 
 ```
-class EstadoEncendido extends Estado {
+class OnState extends State {
   constructor() {
     super();
-    console.log("Luces encendidas");
+    console.log("Lights are on");
   }
   
-  apagar(sw) {
-    console.log("Apagando luces...");
-    sw.estado = new EstadoApagado();
+  turnOff(sw) {
+    console.log("Turning off the lights...");
+    sw.state = new OffState();
   }
 }
 
-class EstadoApagado extends Estado {
+class OffState extends State {
   constructor() {
     super();
-    console.log("Luz apagada...");
+    console.log("Lights are off...");
   }
   
-  encender(sw) {
-    console.log("Encendiendo luz...");
-    sw.estado = new EstadoEncendido();
+  turnOn(sw) {
+    console.log("Turning on the lights...");
+    sw.state = new OnState();
   }
 }
 
 ```
 
-**Paso 2:** Creamos la clase Switch, que contiene un estado interno y métodos encender() y apagar() para cambiar el estado. Inicializamos el interruptor con el estado apagado.
+**Step 2:** We create the Switch class, which contains an internal state and turnOn() and turnOff() methods to change the state. We initialize the switch with the off state.
 
 ```
 class Switch {
   constructor() {
-    this.estado = new EstadoApagado();
+    this.state = new OffState();
   }
   
-  encender() {
-    this.estado.encender(this);
+  turnOn() {
+    this.state.turnOn(this);
   }
   
-  apagar() {
-    this.estado.apagar(this);
+  turnOff() {
+    this.state.turnOff(this);
   }
 }
 
-```
-
-**Paso 3:** Creamos la clase base abstracta Estado, que define los métodos encender() y apagar(). Las clases de estado concretas deben implementar estos métodos.
 
 ```
-class Estado {
+
+**Step 3:** We create the abstract base class State, which defines the turnOn() and turnOff() methods. Concrete state classes must implement these methods.
+
+```
+class State {
   constructor() {
-    if (this.constructor === Estado) throw new Error("¡Abstracto!");
+    if (this.constructor === State) throw new Error("Abstract!");
   }
   
-  encender(sw) {
-    console.log("La luz está encendida.");
+  turnOn(sw) {
+    console.log("The light is on.");
   }
   
-  apagar(sw) {
-    console.log("La luz está apagada.");
+  turnOff(sw) {
+    console.log("The light is off.");
   }
 }
 
 ```
 
-**Paso 4:** Creamos una instancia de la clase Switch y probamos sus métodos para cambiar el estado de las luces. Primero, encendemos las luces y luego las apagamos.
+**Step 4:** We create an instance of the Switch class and test its methods to change the state of the lights. First, we turn the lights on and then we turn them off.
 
 ```
-let interruptor = new Switch();
-interruptor.encender();
-interruptor.apagar();
+let lightSwitch = new Switch();
+lightSwitch.turnOn();
+lightSwitch.turnOff();
 ```
 
-Este ejemplo demuestra cómo el patrón de diseño "State" permite que un objeto, en este caso, un interruptor de luz, cambie su comportamiento según su estado interno (encendido o apagado). Cada estado tiene sus propios comportamientos definidos en las clases de estado concretas.
-  
+This example demonstrates how the "State" design pattern allows an object, in this case, a light switch, to change its behavior based on its internal state (on or off). Each state has its own behaviors defined in the concrete state classes.
 
-**Código final:**
+**Final Code:**
 
 ```
-// Creamos dos clases de estado
+// Create two state classes
 
-class EstadoEncendido extends Estado {
-  constructor() {
-    super();
-    console.log("Luces encendidas");
-  }
-  
-  apagar(sw) {
-    console.log("Apagando luces...");
-    sw.estado = new EstadoApagado();
-  }
-}
-
-class EstadoApagado extends Estado {
+class OnState extends State {
   constructor() {
     super();
-    console.log("Luz apagada...");
+    console.log("Lights are on");
   }
   
-  encender(sw) {
-    console.log("Encendiendo luz...");
-    sw.estado = new EstadoEncendido();
+  turnOff(sw) {
+    console.log("Turning off the lights...");
+    sw.state = new OffState();
   }
 }
 
-// Creamos la clase Switch
+class OffState extends State {
+  constructor() {
+    super();
+    console.log("Lights are off...");
+  }
+  
+  turnOn(sw) {
+    console.log("Turning on the lights...");
+    sw.state = new OnState();
+  }
+}
+
+// Create the Switch class
 
 class Switch {
   constructor() {
-    this.estado = new EstadoApagado(); // Inicializamos con el estado apagado
+    this.state = new OffState(); // Initialize with the off state
   }
   
-  encender() {
-    this.estado.encender(this); // Llamamos al método de encendido del estado actual
+  turnOn() {
+    this.state.turnOn(this); // Call the turn-on method of the current state
   }
   
-  apagar() {
-    this.estado.apagar(this); // Llamamos al método de apagado del estado actual
+  turnOff() {
+    this.state.turnOff(this); // Call the turn-off method of the current state
   }
 }
 
-// Creamos la clase base abstracta Estado
+// Create the abstract base class State
 
-class Estado {
+class State {
   constructor() {
-    if (this.constructor === Estado) throw new Error("¡Abstracto!"); // Evita instanciar directamente
+    if (this.constructor === State) throw new Error("Abstract!"); // Prevent direct instantiation
   }
   
-  encender(sw) {
-    console.log("La luz está encendida.");
+  turnOn(sw) {
+    console.log("The light is on.");
   }
   
-  apagar(sw) {
-    console.log("La luz está apagada.");
+  turnOff(sw) {
+    console.log("The light is off.");
   }
 }
 
-// Creamos una instancia de la clase Switch y probamos sus métodos
+// Create an instance of the Switch class and test its methods
 
-let interruptor = new Switch();
-interruptor.encender(); // Encendemos las luces
-interruptor.apagar();  // Apagamos las luces
+let lightSwitch = new Switch();
+lightSwitch.turnOn(); // Turn on the lights
+lightSwitch.turnOff(); // Turn off the lights
 ```
