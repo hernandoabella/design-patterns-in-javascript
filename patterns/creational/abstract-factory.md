@@ -1,120 +1,118 @@
-### Fábrica Abstracta (Abstract Factory)
+### Abstract Factory
 
-En diseño de software, el patrón de diseño de Fábrica Abstracta es una técnica que se utiliza para crear familias o grupos de objetos relacionados sin especificar sus clases concretas. Este patrón proporciona una forma de encapsular un conjunto de fábricas individuales que comparten un tema común sin necesidad de conocer los detalles de las clases exactas de los objetos que se crearán. Esto promueve la creación de objetos de manera coherente y modular, lo que facilita la gestión y extensión del código.
+In software design, the Abstract Factory design pattern is a technique used to create families or groups of related objects without specifying their concrete classes. This pattern provides a way to encapsulate a set of individual factories that share a common theme without needing to know the details of the exact classes of the objects that will be created. This promotes consistent and modular object creation, making code management and extension easier.
 
-**Ejemplo:**
+**Example:**
 
-Para comprender mejor el patrón de Fábrica Abstracta, consideremos un ejemplo relacionado con la preparación de bebidas, como té y café.
+To better understand the Abstract Factory pattern, let's consider an example related to preparing beverages, such as tea and coffee.
 
-**Paso 1:** Definimos las clases base y las subclases para representar bebidas, en este caso, Bebida, Tea y Cafe.
-
-```
-class Bebida {
-  consumir() {
-    // Método abstracto, se implementará en las subclases
-  }
-}
-
-class Tea extends Bebida {
-  consumir() {
-    console.log('Esto es Tea');
-  }
-}
-
-class Cafe extends Bebida {
-  consumir() {
-    console.log('Esto es Café');
-  }
-}
-```
-
-**Paso 2:** Definimos la clase de fábrica base (FabricaBebidas) y las subclases de fábrica (FabricaTea y FabricaCafe) que se utilizarán para crear bebidas específicas.
+**Step 1:** We define base classes and subclasses to represent beverages, in this case, Beverage, Tea, and Coffee.
 
 ```
-class FabricaBebidas {
-  preparar(cantidad) {
-    // Método abstracto, se implementará en las subclases
+class Beverage {
+  consume() {
+    // Abstract method, to be implemented in subclasses
   }
 }
 
-class FabricaTea extends FabricaBebidas {
-  hacerTea() {
-    console.log('Té creado');
+class Tea extends Beverage {
+  consume() {
+    console.log('This is Tea');
+  }
+}
+
+class Coffee extends Beverage {
+  consume() {
+    console.log('This is Coffee');
+  }
+}
+```
+
+**Step 2:** We define the base factory class (BeverageFactory) and factory subclasses (TeaFactory and CoffeeFactory) that will be used to create specific beverages.
+
+```
+class BeverageFactory {
+  prepare(amount) {
+    // Abstract method, to be implemented in subclasses
+  }
+}
+
+class TeaFactory extends BeverageFactory {
+  makeTea() {
+    console.log('Tea is prepared');
     return new Tea();
   }
 }
 
-class FabricaCafe extends FabricaBebidas {
-  hacerCafe() {
-    console.log('Café creado');
-    return new Cafe();
+class CoffeeFactory extends BeverageFactory {
+  makeCoffee() {
+    console.log('Coffee is prepared');
+    return new Coffee();
   }
 }
-
 ```
 
-**Paso 3:** En este paso, creamos una instancia de la fábrica de té (fabricaBebidaTea), la utilizamos para crear una bebida de té (tea), y finalmente, consumimos la bebida de té, lo que produce la salida esperada en la consola.
+**Step 3:** In this step, we create an instance of the tea factory (teaBeverageFactory), use it to create a tea beverage (tea), and finally, consume the tea beverage, which produces the expected console output.
 
 ```
-let fabricaBebidaTea = new FabricaTea(); // Creamos una fábrica de té
-let tea = fabricaBebidaTea.hacerTea(); // Usamos la fábrica para crear una bebida de té
-tea.consumir(); // Consumimos la bebida de té
+let teaBeverageFactory = new TeaFactory(); // Create a tea factory
+let tea = teaBeverageFactory.makeTea(); // Use the factory to create a tea beverage
+tea.consume(); // Consume the tea beverage
 
-// Salida esperada:
-// Té creado
-// Esto es Tea
+// Expected Output:
+// Tea is prepared
+// This is Tea
 ```
 
-**Código final:**
+**Final Code:**
 
 ```
-// Definición de las clases base y subclases
-class Bebida {
-  consumir() {
-    // Método abstracto, se implementará en las subclases
+// Definition of base classes and subclasses
+class Beverage {
+  consume() {
+    // Abstract method, to be implemented in subclasses
   }
 }
 
-class Tea extends Bebida {
-  consumir() {
-    console.log('Esto es Tea');
+class Tea extends Beverage {
+  consume() {
+    console.log('This is Tea');
   }
 }
 
-class Cafe extends Bebida {
-  consumir() {
-    console.log('Esto es Café');
+class Coffee extends Beverage {
+  consume() {
+    console.log('This is Coffee');
   }
 }
 
-// Definición de la clase de fábrica base y subclases de fábrica
-class FabricaBebidas {
-  preparar(cantidad) {
-    // Método abstracto, se implementará en las subclases
+// Definition of the base factory class and factory subclasses
+class BeverageFactory {
+  prepare(amount) {
+    // Abstract method, to be implemented in subclasses
   }
 }
 
-class FabricaTea extends FabricaBebidas {
-  hacerTea() {
-    console.log('Té creado');
+class TeaFactory extends BeverageFactory {
+  makeTea() {
+    console.log('Tea is prepared');
     return new Tea();
   }
 }
 
-class FabricaCafe extends FabricaBebidas {
-  hacerCafe() {
-    console.log('Café creado');
-    return new Cafe();
+class CoffeeFactory extends BeverageFactory {
+  makeCoffee() {
+    console.log('Coffee is prepared');
+    return new Coffee();
   }
 }
 
-// Ejemplo de uso
-let fabricaBebidaTea = new FabricaTea(); // Creamos una fábrica de té
-let tea = fabricaBebidaTea.hacerTea(); // Usamos la fábrica para crear una bebida de té
-tea.consumir(); // Consumimos la bebida de té
+// Example of usage
+let teaBeverageFactory = new TeaFactory(); // Create a tea factory
+let tea = teaBeverageFactory.makeTea(); // Use the factory to create a tea beverage
+tea.consume(); // Consume the tea beverage
 
-// Salida esperada:
-// Té creado
-// Esto es Tea
-
+// Expected Output:
+// Tea is prepared
+// This is Tea
 ```
