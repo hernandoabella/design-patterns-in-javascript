@@ -1,162 +1,152 @@
-### Observador
+### Observer
 
-Permite que varios objetos observadores vean un evento.
+Allows multiple observer objects to watch an event.
 
-El patrón de observador es un patrón de diseño de software en el que un objeto, llamado sujeto, mantiene una lista de sus dependientes, llamados observadores, y les notifica automáticamente cualquier cambio de estado, generalmente llamando a uno de sus métodos.
+The Observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and automatically notifies them of any state changes, usually by calling one of their methods.
 
-**Ejemplo:**
+**Example:**
 
-Tomaremos un ejemplo de una persona en la que si una persona se enferma, mostrará una notificación.
+Let's take an example of a person where if a person gets sick, it shows a notification.
 
-**Paso 1. Definición de las clases y el patrón Observador:**
-
-En este paso, definimos tres clases clave: Evento, Enfermarse, y Persona. La clase Evento representa un evento observable y contiene la lógica para suscribirse, darse de baja y notificar a los observadores. La clase Enfermarse es un evento específico que contiene información sobre la dirección donde ocurre. La clase Persona es el sujeto observable que puede "enfermarse" y notificar a los observadores cuando esto sucede.
+**Step 1. Definition of classes and the Observer Pattern:** In this step, we define three key classes: Event, GetSick, and Person. The Event class represents an observable event and contains the logic for subscribing, unsubscribing, and notifying observers. The GetSick class is a specific event that contains information about the location where it occurs. The Person class is the observable subject that can "get sick" and notify observers when this happens.
 
 ```
-// Clase Evento que representa un evento observable
-class Evento {
+// Event class representing an observable event
+class Event {
   constructor() {
-    this.manejadores = new Map();
-    this.contador = 0;
+    this.handlers = new Map();
+    this.counter = 0;
   }
 
-  // Método para suscribir un manejador al evento y devuelve un identificador único
-  suscribir(manejador) {
-    this.manejadores.set(++this.contador, manejador);
-    return this.contador;
+  // Method to subscribe a handler to the event and return a unique identifier
+  subscribe(handler) {
+    this.handlers.set(++this.counter, handler);
+    return this.counter;
   }
 
-  // Método para darse de baja de un evento dado un identificador
-  darseDeBaja(idx) {
-    this.manejadores.delete(idx);
+  // Method to unsubscribe from an event given an identifier
+  unsubscribe(index) {
+    this.handlers.delete(index);
   }
 
-  // Método para notificar a todos los observadores cuando ocurre el evento
-  fuego(enviador, argumentos) {
-    this.manejadores.forEach((manejador, id) => manejador(enviador, argumentos));
-  }
-}
-
-// Clase Enfermarse que representa un evento específico
-class Enfermarse {
-  constructor(direccion) {
-    this.direccion = direccion;
+  // Method to notify all observers when the event occurs
+  fire(sender, args) {
+    this.handlers.forEach((handler, id) => handler(sender, args));
   }
 }
 
-// Clase Persona que será el sujeto observable
-class Persona {
-  constructor(direccion) {
-    this.direccion = direccion;
-    this.enfermarse = new Evento(); // Creamos un evento "enfermarse"
+// GetSick class representing a specific event
+class GetSick {
+  constructor(location) {
+    this.location = location;
+  }
+}
+
+// Person class that will be the observable subject
+class Person {
+  constructor(location) {
+    this.location = location;
+    this.getSick = new Event(); // Create a "get sick" event
   }
 
-  // Método para simular que la persona se enferma y notificar a los observadores
-  agarrarResfriado() {
-    this.enfermarse.fuego(this, new Enfermarse(this.direccion));
+  // Method to simulate the person getting sick and notify observers
+  catchCold() {
+    this.getSick.fire(this, new GetSick(this.location));
   }
 }
 ```
 
+**Step 2. Using the Observer Pattern:** In this step, we create an instance of Person and then subscribe an observer to the "get sick" event using the subscribe method of the Event class. We then simulate the person getting sick twice by calling the catchCold method. After that, we unsubscribe the observer using the unsubscribe method. Finally, we call the catchCold method again, but the unsubscribed observer no longer receives notifications.
 
-**Paso 2. Uso del patrón Observador:**
-
-En este paso, creamos una instancia de Persona y luego suscribimos un observador al evento enfermarse utilizando el método suscribir de la clase Evento. Luego, simulamos que la persona se enferma dos veces llamando al método agarrarResfriado. Después, damos de baja al observador utilizando el método darseDeBaja. Finalmente, llamamos nuevamente al método agarrarResfriado, pero el observador dado de baja ya no recibe notificaciones.
-
-Este patrón permite que varios observadores vean un evento (en este caso, enfermarse) sin que la clase Persona tenga que conocer los detalles de quiénes son los observadores ni cómo reaccionan ante el evento.
+This pattern allows multiple observers to watch an event (in this case, getting sick) without the Person class needing to know the details of who the observers are or how they react to the event.
 
 ```
-// Creamos una instancia de la persona
-let persona = new Persona("Ruta ABC");
+// Create an instance of the person
+let person = new Person("Route ABC");
 
-// Suscribimos un observador al evento "enfermarse"
-let sub = persona.enfermarse.suscribir((sujeto, evento) => {
-  console.log(`Un doctor ha sido llamado a ${evento.direccion}`);
+// Subscribe an observer to the "get sick" event
+let sub = person.getSick.subscribe((subject, event) => {
+  console.log(`A doctor has been called to ${event.location}`);
 });
 
-// La persona se enferma dos veces
-persona.agarrarResfriado();
-persona.agarrarResfriado();
+// The person gets sick twice
+person.catchCold();
+person.catchCold();
 
-// Damos de baja al observador
-persona.enfermarse.darseDeBaja(sub);
+// Unsubscribe the observer
+person.getSick.unsubscribe(sub);
 
-// La persona se enferma nuevamente, pero el observador dado de baja no recibe la notificación
-persona.agarrarResfriado();
+// The person gets sick again, but the unsubscribed observer no longer receives the notification
+person.catchCold();
 ```
 
-
-**Código final:**
+**Final Code:**
 
 ```
-// Definición de las clases y el patrón Observador
+// Definition of classes and the Observer Pattern
 
-// Clase Evento que representa un evento observable
-class Evento {
+// Event class representing an observable event
+class Event {
   constructor() {
-    this.manejadores = new Map();
-    this.contador = 0;
+    this.handlers = new Map();
+    this.counter = 0;
   }
 
-  // Método para suscribir un manejador al evento y devuelve un identificador único
-  suscribir(manejador) {
-    this.manejadores.set(++this.contador, manejador);
-    return this.contador;
+  // Method to subscribe a handler to the event and return a unique identifier
+  subscribe(handler) {
+    this.handlers.set(++this.counter, handler);
+    return this.counter;
   }
 
-  // Método para darse de baja de un evento dado un identificador
-  darseDeBaja(idx) {
-    this.manejadores.delete(idx);
+  // Method to unsubscribe from an event given an identifier
+  unsubscribe(index) {
+    this.handlers.delete(index);
   }
 
-  // Método para notificar a todos los observadores cuando ocurre el evento
-  fuego(enviador, argumentos) {
-    this.manejadores.forEach((manejador, id) => manejador(enviador, argumentos));
-  }
-}
-
-// Clase Enfermarse que representa un evento específico
-class Enfermarse {
-  constructor(direccion) {
-    this.direccion = direccion;
+  // Method to notify all observers when the event occurs
+  fire(sender, args) {
+    this.handlers.forEach((handler, id) => handler(sender, args));
   }
 }
 
-// Clase Persona que será el sujeto observable
-class Persona {
-  constructor(direccion) {
-    this.direccion = direccion;
-    this.enfermarse = new Evento(); // Creamos un evento "enfermarse"
-  }
-
-  // Método para simular que la persona se enferma y notificar a los observadores
-  agarrarResfriado() {
-    this.enfermarse.fuego(this, new Enfermarse(this.direccion));
+// GetSick class representing a specific event
+class GetSick {
+  constructor(location) {
+    this.location = location;
   }
 }
 
-// Uso del patrón Observador
+// Person class that will be the observable subject
+class Person {
+  constructor(location) {
+    this.location = location;
+    this.getSick = new Event(); // Create a "get sick" event
+  }
 
-// Creamos una instancia de la persona
-let persona = new Persona("Ruta ABC");
+  // Method to simulate the person getting sick and notify observers
+  catchCold() {
+    this.getSick.fire(this, new GetSick(this.location));
+  }
+}
 
-// Suscribimos un observador al evento "enfermarse"
-let sub = persona.enfermarse.suscribir((sujeto, evento) => {
-  console.log(`Un doctor ha sido llamado a ${evento.direccion}`);
+// Using the Observer Pattern
+
+// Create an instance of the person
+let person = new Person("Route ABC");
+
+// Subscribe an observer to the "get sick" event
+let sub = person.getSick.subscribe((subject, event) => {
+  console.log(`A doctor has been called to ${event.location}`);
 });
 
-// La persona se enferma dos veces
-persona.agarrarResfriado();
-persona.agarrarResfriado();
+// The person gets sick twice
+person.catchCold();
+person.catchCold();
 
-// Damos de baja al observador
-persona.enfermarse.darseDeBaja(sub);
+// Unsubscribe the observer
+person.getSick.unsubscribe(sub);
 
-// La persona se enferma nuevamente, pero el observador dado de baja no recibe la notificación
-persona.agarrarResfriado();
-
-// Salida esperada:
-// Un doctor ha sido llamado a Ruta ABC
-// Un doctor ha sido llamado a Ruta ABC
+// The person gets sick again, but the unsubscribed observer no longer receives the notification
+person.catchCold();
 
 ```
