@@ -1,108 +1,105 @@
-### Factory Method (Método de Fábrica)
+### Factory Method
 
-El patrón de diseño Factory Method es una técnica en el diseño de software que se basa en la creación de objetos de un subtipo específico a través de una interfaz común. Este patrón se logra mediante el uso de una clase constructora abstracta que contiene métodos concretos y métodos abstractos. Los métodos concretos se encargan de la creación de objetos, mientras que los métodos abstractos son implementados por subclases concretas. Dependiendo de la subclase utilizada, se obtiene un comportamiento específico.
+The Factory Method design pattern is a software design technique that relies on creating objects of a specific subtype through a common interface. This pattern is achieved by using an abstract creator class that contains both concrete and abstract methods. The concrete methods handle object creation, while the abstract methods are implemented by concrete subclasses. Depending on the subclass used, specific behavior is obtained.
 
-**Ejemplo:**
+**Example:**
 
-Para comprender mejor el Factory Method, consideremos un ejemplo concreto relacionado con la creación de puntos en un plano bidimensional. Imaginemos que estamos desarrollando una aplicación que necesita trabajar con puntos en coordenadas cartesianas y polares.
+To better understand the Factory Method, let's consider a concrete example related to creating points in a two-dimensional plane. Imagine that we are developing an application that needs to work with points in Cartesian and polar coordinates.
 
-Primero, creamos una clase llamada Punto que representa un punto en el plano. Esta clase tiene un constructor que toma las coordenadas x e y, y un método toString() que devuelve una representación legible del punto en formato (x, y).
+First, we create a class called Point that represents a point in the plane. This class has a constructor that takes the x and y coordinates and a toString() method that returns a readable representation of the point in the format (x, y).
 
-**Paso 1. Definición de la clase Punto que representa un punto en el plano:**
+**Step 1: Definition of the Point class representing a point in the plane:**
 
 ```
-// Clase Punto que representa un punto en el plano
-class Punto {
+// Point class representing a point in the plane
+class Point {
   constructor(x, y) {
     this.x = x;
     this.y = y;
   }
 
-  // Método para obtener una representación legible del punto
+  // Method to obtain a readable representation of the point
   toString() {
     return `(${this.x}, ${this.y})`;
   }
 }
-
 ```
 
-En este paso, hemos creado la clase Punto con un constructor que toma las coordenadas x e y y un método toString() para obtener una representación legible del punto.
+In this step, we have created the Point class with a constructor that takes the x and y coordinates and a toString() method to obtain a readable representation of the point.
 
-**Paso 2. Implementación del Factory Method en la clase PuntoFactory:**
+**Step 2: Implementation of the Factory Method in the PointFactory class:**
 
 ```
-// Clase PuntoFactory que implementa el Factory Method
-class PuntoFactory {
-  // Método para crear un punto en coordenadas cartesianas
-  static crearPuntoCartesiano(x, y) {
-    return new Punto(x, y);
+// PointFactory class implementing the Factory Method
+class PointFactory {
+  // Method to create a point in Cartesian coordinates
+  static createCartesianPoint(x, y) {
+    return new Point(x, y);
   }
 
-  // Método para crear un punto en coordenadas polares
-  static crearPuntoPolar(rho, theta) {
-    return new Punto(rho * Math.cos(theta), rho * Math.sin(theta));
+  // Method to create a point in polar coordinates
+  static createPolarPoint(rho, theta) {
+    return new Point(rho * Math.cos(theta), rho * Math.sin(theta));
   }
 }
-
 ```
 
-En este paso, hemos creado la clase PuntoFactory que implementa el Factory Method. Esta clase contiene dos métodos estáticos: crearPuntoCartesiano y crearPuntoPolar. El primero crea un punto en coordenadas cartesianas y el segundo crea un punto en coordenadas polares.
+In this step, we have created the PointFactory class that implements the Factory Method. This class contains two static methods: createCartesianPoint and createPolarPoint. The first one creates a point in Cartesian coordinates, and the second one creates a point in polar coordinates.
 
-**Paso 3. Ejemplo de uso del Factory Method:**
-
-```
-// Ejemplo de uso del Factory Method
-const puntoCartesiano = PuntoFactory.crearPuntoCartesiano(5, 6);
-const puntoPolar = PuntoFactory.crearPuntoPolar(5, Math.PI / 2);
-```
-
-En este paso, hemos creado dos puntos utilizando la PuntoFactory. Uno se crea en coordenadas cartesianas con crearPuntoCartesiano, y el otro se crea en coordenadas polares con crearPuntoPolar.
-
-**Paso 4. Impresión de los puntos creados:**
+**Step 3: Example of using the Factory Method:**
 
 ```
-// Impresión de los puntos creados
-console.log("Punto Cartesiano:", puntoCartesiano.toString()); // Punto Cartesiano: (5, 6)
-console.log("Punto Polar:", puntoPolar.toString()); // Punto Polar: (6.123233995736766e-17, 5)
-
+// Example of using the Factory Method
+const cartesianPoint = PointFactory.createCartesianPoint(5, 6);
+const polarPoint = PointFactory.createPolarPoint(5, Math.PI / 2);
 ```
 
-En este último paso, hemos impreso los puntos creados para verificar el resultado.
+In this step, we have created two points using the PointFactory. One is created in Cartesian coordinates using createCartesianPoint, and the other is created in polar coordinates using createPolarPoint.
 
-**Código final:**
+**Step 4: Printing the created points:**
 
 ```
-// Clase Punto que representa un punto en el plano
-class Punto {
+// Printing the created points
+console.log("Cartesian Point:", cartesianPoint.toString()); // Cartesian Point: (5, 6)
+console.log("Polar Point:", polarPoint.toString()); // Polar Point: (6.123233995736766e-17, 5)
+```
+
+In this final step, we have printed the created points to verify the result.
+
+**Final Code:**
+
+```
+// Point class representing a point in the plane
+class Point {
   constructor(x, y) {
     this.x = x;
     this.y = y;
   }
 
-  // Método para obtener una representación legible del punto
+  // Method to obtain a readable representation of the point
   toString() {
     return `(${this.x}, ${this.y})`;
   }
 }
 
-// Clase PuntoFactory que implementa el Factory Method
-class PuntoFactory {
-  // Método para crear un punto en coordenadas cartesianas
-  static crearPuntoCartesiano(x, y) {
-    return new Punto(x, y);
+// PointFactory class implementing the Factory Method
+class PointFactory {
+  // Method to create a point in Cartesian coordinates
+  static createCartesianPoint(x, y) {
+    return new Point(x, y);
   }
 
-  // Método para crear un punto en coordenadas polares
-  static crearPuntoPolar(rho, theta) {
-    return new Punto(rho * Math.cos(theta), rho * Math.sin(theta));
+  // Method to create a point in polar coordinates
+  static createPolarPoint(rho, theta) {
+    return new Point(rho * Math.cos(theta), rho * Math.sin(theta));
   }
 }
 
-// Ejemplo de uso del Factory Method
-const puntoCartesiano = PuntoFactory.crearPuntoCartesiano(5, 6);
-const puntoPolar = PuntoFactory.crearPuntoPolar(5, Math.PI / 2);
+// Example of using the Factory Method
+const cartesianPoint = PointFactory.createCartesianPoint(5, 6);
+const polarPoint = PointFactory.createPolarPoint(5, Math.PI / 2);
 
-// Impresión de los puntos creados
-console.log("Punto Cartesiano:", puntoCartesiano.toString()); // Punto Cartesiano: (5, 6)
-console.log("Punto Polar:", puntoPolar.toString()); // Punto Polar: (6.123233995736766e-17, 5)
+// Printing the created points
+console.log("Cartesian Point:", cartesianPoint.toString()); // Cartesian Point: (5, 6)
+console.log("Polar Point:", polarPoint.toString()); // Polar Point: (6.123233995736766e-17, 5)
 ```
