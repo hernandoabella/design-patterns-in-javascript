@@ -1,4 +1,4 @@
-## Prototipo
+### Prototipo
 
 Crea nuevos objetos a partir de los objetos existentes.
 
@@ -9,7 +9,6 @@ El patrón prototipo es un patrón de diseño creacional en el desarrollo de sof
 Usaremos el ejemplo de un automóvil.
 
 **Paso 1: Definición de la clase Carro (Prototipo)**
-
 
 ```
 class Carro {
@@ -24,8 +23,7 @@ class Carro {
 
 **Paso 2: Método para ajustar el nombre del carro**
 
-
-```  
+```
 // Método para ajustar el nombre del carro
   ajustarNombre(nombre) {
     this.nombre = nombre;
@@ -35,17 +33,15 @@ class Carro {
 
 **Paso 3: Método para clonar el carro (crear una copia)**
 
-
-```  
+```
 // Método para clonar el carro (crear una copia)
   clonar() {
     // Crear una nueva instancia de Carro con los mismos atributos
     return new Carro(this.nombre, this.modelo);
   }
-```  
+```
 
 **Paso 4: Uso del patrón Prototipo**
-
 
 ```
 // Uso del patrón Prototipo
@@ -56,9 +52,7 @@ const carroClonado = carroOriginal.clonar();
 carroClonado.ajustarNombre('BMW');
 ```
 
-
 **Paso 5: Verificar que los carros son diferentes**
-
 
 ```
 // Verificar que los carros son diferentes
