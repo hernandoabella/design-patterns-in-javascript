@@ -1,28 +1,27 @@
 ### Iterador
 
-Iterator accede a los elementos de un objeto sin exponer su representación subyacente.
+Iterator accesses the elements of an object without exposing its underlying representation.
 
-En la programación orientada a objetos, el patrón de iterador es un patrón de diseño en el que se utiliza un iterador para atravesar un contenedor y acceder a los elementos del contenedor.
+In object-oriented programming, the iterator pattern is a design pattern where an iterator is used to traverse a container and access the elements of the container.
 
-Definición de la Clase Cosa: Primero, definimos una clase llamada Cosa que tiene dos propiedades a y b.
+Definition of the 'Thing' Class: First, we define a class called 'Thing' that has two properties 'a' and 'b.'
 
-**Paso 1:** Definir la clase 'Cosa' y sus propiedades 'a' y 'b'.
-
+**Step 1:** Define the 'Thing' class and its 'a' and 'b' properties.
 ```
-class Cosa {
+class Thing {
   constructor() {
     this.a = 11;
     this.b = 22;
   }
-  // Resto del código
+  // Rest of the code
 }
 
 ```
 
-**Paso 2:** Implementar el método [Symbol.iterator]() para recorrer las propiedades 'a' y 'b' de la clase 'Cosa'.
+**Step 2:** Implement the Symbol.iterator method to traverse the 'a' and 'b' properties of the 'Thing' class.
 
 ```
-class Cosa {
+class Thing {
   // ...
 
   [Symbol.iterator]() {
@@ -38,17 +37,17 @@ class Cosa {
     };
   }
 
-  // Resto del código
+  // Rest of the code
 }
 ```
 
-**Paso 3:** Implementar la propiedad 'haciaAtras' para recorrer las propiedades en orden inverso.
+**Step 3:** Implement the 'backwards' property to traverse the properties in reverse order.
 
 ```
-class Cosa {
+class Thing {
   // ...
 
-  get haciaAtras() {
+  get backwards() {
     let i = 0;
     let self = this;
     return {
@@ -62,139 +61,134 @@ class Cosa {
     };
   }
 
-  // Resto del código
+  // Rest of the code
+}
+```
+
+**Step 4:** Create an array 'values' with numeric elements.
+
+```
+let values = [100, 200, 300];
+```
+
+**Step 5:** Use a 'for...in' loop to iterate over the 'values' array.
+
+```
+for (let i in values) {
+  console.log(`Element at position ${i} is ${values[i]}`);
+}
+```
+
+**Step 6:** Use another 'for...in' loop to iterate over an object (not recommended).
+
+```
+for (let v in values) {
+  console.log(`The value is ${v}`);
 }
 
 ```
 
-**Paso 4:** Crear un arreglo 'valores' con elementos numéricos.
+**Step 7:** Create an instance of the 'Thing' class called 'thing'.
 
 ```
-let valores = [100, 200, 300];
-
+let thing = new Thing();
 ```
 
-**Paso 5:** Utilizar un bucle 'for...in' para recorrer el arreglo 'valores'.
+**Step 8:** Use a 'for...of' loop to iterate over the properties of 'thing.'.
 
 ```
-for (let i in valores) {
-  console.log(`Elemento en la posición ${i} es ${valores[i]}`);
+console.log("Iterating over 'a' and 'b':");
+for (let element of thing) {
+  console.log(`${element}`);
 }
-
 ```
 
-**Paso 6:** Utilizar otro bucle 'for...in' para recorrer un objeto (no recomendado).
+**Step 9:** Use another 'for...of' loop to iterate in reverse order.
 
 ```
-for (let v in valores) {
-  console.log(`El valor es ${v}`);
+console.log("Iterating in reverse order:");
+for (let element of thing.backwards) {
+  console.log(`${element}`);
 }
-
 ```
 
-**Paso 7:** Crear una instancia de la clase 'Cosa' llamada 'cosa'.
+**Final Code:**
+
+We will take the example of an array where we print the values of an array and then, using an iterator, print its values in reverse.
 
 ```
-let cosa = new Cosa();
-
-```
-
-**Paso 8:** Utilizar un bucle 'for...of' para recorrer las propiedades de 'cosa'.
-
-```
-console.log("Recorriendo 'a' y 'b':");
-for (let elemento of cosa) {
-  console.log(`${elemento}`);
-}
-
-```
-
-**Paso 9:** Utilizar otro bucle 'for...of' para recorrer en orden inverso.
-
-```
-console.log("Recorriendo en orden inverso:");
-for (let elemento of cosa.haciaAtras) {
-  console.log(`${elemento}`);
-}
-
-```
-
-**Código final:**
-
-Tomaremos el ejemplo de un arreglo en el que imprimimos los valores de un arreglo y luego, mediante el uso de un iterador, imprimimos sus valores hacia atrás.
-
-```
-// Definir una clase llamada 'Cosa'
-class Cosa {
+// Define a class called 'Thing'
+class Thing {
   constructor() {
-    this.a = 11; // Propiedad 'a' con valor 11
-    this.b = 22; // Propiedad 'b' con valor 22
+    this.a = 11; // Property 'a' with value 11
+    this.b = 22; // Property 'b' with value 22
   }
 
-  // Definir un iterador para recorrer los elementos 'a' y 'b' de esta clase
+  // Define an iterator to traverse the elements 'a' and 'b' of this class
   [Symbol.iterator]() {
-    let i = 0; // Inicializar un índice para llevar el control
-    let self = this; // Capturar una referencia a la instancia actual ('this')
+    let i = 0; // Initialize an index to keep control
+    let self = this; // Capture a reference to the current instance ('this')
     return {
       next: function() {
         return {
-          done: i > 1, // Indica si se ha recorrido todo (cuando 'i' sea mayor a 1)
-          value: self[i++ === 0 ? 'a' : 'b'] // Obtiene el valor correspondiente ('a' o 'b')
+          done: i > 1, // Indicates if everything has been traversed (when 'i' is greater than 1)
+          value: self[i++ === 0 ? 'a' : 'b'] // Get the corresponding value ('a' or 'b')
         };
       }
     };
   }
 
-  // Obtener un iterador para recorrer los elementos en orden inverso
-  get haciaAtras() {
-    let i = 0; // Inicializar un índice para llevar el control
-    let self = this; // Capturar una referencia a la instancia actual ('this')
+  // Get an iterator to traverse the elements in reverse order
+  get backwards() {
+    let i = 0; // Initialize an index to keep control
+    let self = this; // Capture a reference to the current instance ('this')
     return {
       next: function() {
         return {
-          done: i > 1, // Indica si se ha recorrido todo (cuando 'i' sea mayor a 1)
-          value: self[i++ === 0 ? 'b' : 'a'] // Obtiene el valor correspondiente ('b' o 'a')
+          done: i > 1, // Indicates if everything has been traversed (when 'i' is greater than 1)
+          value: self[i++ === 0 ? 'b' : 'a'] // Get the corresponding value ('b' or 'a')
         };
       },
-      [Symbol.iterator]: function() { return this; } // Hacer que el iterador sea iterable
+      [Symbol.iterator]: function() { return this; } // Make the iterator iterable
     };
   }
 }
 
-let valores = [100, 200, 300];
+let values = [100, 200, 300];
 
-// Usar un bucle for...in para recorrer un arreglo (Nota: no es la forma recomendada para arreglos)
-for (let i in valores) {
-  console.log(`Elemento en la posición ${i} es ${valores[i]}`);
+// Use a for...in loop to traverse an array (Note: not the recommended way for arrays)
+for (let i in values) {
+  console.log(`Element at position ${i} is ${values[i]}`);
 }
 
-// Usar un bucle for...in para recorrer un objeto (Nota: no es la forma recomendada para objetos)
-for (let v in valores) {
-  console.log(`El valor es ${v}`);
+// Use a for...in loop to traverse an object (Note: not the recommended way for objects)
+for (let v in values) {
+  console.log(`The value is ${v}`);
 }
 
-let cosa = new Cosa(); // Crear una instancia de la clase 'Cosa'
+let thing = new Thing(); // Create an instance of the class 'Thing'
 
-console.log("Recorriendo 'a' y 'b':");
-for (let elemento of cosa) {
-  console.log(`${elemento}`);
+console.log("Iterating over 'a' and 'b':");
+for (let element of thing) {
+  console.log(`${element}`);
 }
 
-console.log("Recorriendo en orden inverso:");
-for (let elemento of cosa.haciaAtras) {
-  console.log(`${elemento}`);
+console.log("Iterating in reverse order:");
+for (let element of thing.backwards) {
+  console.log(`${element}`);
 }
 
-// Salida esperada:
-// Elemento en la posición 0 es 100
-// Elemento en la posición 1 es 200
-// El valor es 0
-// El valor es 1
-// El valor es 2
-// Recorriendo 'a' y 'b':
+// Expected output:
+// Element at position 0 is 100
+// Element at position 1 is 200
+// The value is 0
+// The value is 1
+// The value is 2
+// Iterating over 'a' and 'b':
 // 11
 // 22
-// Recorriendo en orden inverso:
+// Iterating in reverse order:
 // 22
 // 11
+
 ```
