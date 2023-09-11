@@ -1,109 +1,103 @@
-## Prototipo
+### Prototype
 
-Crea nuevos objetos a partir de los objetos existentes.
+Creates new objects based on existing objects.
 
-El patrón prototipo es un patrón de diseño creacional en el desarrollo de software. Se utiliza cuando el tipo de objetos a crear está determinado por una instancia prototípica, que se clona para producir nuevos objetos.
+The prototype pattern is a creational design pattern in software development. It is used when the type of objects to create is determined by a prototype instance, which is cloned to produce new objects.
 
-**Ejemplo:**
+**Example:**
 
-Usaremos el ejemplo de un automóvil.
+We will use the example of a car.
 
-**Paso 1: Definición de la clase Carro (Prototipo)**
-
+**Step 1: Definition of the Car Class (Prototype)**
 
 ```
-class Carro {
-  constructor(nombre, modelo) {
-    this.nombre = nombre;
-    this.modelo = modelo;
+class Car {
+  constructor(name, model) {
+    this.name = name;
+    this.model = model;
   }
 
-  // ... (Métodos de la clase)
+  // ... (Class methods)
 }
 ```
 
-**Paso 2: Método para ajustar el nombre del carro**
-
-
-```  
-// Método para ajustar el nombre del carro
-  ajustarNombre(nombre) {
-    this.nombre = nombre;
-    console.log(`Nombre del carro ajustado a: ${this.nombre}`);
-  }
-```
-
-**Paso 3: Método para clonar el carro (crear una copia)**
-
-
-```  
-// Método para clonar el carro (crear una copia)
-  clonar() {
-    // Crear una nueva instancia de Carro con los mismos atributos
-    return new Carro(this.nombre, this.modelo);
-  }
-```  
-
-**Paso 4: Uso del patrón Prototipo**
-
+**Step 2: Method to set the car's name**
 
 ```
-// Uso del patrón Prototipo
-const carroOriginal = new Carro('Audi', 'A3');
-
-// Clonar el carro original para crear una nueva instancia
-const carroClonado = carroOriginal.clonar();
-carroClonado.ajustarNombre('BMW');
-```
-
-
-**Paso 5: Verificar que los carros son diferentes**
-
-
-```
-// Verificar que los carros son diferentes
-console.log('Carro Original:', carroOriginal.nombre, carroOriginal.modelo);
-console.log('Carro Clonado:', carroClonado.nombre, carroClonado.modelo);
-```
-
-Este código muestra cómo usar el patrón Prototipo para crear una copia de un objeto existente (carroOriginal) y ajustar sus atributos (nombre) sin afectar al objeto original. Al final, se verifica que los dos carros sean diferentes y que el clon haya funcionado correctamente.
-
-**Código final:**
-
-```
-// Definición de la clase Carro (Prototipo)
-class Carro {
-  constructor(nombre, modelo) {
-    this.nombre = nombre;
-    this.modelo = modelo;
+// Method to set the car's name
+setCarName(name) {
+  this.name = name;
+  console.log(`Car name adjusted to: ${this.name}`);
 }
+```
 
-  // Método para ajustar el nombre del carro
-  ajustarNombre(nombre) {
-    this.nombre = nombre;
-    console.log(`Nombre del carro ajustado a: ${this.nombre}`);
+**Step 3: Method to clone the car (create a copy)**
+
+```
+// Method to clone the car (create a copy)
+clone() {
+  // Create a new Car instance with the same attributes
+  return new Car(this.name, this.model);
+}
+```
+
+**Step 4: Using the Prototype Pattern**
+
+```
+// Using the Prototype Pattern
+const originalCar = new Car('Audi', 'A3');
+
+// Clone the original car to create a new instance
+const clonedCar = originalCar.clone();
+clonedCar.setCarName('BMW');
+```
+
+**Step 5: Verify that the cars are different**
+
+```
+// Verify that the cars are different
+console.log('Original Car:', originalCar.name, originalCar.model);
+console.log('Cloned Car:', clonedCar.name, clonedCar.model);
+```
+
+This code demonstrates how to use the Prototype Pattern to create a copy of an existing object (originalCar) and adjust its attributes (name) without affecting the original object. In the end, it verifies that the two cars are different, confirming that the clone worked correctly.
+
+**Final Code:**
+
+```
+// Definition of the Car Class (Prototype)
+class Car {
+  constructor(name, model) {
+    this.name = name;
+    this.model = model;
   }
 
-  // Método para clonar el carro (crear una copia)
-  clonar() {
-    // Crear una nueva instancia de Carro con los mismos atributos
-    return new Carro(this.nombre, this.modelo);
+  // Method to set the car's name
+  setCarName(name) {
+    this.name = name;
+    console.log(`Car name adjusted to: ${this.name}`);
+  }
+
+  // Method to clone the car (create a copy)
+  clone() {
+    // Create a new Car instance with the same attributes
+    return new Car(this.name, this.model);
   }
 }
 
-// Uso del patrón Prototipo
-const carroOriginal = new Carro('Audi', 'A3');
+// Using the Prototype Pattern
+const originalCar = new Car('Audi', 'A3');
 
-// Clonar el carro original para crear una nueva instancia
-const carroClonado = carroOriginal.clonar();
-carroClonado.ajustarNombre('BMW');
+// Clone the original car to create a new instance
+const clonedCar = originalCar.clone();
+clonedCar.setCarName('BMW');
 
-// Verificar que los carros son diferentes
-console.log('Carro Original:', carroOriginal.nombre, carroOriginal.modelo);
-console.log('Carro Clonado:', carroClonado.nombre, carroClonado.modelo);
+// Verify that the cars are different
+console.log('Original Car:', originalCar.name, originalCar.model);
+console.log('Cloned Car:', clonedCar.name, clonedCar.model);
 
-// Salida esperada:
-// Nombre del carro ajustado a: BMW
-// Carro Original: Audi A3
-// Carro Clonado: BMW A3
+// Expected Output:
+// Car name adjusted to: BMW
+// Original Car: Audi A3
+// Cloned Car: BMW A3
 ```
