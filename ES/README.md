@@ -28,4 +28,4 @@ Te animo a que enlaces a los archivos específicos para cada tipo de patrón en 
 
 ## Traducciones:
 
-### English: [Design Patterns](/README.md)
+### English: [Design Patterns in JavaScript](/README.md)
