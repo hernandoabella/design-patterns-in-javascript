@@ -26,6 +26,6 @@ By understanding these types of design patterns, you can effectively address spe
 
 I encourage you to link to specific files for each type of pattern in case you have more detailed information in those documents. This will help readers delve deeper into each category of design patterns.
 
-## Languages
+## Translations:
 
 ### Spanish: [Patrones de Diseño](./ES)
