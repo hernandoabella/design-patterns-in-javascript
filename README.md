@@ -12,15 +12,15 @@ There are three main categories of design patterns, each focusing on a particula
 
 - **Creational Patterns:** These patterns center around how class instances and objects are created. They offer flexible solutions for object creation in various scenarios.
 
-  - [Creational Patterns](/patterns/creational.md)
+  - [Creational Patterns](/patterns/creational/creational.md)
 
 - **Structural Patterns:** Structural patterns deal with the composition of classes and objects to form larger structures. They facilitate the creation of efficient and flexible relationships between parts of the system.
 
-  - [Structural Patterns](/patterns/structural.md)
+  - [Structural Patterns](/patterns/structural/structural.md)
 
 - **Behavioral Patterns:** These patterns focus on the interaction between objects and how they communicate with each other. They help define workflows and collaborative behaviors.
 
-  - [Behavioral Patterns](/patterns/behavioral.md)
+  - [Behavioral Patterns](/patterns/behavioral/behavioral.md)
 
 By understanding these types of design patterns, you can effectively address specific problems and apply proven solutions across various areas of software development.
 
