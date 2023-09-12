@@ -25,3 +25,7 @@ Existen tres categorías principales de patrones de diseño, cada una enfocada e
 Al comprender estos tipos de patrones de diseño, podrás abordar problemas específicos de manera más efectiva y aplicar soluciones probadas en diversas áreas del desarrollo de software.
 
 Te animo a que enlaces a los archivos específicos para cada tipo de patrón en caso de que tengas información más detallada en esos documentos. Esto ayudará a los lectores a profundizar en cada categoría de patrones de diseño.
+
+## Traducciones:
+
+### English: [Design Patterns](/README.md)
