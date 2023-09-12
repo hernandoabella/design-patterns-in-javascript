@@ -25,3 +25,7 @@ There are three main categories of design patterns, each focusing on a particula
 By understanding these types of design patterns, you can effectively address specific problems and apply proven solutions across various areas of software development.
 
 I encourage you to link to specific files for each type of pattern in case you have more detailed information in those documents. This will help readers delve deeper into each category of design patterns.
+
+## Languages
+
+### Spanish: [Patrones de Diseño](./ES/patrones/)
