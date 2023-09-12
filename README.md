@@ -28,4 +28,4 @@ I encourage you to link to specific files for each type of pattern in case you h
 
 ## Languages
 
-### Spanish: [Patrones de Diseño](./ES/patrones/)
+### Spanish: [Patrones de Diseño](./ES)
