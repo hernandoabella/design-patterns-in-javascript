@@ -28,4 +28,4 @@ I encourage you to link to specific files for each type of pattern in case you h
 
 ## Translations:
 
-### Spanish: [Patrones de Diseño](./ES)
+### Spanish: [Patrones de Diseño en JavaScript](./ES)
